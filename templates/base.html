@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title%}{% endblock %}</title>
+  <!-- Styles -->
+
+  {% block extra_css %}{% endblock extra_css %}
+</head>
+<body>
+  <section>
+    <div class="">
+      Магазин
+    </div>
+    <div class="">
+      <div class="">
+        <div class="">Кошик порожній</div>
+      </div>
+    </div>
+  </section>
+  <section>
+    {% block content %}{% endblock %}
+  </section>
+</body>
+</html>

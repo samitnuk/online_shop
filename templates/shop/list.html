@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  {% if category %} {{ category.name }} {% else %} Сторінка товарів {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div>
+    <h3>Категорії</h3>
+    <ul>
+      <li {% if not category %} class="selected" {% endif %}>
+        <a href="{% url 'shop:product_list' %}">Всі</a>
+      </li>
+      {% for cat in categories %}
+      <li {% if category.slug == cat.slug %} class="selected" {% endif %}>
+        <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h1>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h1>
+    <div>
+      {% for product in products %}
+      <div>
+        <a href="{{ product.get_absolute_url }}">
+          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}">
+        </a>
+        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+        {{ product.price }} грн.
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
