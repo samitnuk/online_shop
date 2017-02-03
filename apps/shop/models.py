@@ -27,6 +27,8 @@ class Product(models.Model):
         max_length=200, db_index=True, verbose_name="Назва")
     slug = models.SlugField(
         max_length=200, db_index=True)
+    model_name = models.CharField(
+        max_length=200, blank=True, verbose_name="Модель")
     image = models.ImageField(
         upload_to='products/%Y/%m/%d/', blank=True, verbose_name="Зображення")
     description = models.TextField(
