@@ -5,22 +5,25 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title%}{% endblock %}</title>
-  <!-- Styles -->
 
+  <!-- Styles -->
+  <link rel="stylesheet" href=https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css />
+  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
+  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
   {% block extra_css %}{% endblock extra_css %}
 </head>
 <body>
-  <section>
-    <div class="">
-      Магазин
-    </div>
-    <div class="">
-      <div class="">
-        <div class="">Кошик порожній</div>
+  <section class="container">
+    <div class="row top">
+      <div class="two columns">
+        Магазин
+      </div>
+      <div class="ten columns">
+        <div class="cart u-pull-right">| Кошик порожній</div>
       </div>
     </div>
   </section>
-  <section>
+  <section class="container">
     {% block content %}{% endblock %}
   </section>
 </body>
