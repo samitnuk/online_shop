@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'Fantasque Sans Mono';
+  src: url('../fonts/FantasqueSansMono-Regular.eot'); /* IE 9 Compatibility Mode */
+  src: url('../fonts/FantasqueSansMono-Regular.woff2') format('woff2'),
+       url('../fonts/FantasqueSansMono-Regular.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+       url('../fonts/FantasqueSansMono-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/FantasqueSansMono-Regular.svg#FantasqueSansMono-Regular') format('svg'); /* Chrome < 4, Legacy iOS */
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+body {font-family: 'Fantasque Sans Mono', 'Ubuntu Mono', sans-serif;}
