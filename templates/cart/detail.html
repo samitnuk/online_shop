@@ -49,7 +49,7 @@
     </tbody>
   </table>
   <p class="text-right">
-    <a href="{% url 'shop:product_list' %}" class="btn">Продовжити</a>
-    <a href="#">Оформити замовлення</a>
+    <a href="{% url 'shop:product_list' %}" class="button">Продовжити</a>
+    <a href="{% url 'orders:order_create' %}" class="button">Оформити замовлення</a>
   </p>
 {% endblock %}
