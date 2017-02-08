@@ -19,7 +19,17 @@
         Магазин
       </div>
       <div class="ten columns">
-        <div class="cart u-pull-right">| Кошик порожній</div>
+        <div class="cart u-pull-right">
+          {% with total_items=cart|length %}
+          {% if total_items > 0 %}
+            Ваш кошик: <a href="{% url 'cart:cart_detail' %}">
+          {{ total_items }} тов. {{ cart.get_total_price }} грн.
+            </a>
+          {% else %}
+            | Кошик порожній
+          {% endif %}
+          {% endwith %}
+        </div>
       </div>
     </div>
   </section>
