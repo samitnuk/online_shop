@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Дякуємо за замовлення
+{% endblock %}
+
+{% block content %}
+  <h1>Дякуємо за замовлення</h1>
+  <p>Номер вашого замовлення: {{ order.id }}</p>
+{% endblock %}
