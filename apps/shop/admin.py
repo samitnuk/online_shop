@@ -13,7 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
                     'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated']
     liat_editable = ['price', 'stock', 'available']
-    prepopulated_fields = {'slug': ('name', )}
+    prepopulated_fields = {'slug': ('name', 'model_name',)}
 
 
 admin.site.register(Category, CategoryAdmin)
