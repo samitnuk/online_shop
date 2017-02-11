@@ -8,15 +8,17 @@
 
 {% block content %}
   <div class="row">
-    <h3>Категорії</h3>
-    <ul>
+    <h5 class="three columns">Категорії</h5>
+    <ul class="categories nine columns">
       <li class="{% if not category %}selected{% endif %}" >
         <a href="{% url 'shop:product_list' %}">Всі</a>
       </li>
       {% for cat in categories %}
-      <li class="{% if category.slug == cat.slug %}selected{% endif %}">
-        <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
-      </li>
+        {% if not cat.has_parent_category %}
+        <li class="{% if category.slug == cat.slug %}selected{% endif %}">
+          <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+        </li>
+        {% endif %}
       {% endfor %}
     </ul>
   </div>
@@ -24,13 +26,13 @@
   <h1>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h1>
     {% for product in products %}
     <div class="row">
-      <div class="six columns">
+      <div class="three columns">
         <a href="{{ product.get_absolute_url }}">
           <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
                class="u-max-full-width">
         </a>
       </div>
-      <div class="six columns">
+      <div class="nine columns">
         <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
         {{ product.price }} грн.
       </div>

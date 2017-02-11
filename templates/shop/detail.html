@@ -7,24 +7,22 @@
 {% endblock %}
 
 {% block content %}
-  <div>
-    <div>
-      <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}">
-    </div>
-    <div>
-      <h1>{{ product.name }}</h1>
-      <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
-      <p class="price">
-        {{ product.price }} грн.
-      </p>
-      <form action="{% url 'cart:cart_add' product.id %}" method="post">
-        {% csrf_token %}
-        {{ cart_product_form }}
-        <input type="submit" value="Додати в кошик">
-      </form>
-      <span>
-        {{ product.description | linebreaks}}
-      </span>
-    </div>
+  <div class="row">
+    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}">
+  </div>
+  <div class="row">
+    <h3>{{ product.name }} {{ product.model_name }}</h3>
+    <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
+    <p class="price">
+      {{ product.price }} грн.
+    </p>
+    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+      {% csrf_token %}
+      {{ cart_product_form }}
+      <input type="submit" value="Додати в кошик">
+    </form>
+    <span>
+      {{ product.description | linebreaks}}
+    </span>
   </div>
 {% endblock %}
