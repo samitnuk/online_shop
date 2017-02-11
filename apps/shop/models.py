@@ -5,6 +5,7 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
+    parent_category = models.ForeignKey('self', null=True, blank=True)
 
     class Meta:
         ordering = ['name']
@@ -18,6 +19,12 @@ class Category(models.Model):
         return reverse(
             'shop:product_list_by_category',
             kwargs={'category_slug': self.slug})
+
+    def subcategories(self):
+        return self.objects.filter(parent_category__id=self.id)
+
+    def has_parent_category(self):
+        return True if self.parent_category else False
 
 
 class Product(models.Model):
