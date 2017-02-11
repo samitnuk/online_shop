@@ -9,5 +9,12 @@
   font-style: normal;
 }
 
+.selected a {color: #888;}
 
-body {font-family: 'Fantasque Sans Mono', 'Ubuntu Mono', sans-serif;}
+.categories a {
+    text-decoration: none;
+    text-transform: uppercase;}
+
+.categories li {display: inline;}
+
+table img {width: 250px;}
