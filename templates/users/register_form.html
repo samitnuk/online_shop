@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Реєстрація
+{% endblock title %}
+
+{% block content %}
+<form  action="{% url 'users:register' %}" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="Зареєструватися">
+</form>
+{% endblock content %}
