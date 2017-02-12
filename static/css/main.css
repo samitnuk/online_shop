@@ -13,7 +13,9 @@
 
 .categories a {
     text-decoration: none;
-    text-transform: uppercase;}
+    text-transform: uppercase;
+    font-weight: bold;
+}
 
 .categories li {display: inline;}
 
