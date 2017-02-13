@@ -36,3 +36,9 @@ def cart_detail(request):
                                             'update': True
                                         })
     return render(request, 'cart/detail.html', {'cart': cart})
+
+
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect('shop:product_list')
