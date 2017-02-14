@@ -62,3 +62,9 @@ class Product(models.Model):
         return reverse(
             'shop:product_detail',
             kwargs={'id': self.id, 'slug': self.slug})
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images')
+    image = models.ImageField(
+        upload_to='products/%Y/%m/%d/', blank=True, verbose_name="Зображення")

@@ -8,7 +8,9 @@
 
 {% block content %}
   <div class="row">
-    <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}">
+    <div class="twelve columns">
+      <img class="u-max-full-width" src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}">
+    </div>
   </div>
   <div class="row">
     <h3>{{ product.name }} {{ product.model_name }}</h3>
@@ -24,5 +26,10 @@
     <span>
       {{ product.description | linebreaks}}
     </span>
+    {% for img in images %}
+    <div class="twelve columns">
+      <img class="images u-max-full-width" src="{{ img.image.url }}">
+    </div>
+    {% endfor %}
   </div>
 {% endblock %}
