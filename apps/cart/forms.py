@@ -4,7 +4,7 @@ from ..shop.models import Product
 
 
 class CartAddProductForm(forms.Form):
-    quantity = forms.TypedChoiceField(choices=[], coerce=int)
+    quantity = forms.TypedChoiceField(label="Кількість", choices=[], coerce=int)
     update = forms.BooleanField(required=False, initial=False,
                                 widget=forms.HiddenInput)
 
