@@ -36,7 +36,7 @@ class Product(models.Model):
         max_length=200, db_index=True)
     model_name = models.CharField(
         max_length=200, blank=True, verbose_name="Модель")
-    image = models.ImageField(
+    main_image = models.ImageField(
         upload_to='products/%Y/%m/%d/', blank=True, verbose_name="Зображення")
     description = models.TextField(
         blank=True, verbose_name="Опис")
