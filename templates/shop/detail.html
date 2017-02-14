@@ -26,9 +26,9 @@
     <span>
       {{ product.description | linebreaks}}
     </span>
-    {% for img in images %}
+    {% for image in images %}
     <div class="twelve columns">
-      <img class="images u-max-full-width" src="{{ img.image.url }}">
+      <img class="images u-max-full-width" src="{{ image.url }}">
     </div>
     {% endfor %}
   </div>

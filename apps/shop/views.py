@@ -25,6 +25,6 @@ def product_detail(request, id, slug):
     context = {
         'product': product,
         'cart_product_form': CartAddProductForm(product_id=product.id),
-        'images': product.images.all()
+        'images': [img.image for img in product.images.all()]
     }
     return render(request, 'shop/detail.html', context)
