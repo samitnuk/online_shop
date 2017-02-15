@@ -9,7 +9,7 @@
   font-style: normal;
 }
 
-.selected a {color: #888;}
+.selected a {color: #868e96;}
 
 .categories a {
     text-decoration: none;
@@ -26,3 +26,10 @@ table img {width: 250px;}
     margin: 0 auto 15px auto;
     border-radius: 4px;
 }
+
+form.form {
+  margin-top: 10rem;
+}
+
+.error {color: #f03e3e;}
+.error li {list-style-type: none;}

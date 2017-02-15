@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 
+{% load form_filters %}
+
 {% block title %}
   Логін
 {% endblock title %}
 
 {% block content %}
-<form  action="{% url 'users:login' %}" method="post">
+<form action="{% url 'users:login' %}" method="post" class="form">
   {% csrf_token %}
-  {{ form }}
-  <input type="submit" value="Увійти">
+
+  {{ form.non_field_errors }}
+
+  {% for field in form.visible_fields %}
+  <div class="row">
+    <div class="two columns">{{ field.label_tag }}</div>
+    <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
+    <div class="three columns error">{{ field.errors }}</div>
+  </div>
+  {% endfor %}
+  <div class="row">
+    <div class="offset-by-two three columns">
+      <input type="submit" class="button button-primary" value="Увійти">
+    </div>
+  </div>
 </form>
 {% endblock content %}

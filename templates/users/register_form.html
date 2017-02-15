@@ -1,13 +1,26 @@
 {% extends 'base.html' %}
 
+{% load form_filters %}
+
 {% block title %}
   Реєстрація
 {% endblock title %}
 
 {% block content %}
-<form  action="{% url 'users:register' %}" method="post">
+<form  action="{% url 'users:register' %}" method="post" class="form">
   {% csrf_token %}
-  {{ form }}
-  <input type="submit" value="Зареєструватися">
+
+  {% for field in form.visible_fields %}
+  <div class="row">
+    <div class="two columns">{{ field.label_tag }}</div>
+    <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
+    <div class="three columns error">{{ field.errors }}</div>
+  </div>
+  {% endfor %}
+  <div class="row">
+    <div class="offset-by-two three columns">
+      <input type="submit" class="button button-primary" value="Зареєструватися">
+    </div>
+  </div>
 </form>
 {% endblock content %}
