@@ -21,7 +21,7 @@ class Category(models.Model):
             kwargs={'category_slug': self.slug})
 
     def subcategories(self):
-        return self.objects.filter(parent_category__id=self.id)
+        return Category.objects.filter(parent_category__id=self.id)
 
     def has_parent_category(self):
         return True if self.parent_category else False
@@ -36,7 +36,6 @@ class Category(models.Model):
             full_name = "{} / {}".format(cat.parent_category.name, full_name)
             cat = cat.parent_category
         return full_name
-
 
 
 class Product(models.Model):
