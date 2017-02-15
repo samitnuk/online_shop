@@ -26,6 +26,18 @@ class Category(models.Model):
     def has_parent_category(self):
         return True if self.parent_category else False
 
+    @property
+    def full_name(self):
+        if not self.has_parent_category():
+            return self.name
+        cat = self
+        full_name = self.name
+        while cat.has_parent_category():
+            full_name = "{} / {}".format(cat.parent_category.name, full_name)
+            cat = cat.parent_category
+        return full_name
+
+
 
 class Product(models.Model):
     category = models.ForeignKey(
