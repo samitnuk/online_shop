@@ -9,4 +9,4 @@ ___
 - [ ] Relate orders to user
 - [x] Add ability to clean cart from cart page
 - [x] Add ability to add more images for product
-- [ ] Add dropdowns to menu (maybe [this](https://codepen.io/philhoyt/pen/ujHzd)) 
+- [x] Add dropdowns to menu (maybe [this](https://codepen.io/philhoyt/pen/ujHzd)) 
