@@ -1,22 +1,37 @@
 {% extends 'base.html' %}
 
+{% load form_filters %}
+
 {% block title %}
   Оформлення замовлення
 {% endblock %}
 
 {% block content %}
-  <h1>Оформлення замовлення</h1>
+  <h4>Оформлення замовлення</h4>
   <div class="col-sm-4">
-    <h2>Заповніть форму</h2>
+    <h5>Заповніть форму:</h5>
     <form class="order-form" action="." method="post">
-      {{ form.as_p }}
       {% csrf_token %}
-      <input type="submit" value="Відправити">
+
+      {{ form.non_field_errors }}
+
+      {% for field in form.visible_fields %}
+      <div class="row">
+        <div class="two columns">{{ field.label_tag }}</div>
+        <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
+        <div class="three columns error">{{ field.errors }}</div>
+      </div>
+      {% endfor %}
+      <div class="row">
+        <div class="offset-by-two three columns">
+          <input type="submit" class="button button-primary" value="Відправити">
+        </div>
+      </div>
     </form>
   </div>
 
   <div class="order-info col-sm-8">
-    <h2>Ваше замовлення</h2>
+    <h5>Ваше замовлення:</h5>
     <ul>
       {% for item in cart  %}
         <li>
