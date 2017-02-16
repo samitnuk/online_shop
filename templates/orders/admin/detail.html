@@ -1,0 +1,81 @@
+{% extends "admin/base_site.html" %}
+
+{% load static %}
+
+{% block title %}
+  Замовлення {{ order.id }} {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Головна</a> ›
+  <a href="{% url 'admin:orders_order_changelist' %}">Замовлення</a> ›
+  <a href="{% url 'admin:orders_order_change' order.id %}">Замовлення {{ order.id }}</a> ›
+  Деталі
+</div>
+{% endblock %}
+
+{% block content %}
+  <h1>Замовлення {{ order.id }}</h1>
+  <ul class="object-tools">
+    <li>
+      <a href="#" onclick="window.print()">Роздрукувати</a>
+    </li>
+  </ul>
+  <table width="100%">
+    <tr>
+      <th>Створено</th>
+      <td>{{ order.created }}</td>
+    </tr>
+    <tr>
+      <th>Замовник</th>
+      <td>{{ order.first_name }} {{ order.last_name }}</td>
+    </tr>
+    <tr>
+      <th>E-mail</th>
+      <td><a href="mailto:{{ order.email }}">{{ order.email }}</a></td>
+    </tr>
+    <tr>
+      <th>Адреса</th>
+      <td>{{ order.address }}</td>
+    </tr>
+    <tr>
+      <th>Повна вартість</th>
+      <td>{{ order.get_total_cost }} руб.</td>
+    </tr>
+    <tr>
+      <th>Статус</th>
+      <td>{% if order.paid %}Оплачено{% else %}Очікується оплата{% endif %}</td>
+    </tr>
+  </table>
+
+  <div class="module">
+    <div class="tabular inline-related list-related">
+      <h5>Замовлені товари</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Товар</th>
+            <th>Ціна</th>
+            <th>К-сть</th>
+            <th>Вартість всього</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in order.items.all  %}
+            <tr class="row{% cycle '1' '2' %}">
+              <td>{{ item.product.name }}</td>
+              <td>{{ item.price }} грн.</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.get_cost }} грн.</td>
+            </tr>
+          {% endfor %}
+          <tr class="total">
+            <td colspan="3">Всього</td>
+            <td class="num">{{ order.get_total_cost }} грн.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}
