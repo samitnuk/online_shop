@@ -13,3 +13,4 @@ ___
 - [x] Export orders to CSV
 - [ ] Generate PDF for user after order confirmed
 - [ ] Update product.stock after order confirmed
+- [ ] Add cupons
