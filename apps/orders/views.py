@@ -23,6 +23,15 @@ def order_create(request):
     return render(request, 'orders/create.html', context)
 
 
+# def order_confirmed(request, order_id):
+#     order = get_object_or_404(Order, id=order_id)
+#     for order_item in order.items.all():
+#         product = order_item.product
+#         product.stock -= order_item.quantity
+#         product.save()
+#     return redirect()
+
+
 @staff_member_required
 def admin_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
