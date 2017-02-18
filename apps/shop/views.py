@@ -44,11 +44,16 @@ def product_create(request):
         )
         if product_form.is_valid() and formset.is_valid():
             product = product_form.save(commit=False)
+            product.category = product_form.cleaned_data['category']
             product.slug = slugify(product.name)
+
             product.save()
+            print(product.slug)
+            print(product)
             for form in formset.cleaned_data:
-                ProductImage.objects.create(product=product,
-                                            image=form['image'])
+                if form.get('image', None) is not None:
+                    ProductImage.objects.create(product=product,
+                                                image=form['image'])
             return redirect('shop:product_list')
 
     context = {
