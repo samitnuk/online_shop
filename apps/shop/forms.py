@@ -34,6 +34,12 @@ class ProductForm(forms.ModelForm):
             'price', 'stock', 'available'
         )
 
+    def clean_category(self):
+        category = Category.objects.filter(
+            pk=int(self.cleaned_data['category'])
+        ).first()
+        return category
+
 
 class ImageForm(forms.ModelForm):
     image = forms.ImageField(label='Зображення')
