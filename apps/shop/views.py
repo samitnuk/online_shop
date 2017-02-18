@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 from django.template import RequestContext
-from django.template.defaultfilters import slugify
 
 from .models import Category, Product, ProductImage
 from .forms import ProductForm, ImageFormSet
@@ -43,13 +42,7 @@ def product_create(request):
             request.POST, request.FILES, queryset=ProductImage.objects.none()
         )
         if product_form.is_valid() and formset.is_valid():
-            product = product_form.save(commit=False)
-            product.category = product_form.cleaned_data['category']
-            product.slug = slugify(product.name)
-
-            product.save()
-            print(product.slug)
-            print(product)
+            product = product_form.save()
             for form in formset.cleaned_data:
                 if form.get('image', None) is not None:
                     ProductImage.objects.create(product=product,
