@@ -1,5 +1,4 @@
 from django import forms
-from django.utils.text import slugify
 
 from .models import Category, Product, ProductImage
 
@@ -40,9 +39,6 @@ class ProductForm(forms.ModelForm):
             pk=int(self.cleaned_data['category'])
         ).first()
         return category
-
-    def clean_slug(self):
-        return slugify(self.name, allow_unicode=True)
 
 
 class ImageForm(forms.ModelForm):
