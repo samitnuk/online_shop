@@ -13,11 +13,11 @@ def categories_choices():
         if cat.subcategories() is None:
             continue
         for subcat in cat.subcategories():
-            CATEGORIES_CHOICES.append([subcat.id, "-   {}".format(subcat.name)])
+            CATEGORIES_CHOICES.append([subcat.id, "*  {}".format(subcat.name)])
             if subcat.subcategories() is None:
                 continue
             for subcat_ in subcat.subcategories():
-                choice = [subcat_.id, " -- {}".format(subcat_.name)]
+                choice = [subcat_.id, "*** {}".format(subcat_.name)]
                 CATEGORIES_CHOICES.append(choice)
 
     return CATEGORIES_CHOICES
@@ -50,5 +50,5 @@ class ImageForm(forms.ModelForm):
 
 
 ImageFormSet = forms.modelformset_factory(
-        ProductImage, form=ImageForm, extra=10
-    )
+    ProductImage, form=ImageForm, extra=10
+)
