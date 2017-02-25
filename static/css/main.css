@@ -9,6 +9,8 @@
   font-style: normal;
 }
 
+body {font-family: 'Fantasque Sans Mono';}
+
 .selected a {color: #868e96;}
 
 .categories a {
