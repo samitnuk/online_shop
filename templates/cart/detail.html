@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Ваш кошик порожній
+  Ваш кошик товарів
 {% endblock %}
 
 {% block content %}
@@ -13,9 +13,9 @@
           <th>Зображення</th>
           <th>Продукт</th>
           <th>К-сть</th>
-          <th>Видалити</th>
           <th>Ціна</th>
           <th>Вартість</th>
+          <th>-</th>
         </tr>
       </thead>
       <tbody>
@@ -36,16 +36,21 @@
                   <input type="submit" value="Оновити">
                 </form>
               </td>
-              <td><a href="{% url 'cart:cart_remove' product.id %}">Видалити</a></td>
               <td>{{ item.price }} грн.</td>
               <td>{{ item.total_price }} грн.</td>
+              <td>
+                <a href="{% url 'cart:cart_remove' product.id %}">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </td>
             </tr>
           {% endwith %}
         {% endfor %}
           <tr class="total">
             <td>Загалом</td>
-            <td colspan="4"></td>
+            <td colspan="3"></td>
             <td>{{ cart.get_total_price }} грн.</td>
+            <td></td>
           </tr>
       </tbody>
     </table>
