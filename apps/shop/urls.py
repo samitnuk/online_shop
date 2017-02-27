@@ -11,7 +11,11 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$',
         views.product_detail,
         name='product_detail'),
+
     url(r'^staff_area/product_create/$',
         views.product_create,
         name='product_create'),
+    url(r'^staff_area/product_update/(?P<pk>\d+)/(?P<slug>[-\w]+)/$',
+        views.product_update,
+        name='product_update'),
 ]
