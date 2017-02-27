@@ -1,4 +1,5 @@
 from django import forms
+from slugify import slugify
 
 from .models import Category, Product, ProductImage
 
@@ -31,14 +32,21 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = (
             'name', 'model_name', 'category', 'main_image', 'description',
-            'price', 'stock', 'available'
+            'price', 'stock', 'available', 'slug',
         )
+        widgets = {'slug': forms.HiddenInput(attrs={'value': 'temp_slug'})}
 
     def clean_category(self):
         category = Category.objects.filter(
             pk=int(self.cleaned_data['category'])
         ).first()
         return category
+
+    def clean(self):
+        cd = self.cleaned_data
+        slug = slugify(self.cleaned_data['name'], only_ascii=True)
+        cd['slug'] = slug.replace("'", "")
+        return cd
 
 
 class ImageForm(forms.ModelForm):
