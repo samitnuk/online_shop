@@ -14,6 +14,7 @@ ___
 - [ ] Generate PDF for user after order confirmed
 - [ ] Update product.stock after order confirmed
 - [ ] Add cupons
+- [ ] Add i18n
 
 ___
 Info about logo sample:
