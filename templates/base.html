@@ -11,7 +11,7 @@
   <link rel="stylesheet" href=https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css />
   <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
   <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
-  {% block extra_css %}{% endblock extra_css %}
+  {% block extra_css %}{% endblock %}
 </head>
 <body style="background-image: url({% static 'img/02.png' %});">
   <section class="container">
@@ -25,11 +25,12 @@
         <div class="cart u-pull-right">
           {% with total_items=cart|length %}
           {% if total_items > 0 %}
-            Ваш кошик: <a href="{% url 'cart:cart_detail' %}">
+          <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+          <a href="{% url 'cart:cart_detail' %}">
           {{ total_items }} тов. {{ cart.get_total_price }} грн.
             </a>
           {% else %}
-            | Кошик порожній
+            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
           {% endif %}
           {% endwith %}
         </div>
@@ -39,5 +40,7 @@
   <section class="container">
     {% block content %}{% endblock %}
   </section>
+  <script src="https://use.fontawesome.com/62626c0a50.js"></script>
+  {% block extra_js %}{% endblock %}
 </body>
 </html>
