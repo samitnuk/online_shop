@@ -1,5 +1,5 @@
 from django import template
-from django.forms import CheckboxInput
+from django.forms import CheckboxInput, HiddenInput
 
 
 register = template.Library()
@@ -14,3 +14,9 @@ def addclass(value, arg):
 def is_checkbox(field):
     return field.field.widget.__class__.__name__ == \
         CheckboxInput().__class__.__name__
+
+
+@register.filter
+def is_hidden(field):
+    return field.field.widget.__class__.__name__ == \
+        HiddenInput().__class__.__name__

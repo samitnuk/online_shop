@@ -4,7 +4,11 @@
 
 {% for field in form_fields %}
 <div class="row">
-  <div class="two columns">{{ field.label_tag }}</div>
+  <div class="two columns">
+    {% if not field|is_hidden %}
+      {{ field.label_tag }}
+    {% endif %}
+  </div>
   <div class="five columns">
     {% if field|is_checkbox %}
       {{ field }}
