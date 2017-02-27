@@ -19,7 +19,7 @@
 
   {{ formset.management_form }}
   {% for form in formset %}
-      {% include "_includes/render_fields.html" with form_fields=form.visible_fields only %}
+      {% include "_includes/render_fields.html" with form_fields=form only %}
   {% endfor %}
 
   <div class="row">
