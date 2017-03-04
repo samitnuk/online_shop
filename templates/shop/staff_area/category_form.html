@@ -11,8 +11,11 @@
 <form id="category_form" method="post" action="" enctype="multipart/form-data">
 
   {% csrf_token %}
+  {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+  {% endfor %}
 
-  {% include "_includes/render_fields.html" with form_fields=form only %}
+  {% include "_includes/render_fields.html" with form_fields=form.visible_fields only %}
 
   <div class="row">
     <div class="offset-by-two three columns">

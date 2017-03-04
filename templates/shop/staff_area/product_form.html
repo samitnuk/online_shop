@@ -15,7 +15,7 @@
       {{ hidden }}
   {% endfor %}
 
-  {% include "_includes/render_fields.html" with form_fields=product_form only %}
+  {% include "_includes/render_fields.html" with form_fields=product_form.visible_fields only %}
 
   {{ formset.management_form }}
   {% for form in formset %}

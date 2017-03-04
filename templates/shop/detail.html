@@ -8,22 +8,24 @@
 
 {% block content %}
   <div class="row">
-    <div class="twelve columns">
+    <div class="six columns">
       <img class="u-max-full-width" src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}">
+    </div>
+    <div class="six columns">
+      <h3>{{ product.name }} {{ product.model_name }}</h3>
+      <a href="{% url 'shop:product_update' product.id product.slug %}">Edit</a>
+      <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
+      <p class="price">
+        {{ product.price }} грн.
+      </p>
+      <form action="{% url 'cart:cart_add' product.id %}" method="post">
+        {% csrf_token %}
+        {{ cart_product_form }}
+        <input type="submit" value="Додати в кошик">
+      </form>
     </div>
   </div>
   <div class="row">
-    <h3>{{ product.name }} {{ product.model_name }}</h3>
-    <a href="{% url 'shop:product_update' product.id product.slug %}">Edit</a>
-    <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
-    <p class="price">
-      {{ product.price }} грн.
-    </p>
-    <form action="{% url 'cart:cart_add' product.id %}" method="post">
-      {% csrf_token %}
-      {{ cart_product_form }}
-      <input type="submit" value="Додати в кошик">
-    </form>
     <span>
       {{ product.description | linebreaks}}
     </span>

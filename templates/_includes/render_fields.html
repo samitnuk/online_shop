@@ -16,6 +16,8 @@
       {{ field|addclass:"u-full-width" }}
     {% endif %}
   </div>
+  {% if field.errors %}
   <div class="five columns error">{{ field.errors }}</div>
+  {% endif %}
 </div>
 {% endfor %}
