@@ -3,7 +3,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.template import RequestContext
 
 from .models import Category, Product, ProductImage
-from .forms import ProductForm, ImageFormSet
+from .forms import CategoryForm, ProductForm, ImageFormSet
 from ..cart.forms import CartAddProductForm
 
 
@@ -23,6 +23,7 @@ def product_list(request, category_slug=None):
     return render(request, 'shop/list.html', context)
 
 
+@staff_member_required
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
     context = {
@@ -31,6 +32,18 @@ def product_detail(request, id, slug):
         'images': [img.image for img in product.images.all()]
     }
     return render(request, 'shop/detail.html', context)
+
+
+def category_create(request):
+
+    form = CategoryForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('shop:product_list')
+
+    context = {'form': form}
+    return render(request, 'shop/staff_area/category_form.html', context)
 
 
 @staff_member_required

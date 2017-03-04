@@ -12,6 +12,9 @@ urlpatterns = [
         views.product_detail,
         name='product_detail'),
 
+    url(r'^staff_area/category_create/$',
+        views.category_create,
+        name='category_create'),
     url(r'^staff_area/product_create/$',
         views.product_create,
         name='product_create'),
