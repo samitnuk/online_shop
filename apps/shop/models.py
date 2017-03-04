@@ -44,7 +44,7 @@ class Product(models.Model):
     name = models.CharField(
         max_length=200, db_index=True, verbose_name="Назва")
     slug = models.SlugField(
-        max_length=200, db_index=True)
+        max_length=200, db_index=True, allow_unicode=True)
     model_name = models.CharField(
         max_length=200, blank=True, verbose_name="Модель")
     main_image = models.ImageField(
