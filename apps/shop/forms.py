@@ -1,5 +1,5 @@
 from django import forms
-from slugify import slugify
+from django.utils.text import slugify
 
 from .models import Category, Product, ProductImage
 
@@ -24,6 +24,27 @@ def categories_choices():
     return CATEGORIES_CHOICES
 
 
+class CategoryForm(forms.ModelForm):
+    parent_category = forms.ChoiceField(
+        label='Батьківська категорія', choices=categories_choices())
+
+    class Meta:
+        model = Category
+        fields = ('name', 'parent_category', 'slug')
+        widgets = {'slug': forms.HiddenInput()}
+
+    def clean_parent_category(self):
+        if self.cleaned_data['parent_category']:
+            return Category.objects.filter(
+                pk=int(self.cleaned_data['parent_category'])).first()
+        return None
+
+    def clean(self):
+        cd = self.cleaned_data
+        cd['slug'] = slugify(cd['name'], allow_unicode=True)
+        return cd
+
+
 class ProductForm(forms.ModelForm):
     category = forms.ChoiceField(label='Категорія',
                                  choices=categories_choices(),)
@@ -38,14 +59,12 @@ class ProductForm(forms.ModelForm):
 
     def clean_category(self):
         category = Category.objects.filter(
-            pk=int(self.cleaned_data['category'])
-        ).first()
+            pk=int(self.cleaned_data['category'])).first()
         return category
 
     def clean(self):
         cd = self.cleaned_data
-        slug = slugify(self.cleaned_data['name'], only_ascii=True)
-        cd['slug'] = slug.replace("'", "")
+        cd['slug'] = slugify(self.cleaned_data['name'], allow_unicode=True)
         return cd
 
 
