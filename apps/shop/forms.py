@@ -31,7 +31,7 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ('name', 'parent_category', 'slug')
-        widgets = {'slug': forms.HiddenInput()}
+        widgets = {'slug': forms.HiddenInput(attrs={'value': 'temp_slug'})}
 
     def clean_parent_category(self):
         if self.cleaned_data['parent_category']:
@@ -64,7 +64,8 @@ class ProductForm(forms.ModelForm):
 
     def clean(self):
         cd = self.cleaned_data
-        cd['slug'] = slugify(self.cleaned_data['name'], allow_unicode=True)
+        str_for_slug = '{}-{}'.format(cd['name'], cd['model_name'])
+        cd['slug'] = slugify(str_for_slug, allow_unicode=True)
         return cd
 
 
