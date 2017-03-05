@@ -7,41 +7,10 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row">
-    <h5 class="three columns">Категорії</h5>
-    <nav id="primary_nav_wrap" class="nine columns">
-      <ul>
-        <li class="{% if not category %}current-menu-item{% endif %}">
-          <a href="{% url 'shop:product_list' %}">Всі</a>
-        </li>
-        {% for cat in categories %}
-          {% if not cat.has_parent_category %}
-            <li>
-              <a class="{% if category.slug == cat.slug %}selected{% endif %}"
-                 href="{{ cat.get_absolute_url }}">{{ cat }}</a>
-              {% if cat.subcategories %}
-              <ul>
-                {% for cat_ in cat.subcategories %}
-                <li><a href="{{ cat_.get_absolute_url }}">{{ cat_ }}</a>
-                  {%if cat_.subcategories %}
-                  <ul>
-                    {% for cat__ in cat_.subcategories %}
-                    <li><a href="{{ cat__.get_absolute_url }}">{{ cat__ }}</a></li>
-                    {% endfor %}
-                  </ul>
-                  {% endif %}
-                </li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </nav>
-  </div>
 
-  <h1>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h1>
+  {% include '_includes/main_menu.html' %}
+
+  <h4>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h4>
     <div class="row">
     {% for product in products %}
       <div class="three columns">
@@ -53,6 +22,9 @@
           {{ product.name }}<br>{{ product.model_name }}</a><br>
         <p style="text-align: right;">{{ product.price }} грн.</p>
       </div>
+    {% if forloop.counter|divisibleby:"4" %}
+      </div><div class="row">
+    {% endif %}
     {% endfor %}
     </div>
 {% endblock %}
