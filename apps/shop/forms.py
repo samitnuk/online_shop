@@ -2,36 +2,22 @@ from django import forms
 from django.utils.text import slugify
 
 from .models import Category, Product, ProductImage
-
-
-def categories_choices():
-    CATEGORIES_CHOICES = []
-    all_cats = Category.objects.all()
-    main_cats = [cat for cat in all_cats if not cat.has_parent_category()]
-
-    for cat in main_cats:
-        CATEGORIES_CHOICES.append([int(cat.id), cat.name])
-        if cat.subcategories() is None:
-            continue
-        for subcat in cat.subcategories():
-            CATEGORIES_CHOICES.append([subcat.id, "*  {}".format(subcat.name)])
-            if subcat.subcategories() is None:
-                continue
-            for subcat_ in subcat.subcategories():
-                choice = [subcat_.id, "*** {}".format(subcat_.name)]
-                CATEGORIES_CHOICES.append(choice)
-
-    return CATEGORIES_CHOICES
+from . import utils
 
 
 class CategoryForm(forms.ModelForm):
     parent_category = forms.ChoiceField(
-        label='Батьківська категорія', choices=categories_choices())
+        label='Батьківська категорія', choices=[])
 
     class Meta:
         model = Category
         fields = ('name', 'parent_category', 'slug')
         widgets = {'slug': forms.HiddenInput(attrs={'value': 'temp_slug'})}
+
+    def __init__(self, *args, **kwargs):
+        super(CategoryForm, self).__init__(*args, **kwargs)
+        categories = Category.objects.all()
+        self.fields['parent_category'].choices = utils.cat_choices(categories)
 
     def clean_parent_category(self):
         if self.cleaned_data['parent_category']:
@@ -46,16 +32,20 @@ class CategoryForm(forms.ModelForm):
 
 
 class ProductForm(forms.ModelForm):
-    category = forms.ChoiceField(label='Категорія',
-                                 choices=categories_choices(),)
+    category = forms.ChoiceField(label='Категорія', choices=[])
 
     class Meta:
         model = Product
         fields = (
-            'name', 'model_name', 'category', 'main_image', 'description',
-            'price', 'stock', 'available', 'slug',
+            'name', 'model_name', 'category', 'manufacturer', 'main_image',
+            'description', 'price', 'stock', 'available', 'slug',
         )
         widgets = {'slug': forms.HiddenInput(attrs={'value': 'temp_slug'})}
+
+    def __init__(self, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+        categories = Category.objects.all()
+        self.fields['category'].choices = utils.cat_choices(categories)
 
     def clean_category(self):
         category = Category.objects.filter(
