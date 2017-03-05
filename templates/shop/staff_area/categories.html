@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Налаштування сайту
+{% endblock %}
+
+{% block content %}
+
+{% for category in categories %}
+<a href="{% url 'shop:category' category.slug %}">{{ category.full_name }}</a><br>
+{% endfor %}
+
+{% for product in products %}
+<hr>
+<div class="row">
+  <div class="two columns">
+    <img src="{{ product.main_image.url }}"
+         class="u-max-full-width">
+  </div>
+  <div class="four columns">
+    <p>{{ product.name }}</p>
+    {{ product.model_name }}
+  </div>
+  <div class="four columns">
+    Категорія: {{ product.category }}
+    <p>Виробник: {{ product.manufacturer}}</p>
+    Ціна, грн: {{ product.price }}
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

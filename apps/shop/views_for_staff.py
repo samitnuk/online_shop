@@ -3,7 +3,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.template import RequestContext
 
 from .forms import CategoryForm, ProductForm, ImageFormSet
-from .models import Product, ProductImage
+from .models import Category, Product, ProductImage
 
 
 @staff_member_required
@@ -12,14 +12,39 @@ def staff_area(request):
 
 
 @staff_member_required
+def categories(request, category_slug=None):
+    if category_slug is None:
+        active_category = None
+        products = Product.objects.filter(available=True)
+    else:
+        active_category = get_object_or_404(Category, slug=category_slug)
+        products = active_category.products
+    context = {
+        'categories': Category.objects.all(),
+        'active_category': active_category,
+        'products': products
+    }
+    return render(request, 'shop/staff_area/categories.html', context)
+
+
+@staff_member_required
 def category_create(request):
-
     form = CategoryForm(request.POST or None)
-
     if form.is_valid():
         form.save()
-        return redirect('shop:product_list')
+        return redirect('shop:categories')
+    context = {'form': form}
+    return render(request, 'shop/staff_area/category_form.html', context)
 
+
+@staff_member_required
+def category_update(request, pk, slug):
+    category = get_object_or_404(Product, pk=pk, slug=slug)
+    form = CategoryForm(
+        request.POST or None, request.FILES or None, instance=category)
+    if form.is_valid():
+        form.save()
+        return redirect('shop:category', kwargs={'pk': pk, 'slug': slug})
     context = {'form': form}
     return render(request, 'shop/staff_area/category_form.html', context)
 
