@@ -18,7 +18,7 @@ def product_list(request, category_slug=None):
         'products': products
     }
 
-    return render(request, 'shop/list.html', context)
+    return render(request, 'shop/product_list.html', context)
 
 
 def product_detail(request, id, slug):
@@ -28,5 +28,4 @@ def product_detail(request, id, slug):
         'cart_product_form': CartAddProductForm(product_id=product.id),
         'images': [img.image for img in product.images.all()]
     }
-    return render(request, 'shop/detail.html', context)
-
+    return render(request, 'shop/product_detail.html', context)

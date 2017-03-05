@@ -42,18 +42,17 @@
   </div>
 
   <h1>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h1>
-    {% for product in products %}
     <div class="row">
+    {% for product in products %}
       <div class="three columns">
         <a href="{{ product.get_absolute_url }}">
           <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
                class="u-max-full-width">
         </a>
+        <a href="{{ product.get_absolute_url }}">
+          {{ product.name }}<br>{{ product.model_name }}</a><br>
+        <p style="text-align: right;">{{ product.price }} грн.</p>
       </div>
-      <div class="nine columns">
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-        {{ product.price }} грн.
-      </div>
-    </div>
     {% endfor %}
+    </div>
 {% endblock %}
