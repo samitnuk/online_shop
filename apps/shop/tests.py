@@ -39,7 +39,7 @@ class FormTests(WebTest):
     def test_product_creation_by_staff_member(self):
         form = self.app.get(
             reverse('shop:product_create'), user=get_staff_member()).form
-        category = Category.objects.all().first()
+        category = Category.objects.first()
         name = "Тестовий продукт"
         model_name = 'Some test MDL-name'
         form['category'] = category.id
@@ -63,22 +63,69 @@ class FormTests(WebTest):
         self.assertEqual(product.stock, 42)
         self.assertTrue(product.available)
 
+    def test_product_creation_by_staff_member_no_category_selected(self):
+        form = self.app.get(
+            reverse('shop:product_create'),
+            user=get_staff_member()
+        ).form
+        name = "Тестовий продукт test"
+        model_name = 'Some test MDL-name'
+        # category is not selected
+        form['name'] = name
+        form['model_name'] = model_name
+        form['description'] = 'Some test description, not very long'
+        form['available'] = True
+        form['price'] = '12.34'
+        form['stock'] = '42'
+        form.submit()
+
+        product = Product.objects.filter(
+            model_name='Some test MDL-name').first()
+        self.assertIsNone(product)
+
     def test_category_creation_by_reqular_user(self):
         # user cannot create categories
-        resp = self.app.get(reverse('shop:category_create'),
-                            user=get_regular_user())
+        resp = self.app.get(
+            reverse('shop:category_create'),
+            user=get_regular_user()
+        )
         self.assertEqual(resp.status, '302 Found')
         self.assertEqual(resp.location,
                          '/admin/login/?next=/staff_area/category_create/')
 
     def test_category_creation_by_staff_member(self):
+        # test for case with parent_category
         form = self.app.get(
-            reverse('shop:category_create'), user=get_staff_member()).form
-        slug = slugify("Тестова категорія", allow_unicode=True)
-        form['name'] = "Тестова категорія"
-        form['parent_category'] = 1
+            reverse('shop:category_create'),
+            user=get_staff_member()
+        ).form
+        category = Category.objects.first()
+        name = "Тестова категорія"
+        slug = slugify(name, allow_unicode=True)
+        form['name'] = name
+        form['parent_category'] = category.id
         form.submit()
 
-        category = Category.objects.filter(name="Тестова категорія").first()
-        self.assertEqual(category.name, "Тестова категорія")
+        category = Category.objects.filter(name=name).first()
+        self.assertEqual(category.name, name)
         self.assertEqual(category.slug, slug)
+        self.assertTrue(category.has_parent_category())
+        self.assertFalse(category.products)  # <QuerySet []>
+        self.assertFalse(category.subcategories())  # <QuerySet []>
+
+        # test for case without parent_category
+        form = self.app.get(
+            reverse('shop:category_create'),
+            user=get_staff_member()
+        ).form
+        name = "Тестова категорія 2"
+        slug = slugify(name, allow_unicode=True)
+        form['name'] = name
+        form.submit()
+
+        category = Category.objects.filter(name=name).first()
+        self.assertEqual(category.name, name)
+        self.assertEqual(category.slug, slug)
+        self.assertFalse(category.has_parent_category())
+        self.assertFalse(category.products)  # <QuerySet []>
+        self.assertFalse(category.subcategories())  # <QuerySet []>
