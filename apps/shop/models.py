@@ -1,6 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from . import utils
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -78,8 +80,8 @@ class Product(models.Model):
         max_length=200, db_index=True, allow_unicode=True)
     model_name = models.CharField(
         max_length=200, blank=True, verbose_name="Модель")
-    main_image = models.ImageField(
-        upload_to='products/%Y/%m/%d/', blank=True, verbose_name="Зображення")
+    main_image = models.ImageField(upload_to=utils.product_main_img_path,
+                                   blank=True, verbose_name="Зображення")
     description = models.TextField(
         blank=True, verbose_name="Опис")
     price = models.DecimalField(
@@ -108,5 +110,5 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images')
-    image = models.ImageField(
-        upload_to='products/%Y/%m/%d/', blank=True, verbose_name="Зображення")
+    image = models.ImageField(upload_to=utils.product_img_path,
+                              blank=True, verbose_name="Зображення")
