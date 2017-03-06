@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^staff_area/$',
         views_for_staff.staff_area,
         name='staff_area'),
+
     # Categories
     url(r'^staff_area/categories/$',
         views_for_staff.categories,
@@ -19,6 +20,18 @@ urlpatterns = [
     url(r'^staff_area/category_create/$',
         views_for_staff.category_create,
         name='category_create'),
+
+    # Manufacturers
+    url(r'^staff_area/manufacturers/$',
+        views_for_staff.manufacturers,
+        name='manufacturers'),
+    url(r'^staff_area/manufacturer_create/$',
+        views_for_staff.manufacturer_create,
+        name='manufacturer_create'),
+    url(r'^staff_area/manufacturer_update/(?P<pk>\d+)/(?P<slug>[-\w]+)/$',
+        views_for_staff.manufacturer_update,
+        name='manufacturer_update'),
+
     # Products
     url(r'^staff_area/product_create/$',
         views_for_staff.product_create,

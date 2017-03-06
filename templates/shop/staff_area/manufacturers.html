@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Налаштування сайту
+{% endblock %}
+
+{% block content %}
+
+{% for m in manufacturers %}
+{{ m.name }} ({{ m.products_qty }})<br>
+{% endfor %}
+
+<hr>
+<a href="{% url 'shop:manufacturer_create' %}">Створити виробника</a>
+
+{% endblock %}
