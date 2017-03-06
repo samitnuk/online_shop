@@ -40,3 +40,9 @@ class ManufacturerWebTests(WebTest):
 
     def test_manufacturer_updating_by_staff_member(self):
         pass
+
+    def test_manufacturer_products_property(self):
+        pass
+
+    def test_manufacturer_products_qty_property(self):
+        pass

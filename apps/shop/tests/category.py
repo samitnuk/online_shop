@@ -63,3 +63,15 @@ class CategoryWebTests(WebTest):
 
     def test_category_updating_by_staff_member(self):
         pass
+
+    def test_category_products_method(self):
+        pass
+
+    def test_category_subcategories_method(self):
+        pass
+
+    def test_category_has_parent_category_method(self):
+        pass
+
+    def test_category_full_name_property(self):
+        pass
