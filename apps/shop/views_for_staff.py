@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 from django.template import RequestContext
 
-from .forms import CategoryForm, ProductForm, ImageFormSet
-from .models import Category, Product, ProductImage
+from .forms import CategoryForm, ManufacturerForm, ProductForm, ImageFormSet
+from .models import Category, Manufacturer, Product, ProductImage
 
 
 @staff_member_required
@@ -47,6 +47,34 @@ def category_update(request, pk, slug):
         return redirect('shop:category', kwargs={'pk': pk, 'slug': slug})
     context = {'form': form}
     return render(request, 'shop/staff_area/category_form.html', context)
+
+
+@staff_member_required
+def manufacturers(request):
+    context = {'manufacturers': Manufacturer.objects.all()}
+    return render(request, 'shop/staff_area/manufacturers.html', context)
+
+
+@staff_member_required
+def manufacturer_create(request):
+    form = ManufacturerForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('shop:manufacturers')
+    context = {'form': form}
+    return render(request, 'shop/staff_area/manufacturer_form.html', context)
+
+
+@staff_member_required
+def manufacturer_update(request, pk, slug):
+    manufacturer = get_object_or_404(Manufacturer, pk=pk, slug=slug)
+    form = ManufacturerForm(
+        request.POST or None, request.FILES or None, instance=manufacturer)
+    if form.is_valid():
+        form.save()
+        return redirect('shop:manufacturers')
+    context = {'form': form}
+    return render(request, 'shop/staff_area/manufacturer_form.html', context)
 
 
 @staff_member_required
