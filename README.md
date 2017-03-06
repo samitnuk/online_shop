@@ -15,6 +15,7 @@ ___
 - [ ] Update product.stock after order confirmed
 - [ ] Add cupons
 - [ ] Add i18n
+- [ ] Create product as copy of existing product
 
 ___
 Info about logo sample:
