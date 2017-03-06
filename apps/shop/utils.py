@@ -1,3 +1,6 @@
+from django.contrib.auth.models import User
+
+
 def product_main_img_path(instance, filename):
     return 'products/{}/{}'.format(instance.slug, filename)
 
@@ -8,6 +11,10 @@ def product_img_path(instance, filename):
 
 def category_img_path(instance, filename):
     return 'categories/{}/{}'.format(instance.slug, filename)
+
+
+def manufacturer_img_path(instance, filename):
+    return 'manufacturers/{}/{}'.format(instance.slug, filename)
 
 
 def cat_choices(categories):
@@ -27,3 +34,17 @@ def cat_choices(categories):
                 CHOICES.append(choice)
 
     return CHOICES
+
+
+def get_staff_member():
+    admin, _ = User.objects.get_or_create(username='admin12345',
+                                          password="drowssap")
+    admin.is_staff = True
+    admin.save()
+    return admin
+
+
+def get_regular_user():
+    user, _ = User.objects.get_or_create(username='username',
+                                         password="drowssap")
+    return user
