@@ -9,6 +9,8 @@ class Category(models.Model):
     slug = models.SlugField(max_length=200, db_index=True,
                             unique=True, allow_unicode=True)
     parent_category = models.ForeignKey('self', null=True, blank=True)
+    image = models.ImageField(upload_to=utils.category_img_path,
+                              blank=True, verbose_name="Зображення")
 
     class Meta:
         ordering = ['name']
@@ -23,7 +25,6 @@ class Category(models.Model):
             'shop:product_list_by_category',
             kwargs={'category_slug': self.slug})
 
-    @property
     def products(self):
         return self.category_products.all()
 
@@ -50,8 +51,11 @@ class Manufacturer(models.Model):
         max_length=200, db_index=True, verbose_name="Виробник")
     slug = models.SlugField(
         max_length=200, db_index=True, allow_unicode=True)
+    image = models.ImageField(upload_to=utils.manufacturer_img_path,
+                              blank=True, verbose_name="Зображення")
 
     class Meta:
+        ordering = ['name']
         verbose_name = "Виробник"
         verbose_name_plural = "Виробники"
 
@@ -60,12 +64,16 @@ class Manufacturer(models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            'shop:product_detail',
+            'shop:manufacturer_detail',
             kwargs={'id': self.id, 'slug': self.slug})
 
     @property
     def products(self):
         return self.manufacturer_products.all()
+
+    @property
+    def products_qty(self):
+        return self.manufacturer_products.count()
 
 
 class Product(models.Model):
