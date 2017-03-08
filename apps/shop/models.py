@@ -1,13 +1,15 @@
 from django.core.urlresolvers import reverse
 from django.db import models
+from autoslug import AutoSlugField
 
 from . import utils
 
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
-    slug = models.SlugField(max_length=200, db_index=True,
-                            unique=True, allow_unicode=True)
+    slug = AutoSlugField(
+        always_update=True, populate_from='name', unique=True,
+        slugify=utils.slugify_, db_index=True)
     parent_category = models.ForeignKey('self', null=True, blank=True)
     image = models.ImageField(upload_to=utils.category_img_path,
                               blank=True, verbose_name="Зображення")
@@ -49,8 +51,9 @@ class Category(models.Model):
 class Manufacturer(models.Model):
     name = models.CharField(
         max_length=200, db_index=True, verbose_name="Виробник")
-    slug = models.SlugField(
-        max_length=200, db_index=True, allow_unicode=True)
+    slug = AutoSlugField(
+        always_update=True, populate_from='name', unique=True,
+        slugify=utils.slugify_, db_index=True)
     image = models.ImageField(upload_to=utils.manufacturer_img_path,
                               blank=True, verbose_name="Зображення")
 
@@ -63,9 +66,7 @@ class Manufacturer(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse(
-            'shop:manufacturer_detail',
-            kwargs={'id': self.id, 'slug': self.slug})
+        return reverse('shop:manufacturer_detail', kwargs={'slug': self.slug})
 
     @property
     def products(self):
@@ -84,10 +85,11 @@ class Product(models.Model):
         verbose_name="Виробник", blank=True, null=True)
     name = models.CharField(
         max_length=200, db_index=True, verbose_name="Назва")
-    slug = models.SlugField(
-        max_length=200, db_index=True, allow_unicode=True)
     model_name = models.CharField(
         max_length=200, blank=True, verbose_name="Модель")
+    slug = AutoSlugField(
+        always_update=True, populate_from=utils.base_for_product_slug,
+        unique=True, slugify=utils.slugify_, db_index=True)
     main_image = models.ImageField(upload_to=utils.product_main_img_path,
                                    blank=True, verbose_name="Зображення")
     description = models.TextField(
@@ -103,7 +105,6 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['name']
-        index_together = ['id', 'slug']
         verbose_name = "Товар"
         verbose_name_plural = "Товари"
 
@@ -111,9 +112,7 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse(
-            'shop:product_detail',
-            kwargs={'id': self.id, 'slug': self.slug})
+        return reverse('shop:product_detail', kwargs={'slug': self.slug})
 
 
 class ProductImage(models.Model):
