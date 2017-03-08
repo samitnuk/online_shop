@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^staff_area/category_create/$',
         views_for_staff.category_create,
         name='category_create'),
-    url(r'^staff_area/category_update/(?P<pk>\d+)/(?P<slug>[-\w]+)/$',
+    url(r'^staff_area/category_update/(?P<slug>[-\w]+)/$',
         views_for_staff.category_update,
         name='category_update'),
 
@@ -31,7 +31,7 @@ urlpatterns = [
     url(r'^staff_area/manufacturer_create/$',
         views_for_staff.manufacturer_create,
         name='manufacturer_create'),
-    url(r'^staff_area/manufacturer_update/(?P<pk>\d+)/(?P<slug>[-\w]+)/$',
+    url(r'^staff_area/manufacturer_update/(?P<slug>[-\w]+)/$',
         views_for_staff.manufacturer_update,
         name='manufacturer_update'),
 
@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^staff_area/product_create/$',
         views_for_staff.product_create,
         name='product_create'),
-    url(r'^staff_area/product_update/(?P<pk>\d+)/(?P<slug>[-\w]+)/$',
+    url(r'^staff_area/product_update/(?P<slug>[-\w]+)/$',
         views_for_staff.product_update,
         name='product_update'),
 
@@ -48,7 +48,7 @@ urlpatterns = [
     url(r'^(?P<category_slug>[-\w]+)/$',
         views.product_list,
         name='product_list_by_category'),
-    url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$',
+    url(r'^product_detail/(?P<slug>[-\w]+)/$',
         views.product_detail,
         name='product_detail'),
 ]

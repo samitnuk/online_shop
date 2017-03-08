@@ -13,7 +13,7 @@
     </div>
     <div class="six columns">
       <h3>{{ product.name }} {{ product.model_name }}</h3>
-      <a href="{% url 'shop:product_update' product.id product.slug %}">Edit</a>
+      <a href="{% url 'shop:product_update' product.slug %}">Edit</a>
       <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
       <p class="price">
         {{ product.price }} грн.

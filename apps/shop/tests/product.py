@@ -1,10 +1,8 @@
 from decimal import Decimal
 
 from django_webtest import WebTest
-
 # from django.test import TestCase
 from django.urls import reverse
-from django.utils.text import slugify
 
 from apps.shop.models import Category, Manufacturer, Product
 from .. import utils
@@ -42,8 +40,8 @@ class ProductWebTests(WebTest):
         product = Product.objects.filter(model_name=model_name).first()
         self.assertEqual(product.category, category)
         self.assertEqual(product.name, "Тестовий продукт")
-        self.assertEqual(product.slug, slugify(
-            '{}-{}'.format(name, model_name), allow_unicode=True))
+        self.assertEqual(product.slug, utils.slugify_(
+            '{}-{}'.format(name, model_name)))
         self.assertEqual(product.description,
                          'Some test description, not very long')
         self.assertEqual(product.price, Decimal('12.34'))

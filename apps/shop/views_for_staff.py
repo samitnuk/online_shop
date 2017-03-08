@@ -4,6 +4,7 @@ from django.template import RequestContext
 
 from .forms import CategoryForm, ManufacturerForm, ProductForm, ImageFormSet
 from .models import Category, Manufacturer, Product, ProductImage
+from . import utils
 
 
 @staff_member_required
@@ -38,13 +39,14 @@ def category_create(request):
 
 
 @staff_member_required
-def category_update(request, pk, slug):
-    category = get_object_or_404(Product, pk=pk, slug=slug)
+def category_update(request, slug):
+    category = get_object_or_404(Category, slug=slug)
     form = CategoryForm(
         request.POST or None, request.FILES or None, instance=category)
     if form.is_valid():
         form.save()
-        return redirect('shop:category', kwargs={'pk': pk, 'slug': slug})
+        new_slug = utils.slugify_(form.cleaned_data['name'])
+        return redirect('shop:category', category_slug=new_slug)
     context = {'form': form}
     return render(request, 'shop/staff_area/category_form.html', context)
 
@@ -101,9 +103,9 @@ def product_create(request):
 
 
 @staff_member_required
-def product_update(request, pk, slug):
+def product_update(request, slug):
 
-    product = get_object_or_404(Product, pk=pk, slug=slug)
+    product = get_object_or_404(Product, slug=slug)
 
     product_form = ProductForm(
         request.POST or None, request.FILES or None,

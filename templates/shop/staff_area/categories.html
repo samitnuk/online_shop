@@ -9,7 +9,11 @@
 {% block content %}
 
 {% for category in categories %}
-<a href="{% url 'shop:category' category.slug %}">{{ category.full_name }}</a><br>
+<a href="{% url 'shop:category' category.slug %}">{{ category.full_name }}</a>
+<a href="{% url 'shop:category_update' category.id category.slug %}">
+ Редагувати
+</a>
+<br>
 {% endfor %}
 
 {% for product in products %}

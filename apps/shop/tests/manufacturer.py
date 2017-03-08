@@ -1,7 +1,6 @@
 from django_webtest import WebTest
 
 from django.urls import reverse
-from django.utils.text import slugify
 
 from apps.shop.models import Category, Manufacturer, Product
 from .. import utils
@@ -11,7 +10,7 @@ class ManufacturerWebTests(WebTest):
 
     fixtures = ['.././load_data.json']
 
-    def test_manufacturer_creating_by_reqular_user(self):
+    def test_manufacturer_creating_by_regular_user(self):
         # user cannot create manufacturers
         resp = self.app.get(
             reverse('shop:manufacturer_create'),
@@ -33,9 +32,9 @@ class ManufacturerWebTests(WebTest):
 
         manufacturer = Manufacturer.objects.filter(name=name).first()
         self.assertEqual(manufacturer.name, name)
-        self.assertEqual(manufacturer.slug, slugify(name, allow_unicode=True))
+        self.assertEqual(manufacturer.slug, utils.slugify_(name))
 
-    def test_manufacturer_updating_by_reqular_user(self):
+    def test_manufacturer_updating_by_regular_user(self):
         pass
 
     def test_manufacturer_updating_by_staff_member(self):
