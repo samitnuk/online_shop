@@ -68,8 +68,8 @@ def manufacturer_create(request):
 
 
 @staff_member_required
-def manufacturer_update(request, pk, slug):
-    manufacturer = get_object_or_404(Manufacturer, pk=pk, slug=slug)
+def manufacturer_update(request, slug):
+    manufacturer = get_object_or_404(Manufacturer, slug=slug)
     form = ManufacturerForm(
         request.POST or None, request.FILES or None, instance=manufacturer)
     if form.is_valid():
