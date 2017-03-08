@@ -1,6 +1,6 @@
 from django_webtest import WebTest
 
-from django.urls import reverse
+from django.shortcuts import reverse
 from django.utils.text import slugify
 
 from apps.shop.models import Category, Manufacturer, Product
@@ -13,13 +13,15 @@ class CategoryWebTests(WebTest):
 
     def test_category_creation_by_reqular_user(self):
         # user cannot create categories
-        resp = self.app.get(
+        response = self.app.get(
             reverse('shop:category_create'),
             user=utils.get_regular_user()
         )
-        self.assertEqual(resp.status, '302 Found')
-        self.assertEqual(resp.location,
-                         '/admin/login/?next=/staff_area/category_create/')
+        planned_resp = '/admin/login/?next=/staff_area/category_create/'
+        self.assertRedirects(
+            response=response,
+            expected_url=planned_resp,
+        )
 
     def test_category_creating_by_staff_member(self):
         # test for case with parent_category
@@ -59,10 +61,37 @@ class CategoryWebTests(WebTest):
         self.assertFalse(category.subcategories())  # <QuerySet []>
 
     def test_category_updating_by_reqular_user(self):
-        pass
+        # user cannot update categories
+        category = Category.objects.first()
+        response = self.app.get(
+            reverse('shop:category_update',
+                    kwargs={'pk': category.id, 'slug': category.slug}),
+            user=utils.get_regular_user()
+        )
+        planned_resp = '/admin/login/?next=/staff_area/category_update/{}/{}/'
+        self.assertRedirects(
+            response=response,
+            expected_url=planned_resp.format(category.id, category.slug),
+        )
 
     def test_category_updating_by_staff_member(self):
-        pass
+        category = Category.objects.first()
+        parent_category = Category.objects.all()[2]
+        form = self.app.get(
+            reverse('shop:category_update',
+                    kwargs={'pk': category.id, 'slug': category.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        name = "Нова тестова назва"
+        slug = slugify(name, allow_unicode=True)
+        form['name'] = name
+        form['parent_category'] = parent_category.id
+
+        category_upd = Category.objects.filter(name=name).first()
+        self.assertEqual(category_upd.name, name)
+        self.assertEqual(category_upd.slug, slug)
+        self.assertTrue(category_upd.has_parent_category())
+        self.assertEqual(category_upd.parent_category, parent_category)
 
     def test_category_products_method(self):
         pass

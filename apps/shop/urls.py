@@ -20,6 +20,9 @@ urlpatterns = [
     url(r'^staff_area/category_create/$',
         views_for_staff.category_create,
         name='category_create'),
+    url(r'^staff_area/category_update/(?P<pk>\d+)/(?P<slug>[-\w]+)/$',
+        views_for_staff.category_update,
+        name='category_update'),
 
     # Manufacturers
     url(r'^staff_area/manufacturers/$',
