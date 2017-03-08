@@ -12,14 +12,15 @@ class ManufacturerWebTests(WebTest):
 
     def test_manufacturer_creating_by_regular_user(self):
         # user cannot create manufacturers
-        resp = self.app.get(
+        response = self.app.get(
             reverse('shop:manufacturer_create'),
             user=utils.get_regular_user()
         )
-        self.assertEqual(resp.status, '302 Found')
-        self.assertEqual(
-            resp.location,
-            '/admin/login/?next=/staff_area/manufacturer_create/')
+        planned_resp = '/admin/login/?next=/staff_area/manufacturer_create/'
+        self.assertRedirects(
+            response=response,
+            expected_url=planned_resp,
+        )
 
     def test_manufacturer_creating_by_staff_member(self):
         form = self.app.get(
@@ -35,10 +36,35 @@ class ManufacturerWebTests(WebTest):
         self.assertEqual(manufacturer.slug, utils.slugify_(name))
 
     def test_manufacturer_updating_by_regular_user(self):
-        pass
+        # user cannot update manufacturers
+        manufacturer, _ = Manufacturer.objects.get_or_create(
+            name="Тестовий виробник")
+        response = self.app.get(
+            reverse('shop:manufacturer_update',
+                    kwargs={'slug': manufacturer.slug}),
+            user=utils.get_regular_user()
+        )
+        planned_resp = '/admin/login/?next=/staff_area/manufacturer_update/{}/'
+        self.assertRedirects(
+            response=response,
+            expected_url=planned_resp.format(manufacturer.slug),
+        )
 
     def test_manufacturer_updating_by_staff_member(self):
-        pass
+        manufacturer, _ = Manufacturer.objects.get_or_create(
+            name="Тестовий виробник")
+        form = self.app.get(
+            reverse('shop:manufacturer_update',
+                    kwargs={'slug': manufacturer.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        name = "Новий виробник"
+        form['name'] = name
+        form.submit()
+
+        manufacturer_upd = Manufacturer.objects.filter(name=name).first()
+        self.assertEqual(manufacturer_upd.name, name)
+        self.assertEqual(manufacturer_upd.slug, utils.slugify_(name))
 
     def test_manufacturer_products_property(self):
         pass
