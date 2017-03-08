@@ -1,3 +1,5 @@
+from slugify import slugify
+
 from django.contrib.auth.models import User
 
 
@@ -36,15 +38,33 @@ def cat_choices(categories):
     return CHOICES
 
 
+def base_for_product_slug(instance):
+    return '{}-{}'.format(instance.name, instance.model_name)
+
+
+def slugify_(some_string):
+    """
+    Convert 'some_string' to correct slug.
+
+    Note: slugify() converts some symbols to "'" (apostrophe),
+    and SlugField does not accept apostrophes.
+    So this fixed by replacement of all apostrophes.
+    """
+    return slugify(some_string, only_ascii=True).replace("'", "")
+
+
+# Helpers for tests ----------------------------------------------------------
 def get_staff_member():
+    """Create staff member """
     admin, _ = User.objects.get_or_create(username='admin12345',
-                                          password="drowssap")
+                                          password="password12345")
     admin.is_staff = True
     admin.save()
     return admin
 
 
 def get_regular_user():
+    """Create regular user """
     user, _ = User.objects.get_or_create(username='username',
-                                         password="drowssap")
+                                         password="password12345")
     return user
