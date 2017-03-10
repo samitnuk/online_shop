@@ -67,7 +67,52 @@ class ManufacturerWebTests(WebTest):
         self.assertEqual(manufacturer_upd.slug, utils.slugify_(name))
 
     def test_manufacturer_products_property(self):
-        pass
+        manufacturer, _ = Manufacturer.objects.get_or_create(
+            name="Тестовий виробник")
+        m_slug = manufacturer.slug
+
+        product1 = Product.objects.first()
+        form = self.app.get(
+            reverse('shop:product_update', kwargs={'slug': product1.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['manufacturer'] = manufacturer.id
+        form.submit()
+
+        product2 = Product.objects.all()[2]
+        form = self.app.get(
+            reverse('shop:product_update', kwargs={'slug': product2.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['manufacturer'] = manufacturer.id
+        form.submit()
+
+        manufacturer = Manufacturer.objects.filter(slug=m_slug).first()
+        m_products = manufacturer.products
+        self.assertEqual(m_products.count(), 2)
+        self.assertIn(product1, m_products)
+        self.assertIn(product2, m_products)
 
     def test_manufacturer_products_qty_property(self):
-        pass
+        manufacturer, _ = Manufacturer.objects.get_or_create(
+            name="Тестовий виробник")
+        m_slug = manufacturer.slug
+
+        product1 = Product.objects.first()
+        form = self.app.get(
+            reverse('shop:product_update', kwargs={'slug': product1.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['manufacturer'] = manufacturer.id
+        form.submit()
+
+        product2 = Product.objects.all()[2]
+        form = self.app.get(
+            reverse('shop:product_update', kwargs={'slug': product2.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['manufacturer'] = manufacturer.id
+        form.submit()
+
+        manufacturer = Manufacturer.objects.filter(slug=m_slug).first()
+        self.assertEqual(manufacturer.products_qty, 2)

@@ -88,6 +88,7 @@ class ProductWebTests(WebTest):
 
     def test_product_creating_by_staff_member_no_manufacturer_selected(self):
         # In future Manufacturer will be required field
+        # TODO: change Manufacturer Model
         pass
 
     def test_product_updating_by_regular_user(self):

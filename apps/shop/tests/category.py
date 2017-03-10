@@ -89,13 +89,86 @@ class CategoryWebTests(WebTest):
         self.assertEqual(category_upd.parent_category, parent_category)
 
     def test_category_products_method(self):
-        pass
+        category = Category.objects.first()
+        cat_slug = category.slug
+
+        product1 = Product.objects.first()
+        form = self.app.get(
+            reverse('shop:product_update', kwargs={'slug': product1.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['category'] = category.id
+        form.submit()
+
+        product2 = Product.objects.all()[2]
+        form = self.app.get(
+            reverse('shop:product_update', kwargs={'slug': product2.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['category'] = category.id
+        form.submit()
+
+        category = Category.objects.filter(slug=cat_slug).first()
+        cat_products = category.products()
+        self.assertEqual(cat_products.count(), 2)
+        self.assertIn(product1, cat_products)
+        self.assertIn(product2, cat_products)
 
     def test_category_subcategories_method(self):
-        pass
+        category = Category.objects.first()
+        cat_slug = category.slug
+
+        sub_cat1 = Category.objects.all()[2]
+        form = self.app.get(
+            reverse('shop:category_update', kwargs={'slug': sub_cat1.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['parent_category'] = category.id
+        form.submit()
+
+        sub_cat2 = Category.objects.all()[3]
+        form = self.app.get(
+            reverse('shop:category_update', kwargs={'slug': sub_cat2.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['parent_category'] = category.id
+        form.submit()
+
+        category = Category.objects.filter(slug=cat_slug).first()
+        subcategories = category.subcategories()
+        self.assertEqual(subcategories.count(), 2)
+        self.assertIn(sub_cat1, subcategories)
+        self.assertIn(sub_cat2, subcategories)
 
     def test_category_has_parent_category_method(self):
-        pass
+        categories = Category.objects.all()
+        parent_category = categories.first()
+
+        sub_cat1 = categories[2]
+        sub_cat1_name = sub_cat1.name
+        form = self.app.get(
+            reverse('shop:category_update', kwargs={'slug': sub_cat1.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['parent_category'] = parent_category.id
+        form.submit()
+
+        sub_cat1 = Category.objects.filter(name=sub_cat1_name).first()
+        self.assertTrue(sub_cat1.has_parent_category())
+        self.assertEqual(sub_cat1.parent_category, parent_category)
+
+        sub_cat2 = categories[3]
+        sub_cat2_name = sub_cat2.name
+        form = self.app.get(
+            reverse('shop:category_update', kwargs={'slug': sub_cat2.slug}),
+            user=utils.get_staff_member(),
+        ).form
+        form['parent_category'] = parent_category.id
+        form.submit()
+
+        sub_cat2 = Category.objects.filter(name=sub_cat2_name).first()
+        self.assertTrue(sub_cat2.has_parent_category())
+        self.assertEqual(sub_cat2.parent_category, parent_category)
 
     def test_category_full_name_property(self):
         pass
