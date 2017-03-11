@@ -37,8 +37,7 @@ class ManufacturerWebTests(WebTest):
 
     def test_manufacturer_updating_by_regular_user(self):
         # user cannot update manufacturers
-        manufacturer, _ = Manufacturer.objects.get_or_create(
-            name="Тестовий виробник")
+        manufacturer = Manufacturer.objects.first()
         response = self.app.get(
             reverse('shop:manufacturer_update',
                     kwargs={'slug': manufacturer.slug}),
@@ -51,8 +50,7 @@ class ManufacturerWebTests(WebTest):
         )
 
     def test_manufacturer_updating_by_staff_member(self):
-        manufacturer, _ = Manufacturer.objects.get_or_create(
-            name="Тестовий виробник")
+        manufacturer = Manufacturer.objects.first()
         form = self.app.get(
             reverse('shop:manufacturer_update',
                     kwargs={'slug': manufacturer.slug}),
@@ -67,11 +65,14 @@ class ManufacturerWebTests(WebTest):
         self.assertEqual(manufacturer_upd.slug, utils.slugify_(name))
 
     def test_manufacturer_products_property(self):
-        manufacturer, _ = Manufacturer.objects.get_or_create(
-            name="Тестовий виробник")
+        manufacturer = Manufacturer.objects.first()
         m_slug = manufacturer.slug
+        m_products = manufacturer.products
+        initial_count = m_products.count()
 
         product1 = Product.objects.first()
+        if product1 in m_products:
+            initial_count -= 1
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product1.slug}),
             user=utils.get_staff_member(),
@@ -80,6 +81,8 @@ class ManufacturerWebTests(WebTest):
         form.submit()
 
         product2 = Product.objects.all()[2]
+        if product2 in m_products:
+            initial_count -= 1
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product2.slug}),
             user=utils.get_staff_member(),
@@ -89,16 +92,19 @@ class ManufacturerWebTests(WebTest):
 
         manufacturer = Manufacturer.objects.filter(slug=m_slug).first()
         m_products = manufacturer.products
-        self.assertEqual(m_products.count(), 2)
+        self.assertEqual(m_products.count(), initial_count+2)
         self.assertIn(product1, m_products)
         self.assertIn(product2, m_products)
 
     def test_manufacturer_products_qty_property(self):
-        manufacturer, _ = Manufacturer.objects.get_or_create(
-            name="Тестовий виробник")
+        manufacturer = Manufacturer.objects.first()
         m_slug = manufacturer.slug
+        m_products = manufacturer.products
+        initial_count = m_products.count()
 
         product1 = Product.objects.first()
+        if product1 in m_products:
+            initial_count -= 1
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product1.slug}),
             user=utils.get_staff_member(),
@@ -107,6 +113,8 @@ class ManufacturerWebTests(WebTest):
         form.submit()
 
         product2 = Product.objects.all()[2]
+        if product2 in m_products:
+            initial_count -= 1
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product2.slug}),
             user=utils.get_staff_member(),
@@ -115,4 +123,4 @@ class ManufacturerWebTests(WebTest):
         form.submit()
 
         manufacturer = Manufacturer.objects.filter(slug=m_slug).first()
-        self.assertEqual(manufacturer.products_qty, 2)
+        self.assertEqual(manufacturer.products_qty, initial_count+2)

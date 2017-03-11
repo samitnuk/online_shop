@@ -91,8 +91,12 @@ class CategoryWebTests(WebTest):
     def test_category_products_method(self):
         category = Category.objects.first()
         cat_slug = category.slug
+        category_products = category.products()
+        initial_count = category_products.count()
 
         product1 = Product.objects.first()
+        if product1 in category_products:
+            initial_count -= 1
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product1.slug}),
             user=utils.get_staff_member(),
@@ -101,6 +105,8 @@ class CategoryWebTests(WebTest):
         form.submit()
 
         product2 = Product.objects.all()[2]
+        if product2 in category_products:
+            initial_count -= 1
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product2.slug}),
             user=utils.get_staff_member(),
@@ -110,7 +116,7 @@ class CategoryWebTests(WebTest):
 
         category = Category.objects.filter(slug=cat_slug).first()
         cat_products = category.products()
-        self.assertEqual(cat_products.count(), 2)
+        self.assertEqual(cat_products.count(), initial_count+2)
         self.assertIn(product1, cat_products)
         self.assertIn(product2, cat_products)
 

@@ -35,9 +35,11 @@ class ProductWebTests(WebTest):
             user=utils.get_staff_member()
         ).form
         category = Category.objects.first()
+        manufacturer = Manufacturer.objects.first()
         name = "Тестовий продукт"
         model_name = 'Some test MDL-name'
         form['category'] = category.id
+        form['manufacturer'] = manufacturer.id
         form['name'] = name
         form['model_name'] = model_name
         form['description'] = 'Some test description, not very long'
@@ -64,8 +66,7 @@ class ProductWebTests(WebTest):
         self.assertEqual(product.images.count(), 2)
 
     def test_product_creating_by_staff_member_no_category_selected(self):
-        manufacturer, _ = Manufacturer.objects.get_or_create(
-            name="Тестовий виробник")
+        manufacturer = Manufacturer.objects.first()
         form = self.app.get(
             reverse('shop:product_create'),
             user=utils.get_staff_member()
@@ -87,8 +88,25 @@ class ProductWebTests(WebTest):
         self.assertIsNone(product)
 
     def test_product_creating_by_staff_member_no_manufacturer_selected(self):
-        # In future Manufacturer will be required field
-        pass
+        category = Category.objects.first()
+        form = self.app.get(
+            reverse('shop:product_create'),
+            user=utils.get_staff_member()
+        ).form
+        name = "Тестовий продукт test test"
+        model_name = 'Some test MDL-name 123'
+        # category is not selected
+        form['name'] = name
+        form['model_name'] = model_name
+        form['category'] = category.id
+        form['description'] = 'Some test description, not very long'
+        form['available'] = True
+        form['price'] = '12.34'
+        form['stock'] = '42'
+        form.submit()
+
+        product = Product.objects.filter(model_name=model_name).first()
+        self.assertIsNone(product)
 
     def test_product_updating_by_regular_user(self):
         # user cannot update categories
@@ -106,8 +124,7 @@ class ProductWebTests(WebTest):
     def test_product_updating_by_staff_member(self):
         product = Product.objects.first()
         category = Category.objects.first()
-        manufacturer, _ = Manufacturer.objects.get_or_create(
-            name="Тестовий виробник")
+        manufacturer = Manufacturer.objects.first()
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product.slug}),
             user=utils.get_staff_member(),
