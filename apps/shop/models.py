@@ -82,7 +82,7 @@ class Product(models.Model):
         Category, related_name='category_products', verbose_name="Категорія")
     manufacturer = models.ForeignKey(
         Manufacturer, related_name='manufacturer_products',
-        verbose_name="Виробник", blank=True, null=True)
+        verbose_name="Виробник")
     name = models.CharField(
         max_length=200, db_index=True, verbose_name="Назва")
     model_name = models.CharField(
