@@ -33,13 +33,14 @@ class RegistrationForm(forms.Form):
 
     def save(self):
         cd = self.cleaned_data
-        user = User.objects.create(
+        user = User.objects.create_user(
             username=cd['username'],
             first_name=cd['first_name'],
             last_name=cd['last_name'],
             email=cd['email'],
             password=cd['password'],
         )
+        user.save()
         return user
 
 

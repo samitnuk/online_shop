@@ -65,11 +65,12 @@ def get_staff_member():
 
 def get_regular_user():
     """Create regular user """
-    user, _ = User.objects.get_or_create(
-        username='username',
+    user = User.objects.create_user(
+        username='test_user',
         first_name='First',
         last_name='Last',
         email='sometest@email.ts',
-        password="password12345",
+        password="asdkjfoih1222pkljkh",
     )
+    user.save()
     return user
