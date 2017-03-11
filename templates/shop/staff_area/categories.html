@@ -10,7 +10,7 @@
 
 {% for category in categories %}
 <a href="{% url 'shop:category' category.slug %}">{{ category.full_name }}</a>
-<a href="{% url 'shop:category_update' category.id category.slug %}">
+<a href="{% url 'shop:category_update' category.slug %}">
  Редагувати
 </a>
 <br>
@@ -34,5 +34,8 @@
   </div>
 </div>
 {% endfor %}
+
+<hr>
+<a href="{% url 'shop:category_create' %}">Створити категорію</a>
 
 {% endblock %}
