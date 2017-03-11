@@ -28,4 +28,4 @@ def login(request):
 
 def logout(request):
     logout_user(request)
-    return redirect('login')
+    return redirect('users:login')
