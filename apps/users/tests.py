@@ -35,7 +35,7 @@ class UserWebTests(WebTest):
         self.assertFalse(user.is_staff)
         self.assertTrue(user.is_active)
 
-    def test_user_login(self):
+    def test_user_login_and_logout(self):
         user = utils.get_regular_user()
         form = self.app.get(reverse('users:login')).form
         form['username'] = user.username
@@ -43,5 +43,12 @@ class UserWebTests(WebTest):
         response = form.submit().follow()
 
         self.assertEqual(response.context['user'], user)
-        self.assertIn(user.username, response)
-        print(user.username in response)
+
+        logout = self.app.get(reverse('users:logout'))
+        self.assertRedirects(
+            response=logout,
+            expected_url="/users/login/",
+        )
+        response = logout.follow()
+        current_user = response.context['user']
+        self.assertFalse(current_user.is_authenticated)
