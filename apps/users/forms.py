@@ -31,6 +31,17 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError('Паролі не співпадають')
         return password
 
+    def save(self):
+        cd = self.cleaned_data
+        user = User.objects.create(
+            username=cd['username'],
+            first_name=cd['first_name'],
+            last_name=cd['last_name'],
+            email=cd['email'],
+            password=cd['password'],
+        )
+        return user
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="Логін")
