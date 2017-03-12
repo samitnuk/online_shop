@@ -6,14 +6,14 @@ from . import views
 urlpatterns = [
     url(r'^$',
         views.cart_detail,
-        name='cart_detail'),
+        name='detail'),
     url(r'^remove/(?P<product_id>\d+)/$',
-        views.cart_remove,
-        name='cart_remove'),
+        views.cart_remove_product,
+        name='remove_product'),
     url(r'^add/(?P<product_id>\d+)/$',
-        views.cart_add,
-        name='cart_add'),
+        views.cart_add_product,
+        name='add_product'),
     url(r'^clear/$',
         views.cart_clear,
-        name='cart_clear')
+        name='clear')
 ]

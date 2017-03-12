@@ -29,7 +29,7 @@
               </td>
               <td>{{ product.name }}</td>
               <td>
-                <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                <form action="{% url 'cart:add_product' product.id %}" method="post">
                   {% csrf_token %}
                   {{ item.update_quantity_form.quantity }}<br>
                   {{ item.update_quantity_form.update }}
@@ -39,7 +39,7 @@
               <td>{{ item.price }} грн.</td>
               <td>{{ item.total_price }} грн.</td>
               <td>
-                <a href="{% url 'cart:cart_remove' product.id %}">
+                <a href="{% url 'cart:remove_product' product.id %}">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
               </td>
@@ -60,10 +60,10 @@
       <a href="{% url 'shop:product_list' %}" class="button u-full-width">Продовжити</a>
     </div>
     <div class="four columns">
-      <a href="{% url 'orders:order_create' %}" class="button button-primary u-full-width">Оформити замовлення</a>
+      <a href="{% url 'orders:create' %}" class="button button-primary u-full-width">Оформити замовлення</a>
     </div>
     <div class="four columns">
-      <a href="{% url 'cart:cart_clear' %}" class="button u-full-width">Очистити кошик</a>
+      <a href="{% url 'cart:clear' %}" class="button u-full-width">Очистити кошик</a>
     </div>
   </div>
 {% endblock %}
