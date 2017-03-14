@@ -7,7 +7,7 @@
 {% endblock title %}
 
 {% block content %}
-<form  action="{% url 'users:register' %}" method="post" class="form">
+<form  action="{% url 'accounts:register' %}" method="post" class="form">
   {% csrf_token %}
 
   {% for field in form.visible_fields %}

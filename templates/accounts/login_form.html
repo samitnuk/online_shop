@@ -7,7 +7,7 @@
 {% endblock title %}
 
 {% block content %}
-<form action="{% url 'users:login' %}" method="post" class="form">
+<form action="{% url 'accounts:login' %}" method="post" class="form">
   {% csrf_token %}
 
   {{ form.non_field_errors }}

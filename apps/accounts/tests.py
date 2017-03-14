@@ -17,7 +17,7 @@ class UserWebTests(WebTest):
         email = 'sometest2@email.ts'
         password = "password123451"
 
-        form = self.app.get(reverse('users:register')).form
+        form = self.app.get(reverse('accounts:register')).form
         form['username'] = username
         form['first_name'] = first_name
         form['last_name'] = last_name
@@ -37,17 +37,17 @@ class UserWebTests(WebTest):
 
     def test_user_login_and_logout(self):
         user = utils.get_regular_user()
-        form = self.app.get(reverse('users:login')).form
+        form = self.app.get(reverse('accounts:login')).form
         form['username'] = user.username
         form['password'] = "asdkjfoih1222pkljkh"
         response = form.submit().follow()
 
         self.assertEqual(response.context['user'], user)
 
-        logout = self.app.get(reverse('users:logout'))
+        logout = self.app.get(reverse('accounts:logout'))
         self.assertRedirects(
             response=logout,
-            expected_url="/users/login/",
+            expected_url="/accounts/login/",
         )
         response = logout.follow()
         current_user = response.context['user']
