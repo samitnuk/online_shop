@@ -11,13 +11,29 @@
         href="{{ PORTAL_URL }}{% static 'img/favicon.ico' %}" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href=https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css />
-  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
-  <link rel="stylesheet" href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
+  <link rel="stylesheet"
+        href=https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css />
+  <link rel="stylesheet"
+        href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
+  <link rel="stylesheet"
+        href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
   {% block extra_css %}{% endblock %}
 </head>
 <body style="background-image: url({% static 'img/02.png' %});">
   <section class="container">
+    <div class="row">
+      {% if not request.user.is_authenticated %}
+      <a href="{% url 'accounts:login' %}">Увійти</a>
+      <a href="{% url 'accounts:register' %}">Зареєструватися</a>
+      {% else %}
+      Привіт, {{ request.user.username }}
+      <a href="{% url 'accounts:user_profile' %}" title="Особиста сторінка">
+        <i class="fa fa-user" aria-hidden="true"></i></a>
+      <a href="{% url 'accounts:logout' %}" title="Вийти">
+        <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+      {% endif %}
+    </div>
+    <hr>
     <div class="row top">
       <div class="two columns">
         <a href="{% url 'shop:product_list' %}">
