@@ -34,4 +34,8 @@ def logout(request):
 
 @login_required
 def user_profile(request):
-    pass
+    context = {
+        'user': request.user,
+        'orders': request.user.orders.all()
+    }
+    return render(request, 'accounts/user_profile.html', context)

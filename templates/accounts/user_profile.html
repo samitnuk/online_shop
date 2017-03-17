@@ -1,0 +1,10 @@
+{{ user }}
+
+<hr>
+{% for order in orders %}
+  {{ order.created }}<br>
+  {% for item in order.get_items %}
+    {{ item.product }} {{ item.quantity }} шт.<br>
+  {% endfor %}
+  <hr>
+{% endfor %}
