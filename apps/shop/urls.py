@@ -2,7 +2,6 @@ from django.conf.urls import url
 
 from . import views, views_for_staff
 
-
 urlpatterns = [
 
     # URLs for staff members -------------------------------------------------

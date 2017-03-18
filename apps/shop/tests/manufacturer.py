@@ -1,8 +1,8 @@
+from django.urls import reverse
 from django_webtest import WebTest
 
-from django.urls import reverse
-
 from apps.shop.models import Manufacturer, Product
+
 from .. import utils
 
 

@@ -2,14 +2,14 @@ import csv
 import datetime
 
 from django.contrib import admin
-from django.http import HttpResponse
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.utils.html import format_html
 
 from .models import Order, OrderItem
 
 
-def ExportToCSV(modeladmin, request, queryset):
+def export_to_csv(modeladmin, request, queryset):
     _ = request
     opts = modeladmin.model._meta
     response = HttpResponse(content_type='text/csv')
@@ -54,7 +54,7 @@ class OrderAdmin(admin.ModelAdmin):
                     order_detail]
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
-    actions = [ExportToCSV]
+    actions = [export_to_csv]
 
 
 admin.site.register(Order, OrderAdmin)

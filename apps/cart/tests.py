@@ -1,7 +1,6 @@
-from django_webtest import WebTest
-
 from django.conf import settings
 from django.shortcuts import reverse
+from django_webtest import WebTest
 
 from apps.shop.models import Product
 

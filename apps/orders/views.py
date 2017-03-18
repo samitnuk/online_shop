@@ -1,10 +1,10 @@
-from django.shortcuts import render, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render
 
-from .models import OrderItem, Order
-from .forms import OrderCreateForm
 from ..cart.cart import Cart
+from .forms import OrderCreateForm
+from .models import Order, OrderItem
 
 
 @login_required

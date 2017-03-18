@@ -1,10 +1,9 @@
+from django.shortcuts import reverse
 from django_webtest import WebTest
 
-from django.shortcuts import reverse
-
-from apps.shop.models import Product
-from apps.shop import utils
 from apps.orders.models import Order
+from apps.shop import utils
+from apps.shop.models import Product
 
 
 class OrdersWebTests(WebTest):

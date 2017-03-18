@@ -1,7 +1,7 @@
 from django import forms
 
-from .models import Category, Manufacturer, Product, ProductImage
 from . import utils
+from .models import Category, Manufacturer, Product, ProductImage
 
 
 class CategoryForm(forms.ModelForm):

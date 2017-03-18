@@ -1,8 +1,8 @@
+from django.shortcuts import reverse
 from django_webtest import WebTest
 
-from django.shortcuts import reverse
-
 from apps.shop.models import Category, Product
+
 from .. import utils
 
 

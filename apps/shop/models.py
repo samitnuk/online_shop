@@ -1,6 +1,6 @@
+from autoslug import AutoSlugField
 from django.core.urlresolvers import reverse
 from django.db import models
-from autoslug import AutoSlugField
 
 from . import utils
 

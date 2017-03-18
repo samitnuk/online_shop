@@ -1,6 +1,5 @@
-from slugify import slugify
-
 from django.contrib.auth.models import User
+from slugify import slugify
 
 
 def product_main_img_path(instance, filename):

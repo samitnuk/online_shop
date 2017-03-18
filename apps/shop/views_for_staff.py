@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template import RequestContext
 
-from .forms import CategoryForm, ManufacturerForm, ProductForm, ImageFormSet
-from .models import Category, Manufacturer, Product, ProductImage
 from . import utils
+from .forms import CategoryForm, ImageFormSet, ManufacturerForm, ProductForm
+from .models import Category, Manufacturer, Product, ProductImage
 
 
 @staff_member_required

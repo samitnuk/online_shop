@@ -1,10 +1,11 @@
 from decimal import Decimal
 
-from django_webtest import WebTest
 # from django.test import TestCase
 from django.urls import reverse
+from django_webtest import WebTest
 
 from apps.shop.models import Category, Manufacturer, Product
+
 from .. import utils
 
 

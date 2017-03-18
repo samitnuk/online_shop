@@ -1,7 +1,6 @@
-from django_webtest import WebTest
-
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
+from django_webtest import WebTest
 
 from apps.shop import utils
 
