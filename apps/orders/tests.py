@@ -61,6 +61,7 @@ class OrdersWebTests(WebTest):
 
         order = Order.objects.filter(user=user).first()
 
+        self.assertEqual(str(order), "Замовлення: {}".format(order.id))
         self.assertEqual(order.first_name, "Test_first_name")
         self.assertEqual(order.last_name, "Test_last_name")
         self.assertEqual(order.carrier, "Test carrier")
@@ -68,3 +69,12 @@ class OrdersWebTests(WebTest):
         self.assertEqual(order.warehouse_num, 2)
         self.assertEqual(order.phone_num, "(000) 11-22-333")
         self.assertFalse(order.paid)
+
+        items = order.get_items()
+        for item in items:
+            self.assertIn(item.product, [product1, product2])
+
+        self.assertEqual(
+            order.get_total_cost(),
+            sum([item.get_cost() for item in items])
+        )
