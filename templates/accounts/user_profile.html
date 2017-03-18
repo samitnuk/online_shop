@@ -1,10 +1,20 @@
+{% extends 'base.html' %}
+
+{% load form_filters %}
+
+{% block title %}
+  Профайл користувача
+{% endblock title %}
+
+{% block content %}
 {{ user }}
 
 <hr>
 {% for order in orders %}
   {{ order.created }}<br>
   {% for item in order.get_items %}
-    {{ item.product }} {{ item.quantity }} шт.<br>
+    {{ item.product }} | {{ item.quantity }} шт. | {{ item.get_cost }} грн.<br>
   {% endfor %}
   <hr>
 {% endfor %}
+{% endblock content %}
