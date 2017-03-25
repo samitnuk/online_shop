@@ -13,11 +13,11 @@ function getDatePicker() {
     };
     $('#id_valid_from').datepicker({
         language: languageUA,
-        maxDate: new Date(),
+        timepicker: true,
     });
     $('#id_valid_to').datepicker({
         language: languageUA,
-        maxDate: new Date(),
+        timepicker: true,
     });
 }
 
