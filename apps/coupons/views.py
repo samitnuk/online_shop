@@ -8,6 +8,7 @@ from .models import Coupon
 
 @require_POST
 def coupon_apply(request):
+    print("****")
     now = timezone.now()
     form = CouponApplyForm(request.POST)
     if form.is_valid():
