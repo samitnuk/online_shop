@@ -15,9 +15,9 @@
         href=https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css />
   <link rel="stylesheet"
         href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
+  {% block extra_css %}{% endblock %}
   <link rel="stylesheet"
         href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
-  {% block extra_css %}{% endblock %}
 </head>
 <body style="background-image: url({% static 'img/02.png' %});">
   <section class="container">
