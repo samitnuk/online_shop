@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-29 22:07+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: _project/settings.py:119
+msgid "Ukrainian"
+msgstr "Українська"
+
+#: apps/shop/models.py:17 apps/shop/models.py:60 apps/shop/models.py:96
+#: apps/shop/models.py:123
+msgid "Image"
+msgstr "Зображення"
+
+#: apps/shop/models.py:21 apps/shop/models.py:84
+msgid "Category"
+msgstr "Категорія"
+
+#: apps/shop/models.py:22
+msgid "Categories"
+msgstr "Категорії"
+
+#: apps/shop/models.py:55 apps/shop/models.py:64 apps/shop/models.py:87
+msgid "Manufacturer"
+msgstr "Виробник"
+
+#: apps/shop/models.py:65
+msgid "Manufacturers"
+msgstr "Виробники"
+
+#: apps/shop/models.py:89
+msgid "Name"
+msgstr "Назва"
+
+#: apps/shop/models.py:91
+msgid "Model"
+msgstr "Модель"
+
+#: apps/shop/models.py:98
+msgid "Description"
+msgstr "Опис"
+
+#: apps/shop/models.py:100
+msgid "Price"
+msgstr "Ціна"
+
+#: apps/shop/models.py:102
+msgid "Stock Qty"
+msgstr "К-сть на складі"
+
+#: apps/shop/models.py:104
+msgid "Available"
+msgstr "Доступний"
+
+#: apps/shop/models.py:110
+msgid "Product"
+msgstr "Товар"
+
+#: apps/shop/models.py:111
+msgid "Products"
+msgstr "Товари"
+
+#: templates/base.html:27
+msgid "Log in"
+msgstr "Увійти"
+
+#: templates/base.html:28
+msgid "Register"
+msgstr "Зареєструватися"
+
+#: templates/base.html:31
+msgid "Profile"
+msgstr "Особиста сторінка"
+
+#: templates/base.html:33
+msgid "Log out"
+msgstr "Вийти"
+
+#~ msgid "English"
+#~ msgstr "Англійська"

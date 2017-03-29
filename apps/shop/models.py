@@ -1,6 +1,8 @@
-from autoslug import AutoSlugField
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from autoslug import AutoSlugField
 
 from . import utils
 
@@ -12,12 +14,12 @@ class Category(models.Model):
         slugify=utils.slugify_, db_index=True)
     parent_category = models.ForeignKey('self', null=True, blank=True)
     image = models.ImageField(upload_to=utils.category_img_path,
-                              blank=True, verbose_name="Зображення")
+                              blank=True, verbose_name=_('Image'))
 
     class Meta:
         ordering = ['name']
-        verbose_name = "Категорія"
-        verbose_name_plural = "Категорії"
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
     def __str__(self):
         return self.name
@@ -50,17 +52,17 @@ class Category(models.Model):
 
 class Manufacturer(models.Model):
     name = models.CharField(
-        max_length=200, db_index=True, verbose_name="Виробник")
+        max_length=200, db_index=True, verbose_name=_('Manufacturer'))
     slug = AutoSlugField(
         always_update=True, populate_from='name', unique=True,
         slugify=utils.slugify_, db_index=True)
     image = models.ImageField(upload_to=utils.manufacturer_img_path,
-                              blank=True, verbose_name="Зображення")
+                              blank=True, verbose_name=_('Image'))
 
     class Meta:
         ordering = ['name']
-        verbose_name = "Виробник"
-        verbose_name_plural = "Виробники"
+        verbose_name = _('Manufacturer')
+        verbose_name_plural = _('Manufacturers')
 
     def __str__(self):
         return self.name
@@ -79,34 +81,34 @@ class Manufacturer(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(
-        Category, related_name='category_products', verbose_name="Категорія")
+        Category, related_name='category_products', verbose_name=_('Category'))
     manufacturer = models.ForeignKey(
         Manufacturer, related_name='manufacturer_products',
-        verbose_name="Виробник")
+        verbose_name=_('Manufacturer'))
     name = models.CharField(
-        max_length=200, db_index=True, verbose_name="Назва")
+        max_length=200, db_index=True, verbose_name=_('Name'))
     model_name = models.CharField(
-        max_length=200, blank=True, verbose_name="Модель")
+        max_length=200, blank=True, verbose_name=_('Model'))
     slug = AutoSlugField(
         always_update=True, populate_from=utils.base_for_product_slug,
         unique=True, slugify=utils.slugify_, db_index=True)
     main_image = models.ImageField(upload_to=utils.product_main_img_path,
-                                   blank=True, verbose_name="Зображення")
+                                   blank=True, verbose_name=_('Image'))
     description = models.TextField(
-        blank=True, verbose_name="Опис")
+        blank=True, verbose_name=_('Description'))
     price = models.DecimalField(
-        max_digits=10, decimal_places=2, verbose_name="Ціна")
+        max_digits=10, decimal_places=2, verbose_name=_('Price'))
     stock = models.PositiveIntegerField(
-        verbose_name="На складі")
+        verbose_name=_('Stock Qty'))
     available = models.BooleanField(
-        default=True, verbose_name="Доступний")
+        default=True, verbose_name=_('Available'))
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['name']
-        verbose_name = "Товар"
-        verbose_name_plural = "Товари"
+        verbose_name = _('Product')
+        verbose_name_plural = _('Products')
 
     def __str__(self):
         return self.name
@@ -118,4 +120,4 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images')
     image = models.ImageField(upload_to=utils.product_img_path,
-                              blank=True, verbose_name="Зображення")
+                              blank=True, verbose_name=_('Image'))
