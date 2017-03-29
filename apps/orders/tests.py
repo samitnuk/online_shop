@@ -48,7 +48,7 @@ class OrdersWebTests(WebTest):
         form.submit()
 
         # Create order
-        form = self.app.get(reverse('orders:create')).form
+        form = self.app.get(reverse('order:create')).form
         form['first_name'] = "Test_first_name"
         form['last_name'] = "Test_last_name"
         form['carrier'] = "Test carrier"

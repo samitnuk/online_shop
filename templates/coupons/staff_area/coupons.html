@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Налаштування сайту
+{% endblock %}
+
+{% block content %}
+
+{% for coupon in coupons %}
+{{ coupon.code }} ({{ coupon.discount }}%)<br>
+{% endfor %}
+
+<hr>
+<a href="{% url 'coupon:create' %}">Створити купон</a>
+
+{% endblock %}

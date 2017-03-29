@@ -7,7 +7,5 @@
 {% endblock %}
 
 {% block content %}
-<a href="">Товари</a>
-<a href="{% url 'shop:categories' %}">Категорії</a>
-<a href="{% url 'shop:manufacturers' %}">Виробники</a>
+  {% include "_includes/staff_area_menu.html" %}
 {% endblock %}

@@ -8,6 +8,7 @@ from .models import Coupon
 
 @require_POST
 def coupon_apply(request):
+    print("****")
     now = timezone.now()
     form = CouponApplyForm(request.POST)
     if form.is_valid():
@@ -21,4 +22,3 @@ def coupon_apply(request):
         except Coupon.DoesNotExist:
             request.session['coupon_id'] = None
     return redirect('cart:detail')
-
