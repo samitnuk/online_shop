@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from . import utils
 from .models import Category, Manufacturer, Product, ProductImage
@@ -6,7 +7,7 @@ from .models import Category, Manufacturer, Product, ProductImage
 
 class CategoryForm(forms.ModelForm):
     parent_category = forms.ChoiceField(
-        label='Батьківська категорія', choices=[])
+        label=_('Parent category'), choices=[])
 
     class Meta:
         model = Category
@@ -32,7 +33,7 @@ class ManufacturerForm(forms.ModelForm):
 
 
 class ProductForm(forms.ModelForm):
-    category = forms.ChoiceField(label='Категорія', choices=[])
+    category = forms.ChoiceField(label=_('Category'), choices=[])
 
     class Meta:
         model = Product
@@ -53,7 +54,7 @@ class ProductForm(forms.ModelForm):
 
 
 class ImageForm(forms.ModelForm):
-    image = forms.ImageField(label='Зображення')
+    image = forms.ImageField(label=_('Image'))
 
     class Meta:
         Model = ProductImage

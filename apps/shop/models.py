@@ -8,7 +8,8 @@ from . import utils
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=200, db_index=True)
+    name = models.CharField(max_length=200, db_index=True,
+                            verbose_name=_('Name'))
     slug = AutoSlugField(
         always_update=True, populate_from='name', unique=True,
         slugify=utils.slugify_, db_index=True)

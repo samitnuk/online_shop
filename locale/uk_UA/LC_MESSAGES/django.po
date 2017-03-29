@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-29 22:07+0300\n"
+"POT-Creation-Date: 2017-03-29 22:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,60 +17,160 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: _project/settings.py:119
+#: _project/settings.py:115
 msgid "Ukrainian"
 msgstr "Українська"
 
-#: apps/shop/models.py:17 apps/shop/models.py:60 apps/shop/models.py:96
-#: apps/shop/models.py:123
-msgid "Image"
-msgstr "Зображення"
+#: apps/accounts/forms.py:7 apps/accounts/forms.py:49
+msgid "Username"
+msgstr "Логін"
 
-#: apps/shop/models.py:21 apps/shop/models.py:84
-msgid "Category"
-msgstr "Категорія"
+#: apps/accounts/forms.py:8 apps/orders/models.py:15
+msgid "First Name"
+msgstr "Імʼя"
 
-#: apps/shop/models.py:22
-msgid "Categories"
-msgstr "Категорії"
+#: apps/accounts/forms.py:9 apps/orders/models.py:17
+msgid "Last Name"
+msgstr "Прізвище"
 
-#: apps/shop/models.py:55 apps/shop/models.py:64 apps/shop/models.py:87
-msgid "Manufacturer"
-msgstr "Виробник"
+#: apps/accounts/forms.py:10
+msgid "Email"
+msgstr "Email"
 
-#: apps/shop/models.py:65
-msgid "Manufacturers"
-msgstr "Виробники"
+#: apps/accounts/forms.py:11 apps/accounts/forms.py:50
+msgid "Password"
+msgstr "Пароль"
 
-#: apps/shop/models.py:89
-msgid "Name"
-msgstr "Назва"
+#: apps/accounts/forms.py:13
+msgid "Confirm Password"
+msgstr "Пароль повторно"
 
-#: apps/shop/models.py:91
-msgid "Model"
-msgstr "Модель"
+#: apps/accounts/forms.py:19
+msgid "This username is already registered"
+msgstr "Такий логін вже зареєстровано"
 
-#: apps/shop/models.py:98
-msgid "Description"
-msgstr "Опис"
+#: apps/accounts/forms.py:25
+msgid "This email is already registered"
+msgstr "Такий email вже зареєстровано"
 
-#: apps/shop/models.py:100
+#: apps/accounts/forms.py:32
+msgid "Passwords do not match"
+msgstr "Пароль не співпадає"
+
+#: apps/accounts/forms.py:61
+msgid "Wrong Username"
+msgstr "Неправильний логін"
+
+#: apps/accounts/forms.py:65
+msgid "Wrong Password"
+msgstr "Неправильний пароль"
+
+#: apps/accounts/models.py:9
+msgid "User"
+msgstr "Користувач"
+
+#: apps/accounts/models.py:10
+msgid "Users"
+msgstr "Користувачі"
+
+#: apps/cart/forms.py:8 apps/orders/models.py:59
+msgid "Qty"
+msgstr "К-сть"
+
+#: apps/orders/models.py:19
+msgid "Carrier"
+msgstr "Перевізник"
+
+#: apps/orders/models.py:21
+msgid "City"
+msgstr "Місто"
+
+#: apps/orders/models.py:23
+msgid "Warehouse Number"
+msgstr "Номер складу"
+
+#: apps/orders/models.py:25
+msgid "Phone Number"
+msgstr "Номер телефону"
+
+#: apps/orders/models.py:27
+msgid "Created"
+msgstr "Створено"
+
+#: apps/orders/models.py:29
+msgid "Updated"
+msgstr "Оновлено"
+
+#: apps/orders/models.py:31
+msgid "Paid"
+msgstr "Оплачено"
+
+#: apps/orders/models.py:40
+msgid "Order"
+msgstr "Замовлення"
+
+#: apps/orders/models.py:41
+msgid "Orders"
+msgstr "Замовлення"
+
+#: apps/orders/models.py:44
+msgid "Order Number: {}"
+msgstr "Замовлення №: {}"
+
+#: apps/orders/models.py:57 apps/shop/models.py:101
 msgid "Price"
 msgstr "Ціна"
 
-#: apps/shop/models.py:102
+#: apps/shop/forms.py:10
+msgid "Parent category"
+msgstr "Батьківська категорія"
+
+#: apps/shop/forms.py:36 apps/shop/models.py:22 apps/shop/models.py:85
+msgid "Category"
+msgstr "Категорія"
+
+#: apps/shop/forms.py:57 apps/shop/models.py:18 apps/shop/models.py:61
+#: apps/shop/models.py:97 apps/shop/models.py:124
+msgid "Image"
+msgstr "Зображення"
+
+#: apps/shop/models.py:12 apps/shop/models.py:90
+msgid "Name"
+msgstr "Назва"
+
+#: apps/shop/models.py:23
+msgid "Categories"
+msgstr "Категорії"
+
+#: apps/shop/models.py:56 apps/shop/models.py:65 apps/shop/models.py:88
+msgid "Manufacturer"
+msgstr "Виробник"
+
+#: apps/shop/models.py:66
+msgid "Manufacturers"
+msgstr "Виробники"
+
+#: apps/shop/models.py:92
+msgid "Model"
+msgstr "Модель"
+
+#: apps/shop/models.py:99
+msgid "Description"
+msgstr "Опис"
+
+#: apps/shop/models.py:103
 msgid "Stock Qty"
 msgstr "К-сть на складі"
 
-#: apps/shop/models.py:104
+#: apps/shop/models.py:105
 msgid "Available"
 msgstr "Доступний"
 
-#: apps/shop/models.py:110
+#: apps/shop/models.py:111
 msgid "Product"
 msgstr "Товар"
 
-#: apps/shop/models.py:111
+#: apps/shop/models.py:112
 msgid "Products"
 msgstr "Товари"
 
