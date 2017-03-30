@@ -125,6 +125,8 @@ LANGUAGES = (
     ('uk_UA', _('Ukrainian')),
 )
 
+ROSETTA_STORAGE_CLASS = 'rosetta.storage.CacheRosettaStorage'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
