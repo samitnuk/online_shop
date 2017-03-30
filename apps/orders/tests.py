@@ -61,7 +61,7 @@ class OrdersWebTests(WebTest):
 
         order = Order.objects.filter(user=user).first()
 
-        self.assertEqual(str(order), "Замовлення: {}".format(order.id))
+        self.assertEqual(str(order), "Замовлення №: {}".format(order.id))
         self.assertEqual(order.first_name, "Test_first_name")
         self.assertEqual(order.last_name, "Test_last_name")
         self.assertEqual(order.carrier, "Test carrier")
