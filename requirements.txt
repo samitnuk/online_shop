@@ -7,5 +7,7 @@ django-autoslug==1.9.3
 
 python-memcached==1.58
 
+django-rosetta==0.7.12
+
 # For tests
 django-webtest==1.9.1
