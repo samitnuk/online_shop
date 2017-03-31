@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.apps import apps as django_apps
 from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
@@ -29,5 +30,6 @@ urlpatterns = [
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if 'rosetta' in settings.INSTALLED_APPS:
+rosetta_is_installed = django_apps.is_installed('rosetta')
+if rosetta_is_installed:
     urlpatterns.insert(0, url(r'^rosetta/', include('rosetta.urls')))
