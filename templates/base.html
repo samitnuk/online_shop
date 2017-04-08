@@ -21,44 +21,53 @@
         href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
 </head>
 <body style="background-image: url({% static 'img/02.png' %});">
-  <section class="container">
-    <div class="row">
-      {% if not request.user.is_authenticated %}
-      <a href="{% url 'accounts:login' %}">{% trans 'Log in' %}</a>
-      <a href="{% url 'accounts:register' %}">{% trans 'Register' %}</a>
-      {% else %}
-      Привіт, {{ request.user.username }}
-      <a href="{% url 'accounts:user_profile' %}" title="{% trans 'Profile' %}">
-        <i class="fa fa-user" aria-hidden="true"></i></a>
-      <a href="{% url 'accounts:logout' %}" title="{% trans 'Log out' %}">
-        <i class="fa fa-sign-out" aria-hidden="true"></i></a>
-      {% endif %}
-    </div>
-    <hr>
-    <div class="row top">
-      <div class="two columns">
-        <a href="{% url 'shop:product_list' %}">
-          <img src="{% static 'img/logo.png' %}">
-        </a>
-      </div>
-      <div class="ten columns">
-        <div class="cart u-pull-right">
-          {% with total_items=cart|length %}
-          {% if total_items > 0 %}
-          <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-          <a href="{% url 'cart:detail' %}">
-          {{ total_items }} тов. {{ cart.get_total_price }} грн.
-            </a>
+  <section class="container" id="top">
+    <div class="wrapper">
+      <div class="row">
+        <div class="six columns">
+          {% if not request.user.is_authenticated %}
+          <a href="{% url 'accounts:login' %}">{% trans 'Log in' %}</a>
+          <a href="{% url 'accounts:register' %}">{% trans 'Register' %}</a>
           {% else %}
-            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+          {% trans 'Hello' %}, {{ request.user.username }}
+          <a href="{% url 'accounts:user_profile' %}" title="{% trans 'Profile' %}">
+            <i class="fa fa-user" aria-hidden="true"></i></a>
+          <a href="{% url 'accounts:logout' %}" title="{% trans 'Log out' %}">
+            <i class="fa fa-sign-out" aria-hidden="true"></i></a>
           {% endif %}
-          {% endwith %}
+        </div>
+        <div class="six columns">
+          <div class="cart u-pull-right"> |
+            {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+            <a href="{% url 'cart:detail' %}">
+            {{ total_items }} тов. {{ cart.get_total_price }} грн.
+              </a>
+            {% else %}
+              <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+            {% endif %}
+            {% endwith %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="container" id="main">
+    <div class="wrapper">
+      <div class="row top">
+        <div class="three columns">
+          <a href="{% url 'shop:product_list' %}">
+            <img src="{% static 'img/logo.png' %}">
+          </a>
         </div>
       </div>
     </div>
   </section>
   <section class="container">
-    {% block content %}{% endblock %}
+    <div class="wrapper">
+      {% block content %}{% endblock %}
+    </div>
   </section>
   <script src="https://use.fontawesome.com/62626c0a50.js"></script>
   {% block extra_js %}{% endblock %}

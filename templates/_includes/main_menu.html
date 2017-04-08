@@ -7,9 +7,8 @@
         </li>
         {% for cat in categories %}
           {% if not cat.has_parent_category %}
-            <li>
-              <a class="{% if category.slug == cat.slug %}selected{% endif %}"
-                 href="{{ cat.get_absolute_url }}">{{ cat }}</a>
+            <li class="{% if category.slug == cat.slug %}current-menu-item{% endif %}">
+              <a href="{{ cat.get_absolute_url }}">{{ cat }}</a>
               {% if cat.subcategories %}
               <ul>
                 {% for cat_ in cat.subcategories %}
