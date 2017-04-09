@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -26,18 +27,44 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse(
-            'shop:product_list_by_category',
-            kwargs={'category_slug': self.slug})
+        key = 'category_{}_abs_url'.format(self.id)
+        abs_url = cache.get(key)
+        if abs_url:
+            return abs_url
+        abs_url = reverse('shop:product_list_by_category',
+                          kwargs={'category_slug': self.slug})
+        cache.set(key, abs_url)
+        return abs_url
 
     def products(self):
-        return self.category_products.all()
+        key = 'category_{}_products'.format(self.id)
+        cached_products = cache.get(key)
+        if cached_products:
+            return cached_products
+        products = self.category_products.all()
+        cache.set(key, products)
+        return products
 
     def subcategories(self):
-        return Category.objects.filter(parent_category__id=self.id)
+        key = 'category_{}_subcategories'.format(self.id)
+        cached_subcategories = cache.get(key)
+        if cached_subcategories:
+            return cached_subcategories
+        subcategories = Category.objects.filter(parent_category__id=self.id)
+        cache.set(key, subcategories)
+        return subcategories
 
     def has_parent_category(self):
-        return True if self.parent_category else False
+        key = 'category_{}_has_parent_category'.format(self.id)
+        cached_value = cache.get(key)
+        if cached_value:
+            return True if cached_value == 'True' else False
+        value = True if self.parent_category else False
+        if value:
+            cache.set(key, 'True')
+        else:
+            cache.set(key, 'False')
+        return value
 
     @property
     def full_name(self):  # to show in admin panel
