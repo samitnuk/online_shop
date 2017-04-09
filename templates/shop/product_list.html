@@ -7,9 +7,6 @@
 {% endblock %}
 
 {% block content %}
-
-  {% include '_includes/main_menu.html' %}
-
   <h4>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h4>
     <div class="row">
     {% for product in products %}

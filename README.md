@@ -9,12 +9,11 @@ ___
 - [x] Relate orders to user
 - [x] Add ability to clean cart from cart page
 - [x] Add ability to add more images for product
-- [x] Add dropdowns to menu (maybe [this](https://codepen.io/philhoyt/pen/ujHzd)) 
 - [x] Export orders to CSV
 - [ ] Generate PDF for user after order confirmed
 - [ ] Update product.stock after order confirmed
 - [x] Add coupons
-- [ ] Add i18n
+- [x] Add i18n
 - [ ] Create product as copy of existing product
 
 ___

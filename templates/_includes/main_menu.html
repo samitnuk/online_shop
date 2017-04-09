@@ -1,32 +1,85 @@
-  <div class="row">
-    <h5 class="three columns">Категорії</h5>
-    <nav id="primary_nav_wrap" class="nine columns">
-      <ul>
-        <li class="{% if not category %}current-menu-item{% endif %}">
-          <a href="{% url 'shop:product_list' %}">Всі</a>
-        </li>
-        {% for cat in categories %}
-          {% if not cat.has_parent_category %}
-            <li class="{% if category.slug == cat.slug %}current-menu-item{% endif %}">
-              <a href="{{ cat.get_absolute_url }}">{{ cat }}</a>
-              {% if cat.subcategories %}
-              <ul>
-                {% for cat_ in cat.subcategories %}
-                <li><a href="{{ cat_.get_absolute_url }}">{{ cat_ }}</a>
-                  {%if cat_.subcategories %}
+  <!-- <div class="row">
+    <div class="twelve columns">
+        <nav id="primary_nav_wrap" class="u-pull-right">
+          <ul>
+            <li class="{% if not category %}current-menu-item{% endif %}">
+              <a href="{% url 'shop:product_list' %}">
+                <i class="fa fa-home" aria-hidden="true"></i>
+            </a>
+            </li>
+            {% for cat in categories %}
+              {% if not cat.has_parent_category %}
+                <li class="{% if category.slug == cat.slug %}current-menu-item{% endif %}">
+                  <a href="{{ cat.get_absolute_url }}">{{ cat }}</a>
+                  {% if cat.subcategories %}
                   <ul>
-                    {% for cat__ in cat_.subcategories %}
-                    <li><a href="{{ cat__.get_absolute_url }}">{{ cat__ }}</a></li>
+                    {% for cat_ in cat.subcategories %}
+                    <li><a href="{{ cat_.get_absolute_url }}">{{ cat_ }}</a>
+                      {%if cat_.subcategories %}
+                      <ul>
+                        {% for cat__ in cat_.subcategories %}
+                        <li><a href="{{ cat__.get_absolute_url }}">{{ cat__ }}</a></li>
+                        {% endfor %}
+                      </ul>
+                      {% endif %}
+                    </li>
                     {% endfor %}
                   </ul>
                   {% endif %}
                 </li>
-                {% endfor %}
-              </ul>
               {% endif %}
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </nav>
-  </div>
+            {% endfor %}
+          </ul>
+        </nav>
+    </div>
+  </div> -->
+{% load static %}
+  <nav class="main-nav" role="navigation">
+
+    <!-- Mobile menu toggle button (hamburger/x icon) -->
+    <input id="main-menu-state" type="checkbox" />
+    <label class="main-menu-btn" for="main-menu-state">
+      <span class="main-menu-btn-icon"></span> Toggle main menu visibility
+    </label>
+
+        <a href="{% url 'shop:product_list' %}"><img src="{% static 'img/logo.png' %}"></a>
+
+    <!-- Sample menu definition -->
+    <ul id="main-menu" class="sm sm-clean">
+      <li class="current-menu-item"><a href="{% url 'shop:product_list' %}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+      <li><a href="#">Для жінок</a>
+        <ul>
+          <li><a href="#">Аксесуари</a></li>
+          <li><a href="#">Футболки</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Для чоловіків</a>
+          <ul>
+            <li><a href="#">Аксесуари</a></li>
+            <li><a href="#">Футболки</a></li>
+          </ul>
+      </li>
+
+      <li><a href="#">Спорядження</a>
+        <ul>
+          <li><a href="#">Лижі та сноуборд </a>
+            <ul>
+              <li><a href="#">Лижні окуляри</a></li>
+              </ul>
+          </li>
+          <li><a href="#">Туризм</a>
+            <ul>
+              <li><a href="#">Аксесуари</a></li>
+              <li><a href="#">Килимки (Каремати)</a></li>
+              <li><a href="#">Намети</a></li>
+              <li><a href="#">Пальники</a></li>
+              <li><a href="#">Питні системи</a></li>
+              <li><a href="#">Посуд</a></li>
+              <li><a href="#">Рюкзаки і сумки</a></li>
+              <li><a href="#">Спальники</a></li>
+              </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>

@@ -18,7 +18,10 @@
         href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
   {% block extra_css %}{% endblock %}
   <link rel="stylesheet"
+        href="{{ PORTAL_URL }}{% static 'css/sm-clean.css' %}" />
+  <link rel="stylesheet"
         href="{{ PORTAL_URL }}{% static 'css/main.css' %}" />
+
 </head>
 <body style="background-image: url({% static 'img/02.png' %});">
   <section class="container" id="top">
@@ -55,13 +58,14 @@
   </section>
   <section class="container" id="main">
     <div class="wrapper">
-      <div class="row top">
+        {% include '_includes/main_menu.html' %}
+      <!-- <div class="row top">
         <div class="three columns">
           <a href="{% url 'shop:product_list' %}">
             <img src="{% static 'img/logo.png' %}">
           </a>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
   <section class="container">
@@ -70,6 +74,10 @@
     </div>
   </section>
   <script src="https://use.fontawesome.com/62626c0a50.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+          integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+          crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{% static 'js/jquery.smartmenus.min.js' %}"></script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

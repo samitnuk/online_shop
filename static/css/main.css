@@ -27,7 +27,8 @@ body {font-family: 'Fantasque Sans Mono';}
 }
 
 #main {
-    height: 600px;
+    margin-top: 10px;
+    padding: 10px 0;
 }
 
 .wrapper {
@@ -60,7 +61,10 @@ form.form {
 .error li {list-style-type: none;}
 
 /* --- DROPDOWN MENU --- */
-#primary_nav_wrap {margin-top: 15px;}
+#primary_nav_wrap {
+    margin-top: 15px;
+    right: -15px'
+}
 
 #primary_nav_wrap ul {
 	list-style:none;
