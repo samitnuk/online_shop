@@ -40,13 +40,11 @@
           {% endif %}
         </div>
         <div class="six columns">
-          <div class="cart u-pull-right"> |
+          <div class="cart u-pull-right">
             {% with total_items=cart|length %}
             {% if total_items > 0 %}
             <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-            <a href="{% url 'cart:detail' %}">
-            {{ total_items }} тов. {{ cart.get_total_price }} грн.
-              </a>
+            <a href="{% url 'cart:detail' %}"> ({{ total_items }})</a>
             {% else %}
               <i class="fa fa-shopping-basket" aria-hidden="true"></i>
             {% endif %}
