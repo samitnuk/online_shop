@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
 {% load form_filters %}
 
 {% block title %}
@@ -7,20 +9,31 @@
 {% endblock title %}
 
 {% block content %}
-<form  action="{% url 'accounts:register' %}" method="post" class="form">
-  {% csrf_token %}
-
-  {% for field in form.visible_fields %}
-  <div class="row">
-    <div class="two columns">{{ field.label_tag }}</div>
-    <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
-    <div class="three columns error">{{ field.errors }}</div>
-  </div>
-  {% endfor %}
-  <div class="row">
-    <div class="offset-by-two three columns">
-      <input type="submit" class="button button-primary" value="Зареєструватися">
+<section class="container" id="main">
+  <div class="wrapper">
+    <div class="row">
+      <div class="offset-by-two ten columns">
+        <h4>{% trans 'Register' %}</h4>
+      </div>
     </div>
+    <form  action="{% url 'accounts:register' %}" method="post" class="form">
+      {% csrf_token %}
+
+      {% for field in form.visible_fields %}
+      <div class="row">
+        <div class="two columns">{{ field.label_tag }}</div>
+        <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
+        <div class="three columns error">{{ field.errors }}</div>
+      </div>
+      {% endfor %}
+      <div class="row">
+        <div class="offset-by-two three columns">
+          <input type="submit"
+                 class="button button-primary u-full-width"
+                 value="{% trans 'Register' %}">
+        </div>
+      </div>
+    </form>
   </div>
-</form>
+</section>
 {% endblock content %}

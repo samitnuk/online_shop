@@ -7,12 +7,14 @@
 {% endblock %}
 
 {% block content %}
+<section class="container" id="main">
+  <div class="wrapper">
+    {% for coupon in coupons %}
+    {{ coupon.code }} ({{ coupon.discount }}%)<br>
+    {% endfor %}
 
-{% for coupon in coupons %}
-{{ coupon.code }} ({{ coupon.discount }}%)<br>
-{% endfor %}
-
-<hr>
-<a href="{% url 'coupon:create' %}">Створити купон</a>
-
+    <hr>
+    <a href="{% url 'coupon:create' %}">Створити купон</a>
+  </div>
+</section>
 {% endblock %}

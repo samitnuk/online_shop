@@ -7,44 +7,48 @@
 {% endblock %}
 
 {% block content %}
-  <h4>Оформлення замовлення</h4>
-  <div class="col-sm-4">
-    <h5>Заповніть форму:</h5>
-    <form class="order-form" action="." method="post">
-      {% csrf_token %}
+<section class="container" id="main">
+  <div class="wrapper">
+    <h4>Оформлення замовлення</h4>
+    <div class="col-sm-4">
+      <h5>Заповніть форму:</h5>
+      <form class="order-form" action="." method="post">
+        {% csrf_token %}
 
-      {{ form.non_field_errors }}
+        {{ form.non_field_errors }}
 
-      {% for field in form.visible_fields %}
-      <div class="row">
-        <div class="two columns">{{ field.label_tag }}</div>
-        <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
-        <div class="three columns error">{{ field.errors }}</div>
-      </div>
-      {% endfor %}
-      <div class="row">
-        <div class="offset-by-two three columns">
-          <input type="submit" class="button button-primary" value="Відправити">
+        {% for field in form.visible_fields %}
+        <div class="row">
+          <div class="two columns">{{ field.label_tag }}</div>
+          <div class="seven columns">{{ field|addclass:"u-full-width" }}</div>
+          <div class="three columns error">{{ field.errors }}</div>
         </div>
-      </div>
-    </form>
-  </div>
+        {% endfor %}
+        <div class="row">
+          <div class="offset-by-two three columns">
+            <input type="submit" class="button button-primary" value="Відправити">
+          </div>
+        </div>
+      </form>
+    </div>
 
-  <div class="order-info col-sm-8">
-    <h5>Ваше замовлення:</h5>
-    <ul>
-      {% for item in cart  %}
-        <li>
-          {{ item.product.name }} | К-сть: {{ item.quantity }} | Ціна: {{ item.total_price }} грн.
-        </li>
-      {% endfor %}
-      {% if cart.coupon %}
-        <li>
-          "{{ cart.coupon.code }}" купон на знижку {{ cart.coupon.discount }}%
-          <span> - {{ cart.get_discount|floatformat:2 }} грн.</span>
-        </li>
-      {% endif %}
-    </ul>
-    <p><strong> Всього:</strong> {{ cart.get_total_price_after_discount|floatformat:2 }} грн.</p>
+    <div class="order-info col-sm-8">
+      <h5>Ваше замовлення:</h5>
+      <ul>
+        {% for item in cart  %}
+          <li>
+            {{ item.product.name }} | К-сть: {{ item.quantity }} | Ціна: {{ item.total_price }} грн.
+          </li>
+        {% endfor %}
+        {% if cart.coupon %}
+          <li>
+            "{{ cart.coupon.code }}" купон на знижку {{ cart.coupon.discount }}%
+            <span> - {{ cart.get_discount|floatformat:2 }} грн.</span>
+          </li>
+        {% endif %}
+      </ul>
+      <p><strong> Всього:</strong> {{ cart.get_total_price_after_discount|floatformat:2 }} грн.</p>
+    </div>
   </div>
+</section>
 {% endblock %}

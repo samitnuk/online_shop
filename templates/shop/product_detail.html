@@ -6,33 +6,60 @@
   {{ product.name }}
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.3/css/justifiedGallery.min.css" />
+{% endblock %}
+
 {% block content %}
-  <div class="row">
-    <div class="six columns">
-      <img class="u-max-full-width" src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}">
+<section class="container" id="main">
+  <div class="wrapper">
+    <div class="row">
+      <div class="six columns">
+        <img class="u-max-full-width" src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}">
+      </div>
+      <div class="six columns">
+        <h3>{{ product.name }} {{ product.model_name }}</h3>
+        <a href="{% url 'shop:product_update' product.slug %}">Edit</a>
+        <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
+        <p class="price">
+          {{ product.price }} грн.
+        </p>
+        <form action="{% url 'cart:add_product' product.id %}" method="post">
+          {% csrf_token %}
+          {{ cart_product_form }}
+          <input type="submit" value="Додати в кошик">
+        </form>
+      </div>
     </div>
-    <div class="six columns">
-      <h3>{{ product.name }} {{ product.model_name }}</h3>
-      <a href="{% url 'shop:product_update' product.slug %}">Edit</a>
-      <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
-      <p class="price">
-        {{ product.price }} грн.
-      </p>
-      <form action="{% url 'cart:add_product' product.id %}" method="post">
-        {% csrf_token %}
-        {{ cart_product_form }}
-        <input type="submit" value="Додати в кошик">
-      </form>
+    <div class="row">
+      <span>
+        {{ product.description | linebreaks}}
+      </span>
     </div>
   </div>
-  <div class="row">
-    <span>
-      {{ product.description | linebreaks}}
-    </span>
-    {% for image in images %}
-    <div class="twelve columns">
-      <img class="images u-max-full-width" src="{{ image.url }}">
+</section>
+<section class="container">
+  <div class="wrapper">
+    <div id="gallery">
+      {% for image in images %}
+      <div><img src="{{ image.url }}"></div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.3/js/jquery.justifiedGallery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#gallery").justifiedGallery({
+      rowHeight: 500,
+			captions: false,
+			margins: 10,
+    });
+  });
+</script>
 {% endblock %}

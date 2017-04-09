@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block content %}
-  <h4>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h4>
+<section class="container" id="main">
+  <div class="wrapper">
+    <h4>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h4>
     <div class="row">
     {% for product in products %}
       <div class="three columns">
@@ -24,4 +26,6 @@
     {% endif %}
     {% endfor %}
     </div>
+  </div>
+</section>
 {% endblock %}

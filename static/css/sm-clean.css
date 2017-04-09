@@ -1,3 +1,5 @@
+@import 'open-color.css';
+
 /* Mobile first layout SmartMenus Core CSS (it's not recommended editing these rules)
 You need this once per page no matter how many menu trees or different themes you use.
 -------------------------------------------------------------------------------------------*/
@@ -28,10 +30,7 @@ You need this once per page no matter how many menu trees or different themes yo
   margin-left: 35px;
 }
 .sm-clean a.current {
-  color: #d23600;
-}
-.sm-clean a.disabled {
-  color: #bbbbbb;
+  color: var(--oc-cyan-9);
 }
 .sm-clean a span.sub-arrow {
   position: absolute;
@@ -103,10 +102,10 @@ You need this once per page no matter how many menu trees or different themes yo
     border-radius: 0 !important;
   }
   .sm-clean a:hover, .sm-clean a:focus, .sm-clean a:active, .sm-clean a.highlighted {
-    color: #d23600;
+    color: var(--oc-cyan-9);
   }
   .sm-clean a.current {
-    color: #d23600;
+    color: var(--oc-cyan-9);
   }
   .sm-clean a span.sub-arrow {
     top: 50%;

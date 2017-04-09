@@ -17,6 +17,10 @@ a {
     text-decoration: none;
 }
 
+img {
+    border-radius: 4px;
+}
+
 .container {
     background-color: var(--oc-gray-2);
     width: 1440px;
@@ -31,9 +35,13 @@ a {
     padding: 0;
 }
 
-#main {
+#main_menu {
     margin-top: 10px;
     padding: 10px 0;
+}
+
+#main, #footer {
+    padding-top: 15px;
 }
 
 .wrapper {
@@ -58,9 +66,21 @@ table img {width: 250px;}
     border-radius: 4px;
 }
 
-form.form {
-  margin-top: 10rem;
-}
-
 .error {color: var(--oc-red-7);}
 .error li {list-style-type: none;}
+
+.contact-form {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.contact-form input[type="email"],
+.contact-form input[type="text"] {
+    width: 48%;
+}
+
+.current-menu-item a {
+    color: var(--oc-cyan-9);
+}

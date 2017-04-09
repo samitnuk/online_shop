@@ -7,12 +7,15 @@
 {% endblock %}
 
 {% block content %}
+<section class="container" id="main">
+  <div class="wrapper">
 
-{% for m in manufacturers %}
-{{ m.name }} ({{ m.products_qty }})<br>
-{% endfor %}
+    {% for m in manufacturers %}
+    {{ m.name }} ({{ m.products_qty }})<br>
+    {% endfor %}
 
-<hr>
-<a href="{% url 'shop:manufacturer_create' %}">Створити виробника</a>
-
+    <hr>
+    <a href="{% url 'shop:manufacturer_create' %}">Створити виробника</a>
+  </div>
+</section>
 {% endblock %}

@@ -13,7 +13,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet"
-        href=https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css />
+        href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css />
   <link rel="stylesheet"
         href="{{ PORTAL_URL }}{% static 'css/skeleton.css' %}" />
   {% block extra_css %}{% endblock %}
@@ -29,10 +29,10 @@
       <div class="row">
         <div class="six columns">
           {% if not request.user.is_authenticated %}
-          <a href="{% url 'accounts:login' %}">{% trans 'Log in' %}</a>
+          <a href="{% url 'accounts:login' %}">{% trans 'Log in' %}</a> |
           <a href="{% url 'accounts:register' %}">{% trans 'Register' %}</a>
           {% else %}
-          {% trans 'Hello' %}, {{ request.user.username }}
+          {% trans 'Hello' %}, {{ request.user.username }} |
           <a href="{% url 'accounts:user_profile' %}" title="{% trans 'Profile' %}">
             <i class="fa fa-user" aria-hidden="true"></i></a>
           <a href="{% url 'accounts:logout' %}" title="{% trans 'Log out' %}">
@@ -54,24 +54,38 @@
       </div>
     </div>
   </section>
-  <section class="container" id="main">
+  <section class="container" id="main_menu">
     <div class="wrapper">
-        {% include '_includes/main_menu.html' %}
-      <!-- <div class="row top">
-        <div class="three columns">
-          <a href="{% url 'shop:product_list' %}">
-            <img src="{% static 'img/logo.png' %}">
-          </a>
+      {% include '_includes/main_menu.html' %}
+    </div>
+  </section>
+  {% block content %}{% endblock %}
+  <section class="container" id="footer">
+    <div class="wrapper">
+      <div class="six columns">
+        <div class="blurb">
+          <h4>{% trans 'Contacts' %}</h4>
         </div>
-      </div> -->
+      </div>
+      <div class="six columns">
+        <div class="blurb">
+          <h4>{% trans 'Say Hello' %}</h4>
+        </div>
+        <form class="contact-form">
+          <input type="email"
+                 placeholder="{% trans 'Your Email' %}">
+          <input type="text"
+                 placeholder="{% trans 'Subject' %}">
+          <textarea placeholder="{% trans 'Message' %}"
+                    class="u-full-width"></textarea>
+          <input type="submit"
+                 class=" button button-primary u-full-width"
+                 value="{% trans 'Send Message' %}">
+        </form>
+      </div>
     </div>
   </section>
-  <section class="container">
-    <div class="wrapper">
-      {% block content %}{% endblock %}
-    </div>
-  </section>
-  <script src="https://use.fontawesome.com/62626c0a50.js"></script>
+  <!-- <script src="https://use.fontawesome.com/62626c0a50.js"></script> -->
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"
           integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
           crossorigin="anonymous"></script>

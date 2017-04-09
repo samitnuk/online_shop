@@ -8,24 +8,28 @@
 {% endblock %}
 
 {% block content %}
-<form id="product_form" method="post" action="" enctype="multipart/form-data">
+<section class="container" id="main">
+  <div class="wrapper">
+    <form id="product_form" method="post" action="" enctype="multipart/form-data">
 
-  {% csrf_token %}
-  {% for hidden in product_form.hidden_fields %}
-      {{ hidden }}
-  {% endfor %}
+      {% csrf_token %}
+      {% for hidden in product_form.hidden_fields %}
+          {{ hidden }}
+      {% endfor %}
 
-  {% include "_includes/render_fields.html" with form_fields=product_form.visible_fields only %}
+      {% include "_includes/render_fields.html" with form_fields=product_form.visible_fields only %}
 
-  {{ formset.management_form }}
-  {% for form in formset %}
-      {% include "_includes/render_fields.html" with form_fields=form only %}
-  {% endfor %}
+      {{ formset.management_form }}
+      {% for form in formset %}
+          {% include "_includes/render_fields.html" with form_fields=form only %}
+      {% endfor %}
 
-  <div class="row">
-    <div class="offset-by-two three columns">
-      <input type="submit" class="button button-primary" value="Додати">
-    </div>
+      <div class="row">
+        <div class="offset-by-two three columns">
+          <input type="submit" class="button button-primary" value="Додати">
+        </div>
+      </div>
+    </form>
   </div>
-</form>
+</section>
 {% endblock %}

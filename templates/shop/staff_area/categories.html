@@ -7,35 +7,37 @@
 {% endblock %}
 
 {% block content %}
+<section class="container" id="main">
+  <div class="wrapper">
+    {% for category in categories %}
+    <a href="{% url 'shop:category' category.slug %}">{{ category.full_name }}</a>
+    <a href="{% url 'shop:category_update' category.slug %}">
+     Редагувати
+    </a>
+    <br>
+    {% endfor %}
 
-{% for category in categories %}
-<a href="{% url 'shop:category' category.slug %}">{{ category.full_name }}</a>
-<a href="{% url 'shop:category_update' category.slug %}">
- Редагувати
-</a>
-<br>
-{% endfor %}
+    {% for product in products %}
+    <hr>
+    <div class="row">
+      <div class="two columns">
+        <img src="{{ product.main_image.url }}"
+             class="u-max-full-width">
+      </div>
+      <div class="four columns">
+        <p>{{ product.name }}</p>
+        {{ product.model_name }}
+      </div>
+      <div class="four columns">
+        Категорія: {{ product.category }}
+        <p>Виробник: {{ product.manufacturer}}</p>
+        Ціна, грн: {{ product.price }}
+      </div>
+    </div>
+    {% endfor %}
 
-{% for product in products %}
-<hr>
-<div class="row">
-  <div class="two columns">
-    <img src="{{ product.main_image.url }}"
-         class="u-max-full-width">
+    <hr>
+    <a href="{% url 'shop:category_create' %}">Створити категорію</a>
   </div>
-  <div class="four columns">
-    <p>{{ product.name }}</p>
-    {{ product.model_name }}
-  </div>
-  <div class="four columns">
-    Категорія: {{ product.category }}
-    <p>Виробник: {{ product.manufacturer}}</p>
-    Ціна, грн: {{ product.price }}
-  </div>
-</div>
-{% endfor %}
-
-<hr>
-<a href="{% url 'shop:category_create' %}">Створити категорію</a>
-
+</section>
 {% endblock %}

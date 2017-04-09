@@ -1,43 +1,43 @@
 {% load static %}
 
-  <nav class="main-nav" role="navigation">
+<nav class="main-nav" role="navigation">
 
-    <!-- Mobile menu toggle button (hamburger/x icon) -->
-    <input id="main-menu-state" type="checkbox" />
-    <label class="main-menu-btn" for="main-menu-state">
-      <span class="main-menu-btn-icon"></span> Toggle main menu visibility
-    </label>
+  <!-- Mobile menu toggle button (hamburger/x icon) -->
+  <input id="main-menu-state" type="checkbox" />
+  <label class="main-menu-btn" for="main-menu-state">
+    <span class="main-menu-btn-icon"></span> Toggle main menu visibility
+  </label>
 
-        <a href="{% url 'shop:product_list' %}"><img src="{% static 'img/logo.png' %}"></a>
+    <a href="{% url 'shop:product_list' %}"><img src="{% static 'img/logo.png' %}"></a>
 
-    <ul id="main-menu" class="sm sm-clean">
-      <li class="current-menu-item">
-          <a href="{% url 'shop:product_list' %}">
-              <i class="fa fa-home" aria-hidden="true"></i>
-          </a>
-      </li>
-      {% for cat in categories %}
-        {% if not cat.has_parent_category %}
-        <li class="{% if category.slug == cat.slug %}current-menu-item{% endif %}">
-            <a href="{{ cat.get_absolute_url }}">{{ cat }}</a>
-            {% if cat.subcategories %}
+  <ul id="main-menu" class="sm sm-clean">
+    <li class="current-menu-item">
+      <a href="{% url 'shop:product_list' %}">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </a>
+    </li>
+    {% for cat in menu_categories %}
+      {% if not cat.has_parent_category %}
+      <li class="{% if category.slug == cat.slug %}current-menu-item{% endif %}">
+        <a href="{{ cat.get_absolute_url }}">{{ cat }}</a>
+        {% if cat.subcategories %}
+        <ul>
+          {% for cat_ in cat.subcategories %}
+          <li>
+            <a href="{{ cat_.get_absolute_url }}">{{ cat_ }}</a>
+            {%if cat_.subcategories %}
             <ul>
-                {% for cat_ in cat.subcategories %}
-                <li>
-                    <a href="{{ cat_.get_absolute_url }}">{{ cat_ }}</a>
-                    {%if cat_.subcategories %}
-                    <ul>
-                        {% for cat__ in cat_.subcategories %}
-                        <li><a href="{{ cat__.get_absolute_url }}">{{ cat__ }}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </li>
-                {% endfor %}
+              {% for cat__ in cat_.subcategories %}
+              <li><a href="{{ cat__.get_absolute_url }}">{{ cat__ }}</a></li>
+              {% endfor %}
             </ul>
             {% endif %}
-        </li>
+          </li>
+          {% endfor %}
+        </ul>
         {% endif %}
-      {% endfor %}
+      </li>
+      {% endif %}
+    {% endfor %}
   </ul>
-  </nav>
+</nav>
