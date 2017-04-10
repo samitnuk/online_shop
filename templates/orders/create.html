@@ -12,7 +12,7 @@
     <h4>Оформлення замовлення</h4>
     <div class="col-sm-4">
       <h5>Заповніть форму:</h5>
-      <form class="order-form" action="." method="post">
+      <form class="order-form" action="." method="post" id="main-form">
         {% csrf_token %}
 
         {{ form.non_field_errors }}

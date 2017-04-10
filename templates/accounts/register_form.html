@@ -16,7 +16,8 @@
         <h4>{% trans 'Register' %}</h4>
       </div>
     </div>
-    <form  action="{% url 'accounts:register' %}" method="post" class="form">
+    <form  action="{% url 'accounts:register' %}" method="post"
+           id="main-form" class="form">
       {% csrf_token %}
 
       {% for field in form.visible_fields %}

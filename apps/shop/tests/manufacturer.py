@@ -26,7 +26,7 @@ class ManufacturerWebTests(WebTest):
         form = self.app.get(
             reverse('shop:manufacturer_create'),
             user=utils.get_staff_member()
-        ).form
+        ).forms['main-form']
         name = "Тестовий виробник"
         form['name'] = name
         form.submit()
@@ -55,7 +55,7 @@ class ManufacturerWebTests(WebTest):
             reverse('shop:manufacturer_update',
                     kwargs={'slug': manufacturer.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         name = "Новий виробник"
         form['name'] = name
         form.submit()
@@ -76,7 +76,7 @@ class ManufacturerWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product1.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['manufacturer'] = manufacturer.id
         form.submit()
 
@@ -86,7 +86,7 @@ class ManufacturerWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product2.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['manufacturer'] = manufacturer.id
         form.submit()
 
@@ -108,7 +108,7 @@ class ManufacturerWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product1.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['manufacturer'] = manufacturer.id
         form.submit()
 
@@ -118,7 +118,7 @@ class ManufacturerWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product2.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['manufacturer'] = manufacturer.id
         form.submit()
 

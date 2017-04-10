@@ -34,7 +34,7 @@ class ProductWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_create'),
             user=utils.get_staff_member()
-        ).form
+        ).forms['main-form']
         category = Category.objects.first()
         manufacturer = Manufacturer.objects.first()
         name = "Тестовий продукт"
@@ -71,7 +71,7 @@ class ProductWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_create'),
             user=utils.get_staff_member()
-        ).form
+        ).forms['main-form']
         name = "Тестовий продукт test"
         model_name = 'Some test MDL-name'
         # category is not selected
@@ -93,7 +93,7 @@ class ProductWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_create'),
             user=utils.get_staff_member()
-        ).form
+        ).forms['main-form']
         name = "Тестовий продукт test test"
         model_name = 'Some test MDL-name 123'
         # category is not selected
@@ -129,7 +129,7 @@ class ProductWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         name = "Нова тестова назва"
         model_name = "Модель 234UI"
         form['name'] = name

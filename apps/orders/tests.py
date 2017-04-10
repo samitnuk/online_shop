@@ -13,7 +13,7 @@ class OrdersWebTests(WebTest):
     def test_order_creation(self):
         # Login user
         user = utils.get_regular_user()
-        form = self.app.get(reverse('accounts:login')).form
+        form = self.app.get(reverse('accounts:login')).forms['main-form']
         form['username'] = user.username
         form['password'] = "asdkjfoih1222pkljkh"
         form.submit().follow()
@@ -31,7 +31,7 @@ class OrdersWebTests(WebTest):
                 'shop:product_detail',
                 kwargs={'slug': product1.slug},
             ),
-        ).form
+        ).forms['main-form']
         qty = product1.stock - 1 if product1.stock != 1 else 1
         form['quantity'] = qty
         form.submit()
@@ -42,13 +42,13 @@ class OrdersWebTests(WebTest):
                 'shop:product_detail',
                 kwargs={'slug': product2.slug},
             ),
-        ).form
+        ).forms['main-form']
         qty = product2.stock - 1 if product2.stock != 1 else 1
         form['quantity'] = qty
         form.submit()
 
         # Create order
-        form = self.app.get(reverse('order:create')).form
+        form = self.app.get(reverse('order:create')).forms['main-form']
         form['first_name'] = "Test_first_name"
         form['last_name'] = "Test_last_name"
         form['carrier'] = "Test carrier"

@@ -16,7 +16,7 @@ class UserWebTests(WebTest):
         email = 'sometest2@email.ts'
         password = "password123451"
 
-        form = self.app.get(reverse('accounts:register')).form
+        form = self.app.get(reverse('accounts:register')).forms['main-form']
         form['username'] = username
         form['first_name'] = first_name
         form['last_name'] = last_name
@@ -36,7 +36,7 @@ class UserWebTests(WebTest):
 
     def test_user_login_and_logout(self):
         user = utils.get_regular_user()
-        form = self.app.get(reverse('accounts:login')).form
+        form = self.app.get(reverse('accounts:login')).forms['main-form']
         form['username'] = user.username
         form['password'] = "asdkjfoih1222pkljkh"
         response = form.submit().follow()

@@ -16,7 +16,8 @@
         <h4>{% trans 'Log in' %}</h4>
       </div>
     </div>
-    <form action="{% url 'accounts:login' %}" method="post" class="form">
+    <form action="{% url 'accounts:login' %}" method="post"
+          id="main-form" class="form">
       {% csrf_token %}
 
       {{ form.non_field_errors }}

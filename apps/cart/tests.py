@@ -16,7 +16,7 @@ class CartWebTests(WebTest):
                 'shop:product_detail',
                 kwargs={'slug': product.slug},
             ),
-        ).form
+        ).forms['main-form']
         qty = product.stock - 1 if product.stock != 1 else 1
         form['quantity'] = qty
         form.submit()

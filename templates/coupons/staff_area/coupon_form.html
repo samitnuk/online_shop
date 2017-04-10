@@ -14,7 +14,7 @@
 {% block content %}
 <section class="container" id="main">
   <div class="wrapper">
-    <form id="coupon_form" method="post" action="">
+    <form id="main-form" method="post" action="">
 
       {% csrf_token %}
       {% for hidden in form.hidden_fields %}

@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.shortcuts import reverse
 from django_webtest import WebTest
 
@@ -27,7 +28,7 @@ class CategoryWebTests(WebTest):
         form = self.app.get(
             reverse('shop:category_create'),
             user=utils.get_staff_member()
-        ).form
+        ).forms['main-form']
         category = Category.objects.first()
         name = "Тестова категорія"
         form['name'] = name
@@ -45,7 +46,7 @@ class CategoryWebTests(WebTest):
         form = self.app.get(
             reverse('shop:category_create'),
             user=utils.get_staff_member()
-        ).form
+        ).forms['main-form']
         name = "Тестова категорія 2"
         form['name'] = name
         form.submit()
@@ -76,7 +77,7 @@ class CategoryWebTests(WebTest):
         form = self.app.get(
             reverse('shop:category_update', kwargs={'slug': category.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         name = "Нова тестова назва"
         form['name'] = name
         form['parent_category'] = parent_category.id
@@ -90,6 +91,16 @@ class CategoryWebTests(WebTest):
 
     def test_category_products_method(self):
         category = Category.objects.first()
+
+        # Test cache _________________________________________________________
+        key = 'category_{}_products'.format(category.id)
+        cache.delete(key)
+        category_products = category.products()
+        cached_category_products = cache.get(key)
+        self.assertEqual(category_products.count(),
+                         cached_category_products.count())
+        # End test cache _____________________________________________________
+
         cat_slug = category.slug
         category_products = category.products()
         initial_count = category_products.count()
@@ -100,9 +111,14 @@ class CategoryWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product1.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['category'] = category.id
         form.submit()
+
+        # Test cache _________________________________________________________
+        key = 'category_{}_products'.format(category.id)
+        self.assertIsNone(cache.get(key))
+        # End test cache _____________________________________________________
 
         product2 = Product.objects.all()[2]
         if product2 in category_products:
@@ -110,13 +126,18 @@ class CategoryWebTests(WebTest):
         form = self.app.get(
             reverse('shop:product_update', kwargs={'slug': product2.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['category'] = category.id
         form.submit()
 
+        # Test cache _________________________________________________________
+        key = 'category_{}_products'.format(category.id)
+        self.assertIsNone(cache.get(key))
+        # End test cache _____________________________________________________
+
         category = Category.objects.filter(slug=cat_slug).first()
         cat_products = category.products()
-        self.assertEqual(cat_products.count(), initial_count+2)
+        self.assertEqual(cat_products.count(), initial_count + 2)
         self.assertIn(product1, cat_products)
         self.assertIn(product2, cat_products)
 
@@ -128,7 +149,7 @@ class CategoryWebTests(WebTest):
         form = self.app.get(
             reverse('shop:category_update', kwargs={'slug': sub_cat1.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['parent_category'] = category.id
         form.submit()
 
@@ -136,7 +157,7 @@ class CategoryWebTests(WebTest):
         form = self.app.get(
             reverse('shop:category_update', kwargs={'slug': sub_cat2.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['parent_category'] = category.id
         form.submit()
 
@@ -152,29 +173,54 @@ class CategoryWebTests(WebTest):
 
         sub_cat1 = categories[2]
         sub_cat1_name = sub_cat1.name
+
+        # Test cache _________________________________________________________
+        key = 'category_{}_has_parent_category'.format(sub_cat1.id)
+        value = sub_cat1.has_parent_category()
+        cached_value = True if cache.get(key) == 'True' else False
+        self.assertEqual(value, cached_value)
+        # End test cache _____________________________________________________
+
         form = self.app.get(
             reverse('shop:category_update', kwargs={'slug': sub_cat1.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['parent_category'] = parent_category.id
         form.submit()
+
+        # Test cache _________________________________________________________
+        self.assertIsNone(cache.get(key))
+        # End test cache _____________________________________________________
 
         sub_cat1 = Category.objects.filter(name=sub_cat1_name).first()
         self.assertTrue(sub_cat1.has_parent_category())
         self.assertEqual(sub_cat1.parent_category, parent_category)
 
-        sub_cat2 = categories[3]
+        sub_cat2 = categories[4]
         sub_cat2_name = sub_cat2.name
+
+        # Test cache _________________________________________________________
+        key = 'category_{}_has_parent_category'.format(sub_cat2.id)
+        value = sub_cat2.has_parent_category()
+        cached_value = True if cache.get(key) == 'True' else False
+        self.assertEqual(value, cached_value)
+        # End test cache _____________________________________________________
+
         form = self.app.get(
             reverse('shop:category_update', kwargs={'slug': sub_cat2.slug}),
             user=utils.get_staff_member(),
-        ).form
+        ).forms['main-form']
         form['parent_category'] = parent_category.id
         form.submit()
+
+        # Test cache _________________________________________________________
+        self.assertIsNone(cache.get(key))
+        # End test cache _____________________________________________________
 
         sub_cat2 = Category.objects.filter(name=sub_cat2_name).first()
         self.assertTrue(sub_cat2.has_parent_category())
         self.assertEqual(sub_cat2.parent_category, parent_category)
 
     def test_category_full_name_property(self):
+        # TODO:
         pass
