@@ -1,6 +1,6 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from ..cart.cart import Cart
 from .forms import OrderCreateForm
@@ -27,8 +27,9 @@ def order_create(request):
                 quantity=item['quantity'],
             )
             cart.clear()
-            order_created(order.id)
-            return render(request, 'orders/created.html', {'order': order})
+            order_created.delay(order.id)
+            request.session['order_id'] = order.id
+            return redirect(reverse('payment:process'))
 
     context = {'cart': cart, 'form': form}
     return render(request, 'orders/create.html', context)

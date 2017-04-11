@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^order/', include('apps.orders.urls', namespace='order')),
     url(r'^accounts/', include('apps.accounts.urls', namespace='accounts')),
     url(r'^coupons/', include('apps.coupons.urls', namespace='coupon')),
+    url(r'^payment/', include('apps.payment.urls', namespace='payment')),
     url(r'^', include('apps.shop.urls', namespace='shop'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
