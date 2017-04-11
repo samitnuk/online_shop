@@ -6,4 +6,4 @@ from .models import Order
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
-        exclude = ['user', 'paid']
+        exclude = ['user', 'paid', 'coupon', 'discount']

@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from ..cart.cart import Cart
 from .forms import OrderCreateForm
 from .models import Order, OrderItem
+from .tasks import order_created
 
 
 @login_required
@@ -26,6 +27,7 @@ def order_create(request):
                 quantity=item['quantity'],
             )
             cart.clear()
+            order_created(order.id)
             return render(request, 'orders/created.html', {'order': order})
 
     context = {'cart': cart, 'form': form}

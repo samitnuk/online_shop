@@ -143,3 +143,8 @@ CART_SESSION_ID = 'cart'
 
 PAYPAL_RECEIVER_EMAIL = ls.PAYPAL_RECEIVER_EMAIL
 PAYPAL_TEST = ls.PAYPAL_TEST
+
+ADMIN_MAIL = ls.ADMIN_MAIL
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
