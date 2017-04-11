@@ -30,11 +30,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rosetta',
+    'paypal.standard.ipn',
     'apps.shop',
     'apps.cart',
     'apps.orders',
     'apps.accounts',
     'apps.coupons',
+    'apps.payment',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +140,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
 CART_SESSION_ID = 'cart'
+
+PAYPAL_RECEIVER_EMAIL = ls.PAYPAL_RECEIVER_EMAIL
+PAYPAL_TEST = ls.PAYPAL_TEST
