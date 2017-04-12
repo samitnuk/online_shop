@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% load form_filters %}
+
+{% block title %}
+  {% trans 'PayPal Payment' %}
+{% endblock title %}
+
+{% block content %}
+<section class="container" id="main">
+  <div class="wrapper">
+    <div class="row">
+      <div class="offset-by-two ten columns">
+        <h4>{% trans 'PayPal Payment' %}</h4>
+      </div>
+    </div>
+    {{ form.render }}
+  </div>
+</section>
+{% endblock content %}

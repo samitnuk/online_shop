@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+  {% trans 'Successful payment!' %}
+{% endblock %}
+
+{% block content %}
+<section class="container" id="main">
+  <div class="wrapper">
+    <h4>{% trans 'Successful payment!' %}</h4>
+    <p>{% trans 'Thank you for your purchase!' %}</p>
+  </div>
+</section>
+{% endblock %}
+
+{% block contacts %}{% endblock contacts %}

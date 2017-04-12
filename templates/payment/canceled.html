@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+  {% trans 'Payment declined!' %}
+{% endblock %}
+
+{% block content %}
+<section class="container" id="main">
+  <div class="wrapper">
+    <h4>{% trans 'Payment declined!' %}</h4>
+    <p>{% trans 'Having problems with payment!' %}</p>
+  </div>
+</section>
+{% endblock %}
+
+{% block contacts %}{% endblock contacts %}
