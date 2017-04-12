@@ -2,4 +2,7 @@ from django.apps import AppConfig
 
 
 class PaymentConfig(AppConfig):
-    name = 'payment'
+    name = 'apps.payment'
+
+    def ready(self):
+        import apps.payment.signals
