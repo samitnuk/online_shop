@@ -90,11 +90,13 @@ class CategoryWebTests(WebTest):
         self.assertEqual(category_upd.parent_category, parent_category)
 
     def test_category_products_method(self):
+
+        cache.clear()
+
         category = Category.objects.first()
 
         # Test cache _________________________________________________________
         key = 'category_{}_products'.format(category.id)
-        cache.delete(key)
         category_products = category.products()
         cached_category_products = cache.get(key)
         self.assertEqual(category_products.count(),
@@ -131,7 +133,6 @@ class CategoryWebTests(WebTest):
         form.submit()
 
         # Test cache _________________________________________________________
-        key = 'category_{}_products'.format(category.id)
         self.assertIsNone(cache.get(key))
         # End test cache _____________________________________________________
 
@@ -142,8 +143,19 @@ class CategoryWebTests(WebTest):
         self.assertIn(product2, cat_products)
 
     def test_category_subcategories_method(self):
+
+        cache.clear()
+
         category = Category.objects.first()
         cat_slug = category.slug
+
+        # Test cache _________________________________________________________
+        key = 'category_{}_subcategories'.format(category.id)
+        cache.delete(key)
+        subcategories = category.subcategories()
+        cached_subcategories = cache.get(key)
+        self.assertQuerysetEqual(subcategories, cached_subcategories)
+        # End test cache _____________________________________________________
 
         sub_cat1 = Category.objects.all()[2]
         form = self.app.get(
@@ -153,6 +165,16 @@ class CategoryWebTests(WebTest):
         form['parent_category'] = category.id
         form.submit()
 
+        # Test cache _________________________________________________________
+        self.assertIsNone(cache.get(key))
+        cat = Category.objects.filter(slug=cat_slug).first()
+        subcategories = cat.subcategories()
+        cached_subcategories = cache.get(key)
+        self.assertEqual(subcategories.count(), cached_subcategories.count())
+        self.assertIn(sub_cat1, subcategories)
+        self.assertIn(sub_cat1, cached_subcategories)
+        # End test cache _____________________________________________________
+
         sub_cat2 = Category.objects.all()[3]
         form = self.app.get(
             reverse('shop:category_update', kwargs={'slug': sub_cat2.slug}),
@@ -161,6 +183,16 @@ class CategoryWebTests(WebTest):
         form['parent_category'] = category.id
         form.submit()
 
+        # Test cache _________________________________________________________
+        self.assertIsNone(cache.get(key))
+        cat = Category.objects.filter(slug=cat_slug).first()
+        subcategories = cat.subcategories()
+        cached_subcategories = cache.get(key)
+        self.assertEqual(subcategories.count(), cached_subcategories.count())
+        self.assertIn(sub_cat2, subcategories)
+        self.assertIn(sub_cat2, cached_subcategories)
+        # End test cache _____________________________________________________
+
         category = Category.objects.filter(slug=cat_slug).first()
         subcategories = category.subcategories()
         self.assertEqual(subcategories.count(), 2)
@@ -168,6 +200,9 @@ class CategoryWebTests(WebTest):
         self.assertIn(sub_cat2, subcategories)
 
     def test_category_has_parent_category_method(self):
+
+        cache.clear()
+
         categories = Category.objects.all()
         parent_category = categories.first()
 
@@ -222,5 +257,18 @@ class CategoryWebTests(WebTest):
         self.assertEqual(sub_cat2.parent_category, parent_category)
 
     def test_category_full_name_property(self):
-        # TODO:
-        pass
+
+        cache.clear()
+
+        for _ in range(10):
+            category = Category.objects.order_by('?').first()
+            if category.has_parent_category():
+                cat = category
+                full_name = cat.name
+                while cat.has_parent_category():
+                    full_name = "{} / {}".format(cat.parent_category.name,
+                                                 full_name)
+                    cat = cat.parent_category
+                self.assertEqual(category.full_name, full_name)
+            else:
+                self.assertEqual(category.full_name, category.name)
