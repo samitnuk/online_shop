@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-30 23:38+0300\n"
-"PO-Revision-Date: 2017-03-30 23:31+0300\n"
+"POT-Creation-Date: 2017-04-13 23:16+0300\n"
+"PO-Revision-Date: 2017-04-13 23:23+0202\n"
 "Last-Translator: b'  <test@test.ua>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.7.12\n"
 
-#: _project/settings.py:125
+#: _project/settings.py:128
 msgid "Ukrainian"
 msgstr "Українська"
 
@@ -117,78 +117,145 @@ msgstr "Замовлення"
 msgid "Order Number: {}"
 msgstr "Замовлення №: {}"
 
-#: apps/orders/models.py:57 apps/shop/models.py:101
+#: apps/orders/models.py:57 apps/shop/models.py:130
 msgid "Price"
 msgstr "Ціна"
+
+#: apps/orders/tasks.py:13
+#| msgid "Order Number: {}"
+msgid "Order number {}"
+msgstr "Замовлення №: {}"
+
+#: apps/orders/tasks.py:14
+msgid ""
+"Hello!               You successfully made order.               Your order "
+"number {}"
+msgstr "Привіт! Ви успішно створили нове замовлення. Номер замовлення {}"
+
+#: apps/payment/views.py:24
+#| msgid "Order"
+msgid "Order {}"
+msgstr "Замовлення"
 
 #: apps/shop/forms.py:10
 msgid "Parent category"
 msgstr "Батьківська категорія"
 
-#: apps/shop/forms.py:36 apps/shop/models.py:22 apps/shop/models.py:85
+#: apps/shop/forms.py:36 apps/shop/models.py:23 apps/shop/models.py:114
 msgid "Category"
 msgstr "Категорія"
 
-#: apps/shop/forms.py:57 apps/shop/models.py:18 apps/shop/models.py:61
-#: apps/shop/models.py:97 apps/shop/models.py:124
+#: apps/shop/forms.py:57 apps/shop/models.py:19 apps/shop/models.py:90
+#: apps/shop/models.py:126 apps/shop/models.py:153
 msgid "Image"
 msgstr "Зображення"
 
-#: apps/shop/models.py:12 apps/shop/models.py:90
+#: apps/shop/models.py:13 apps/shop/models.py:119
 msgid "Name"
 msgstr "Назва"
 
-#: apps/shop/models.py:23
+#: apps/shop/models.py:24
 msgid "Categories"
 msgstr "Категорії"
 
-#: apps/shop/models.py:56 apps/shop/models.py:65 apps/shop/models.py:88
+#: apps/shop/models.py:85 apps/shop/models.py:94 apps/shop/models.py:117
 msgid "Manufacturer"
 msgstr "Виробник"
 
-#: apps/shop/models.py:66
+#: apps/shop/models.py:95
 msgid "Manufacturers"
 msgstr "Виробники"
 
-#: apps/shop/models.py:92
+#: apps/shop/models.py:121
 msgid "Model"
 msgstr "Модель"
 
-#: apps/shop/models.py:99
+#: apps/shop/models.py:128
 msgid "Description"
 msgstr "Опис"
 
-#: apps/shop/models.py:103
+#: apps/shop/models.py:132
 msgid "Stock Qty"
 msgstr "К-сть на складі"
 
-#: apps/shop/models.py:105
+#: apps/shop/models.py:134
 msgid "Available"
 msgstr "Доступний"
 
-#: apps/shop/models.py:111
+#: apps/shop/models.py:140
 msgid "Product"
 msgstr "Товар"
 
-#: apps/shop/models.py:112
+#: apps/shop/models.py:141
 msgid "Products"
 msgstr "Товари"
 
-#: templates/base.html:27
+#: templates/accounts/login_form.html:16 templates/accounts/login_form.html:36
+#: templates/base.html:32
 msgid "Log in"
 msgstr "Увійти"
 
-#: templates/base.html:28
+#: templates/accounts/register_form.html:16
+#: templates/accounts/register_form.html:34 templates/base.html:33
 msgid "Register"
 msgstr "Зареєструватися"
 
-#: templates/base.html:31
+#: templates/base.html:35
+msgid "Hello"
+msgstr "Привіт"
+
+#: templates/base.html:36
 msgid "Profile"
 msgstr "Особиста сторінка"
 
-#: templates/base.html:33
+#: templates/base.html:38
 msgid "Log out"
 msgstr "Вийти"
+
+#: templates/base.html:69
+msgid "Contacts"
+msgstr "Контакти"
+
+#: templates/base.html:74
+msgid "Say Hello"
+msgstr "Напишіть нам"
+
+#: templates/base.html:78
+#| msgid "Email"
+msgid "Your Email"
+msgstr "Ваш email"
+
+#: templates/base.html:80
+msgid "Subject"
+msgstr "Тема"
+
+#: templates/base.html:81
+msgid "Message"
+msgstr "Повідомлення"
+
+#: templates/base.html:85
+msgid "Send Message"
+msgstr "Відправити повідомлення"
+
+#: templates/payment/canceled.html:6 templates/payment/canceled.html:12
+msgid "Payment declined!"
+msgstr "Платіж відхилено!"
+
+#: templates/payment/canceled.html:13
+msgid "Having problems with payment!"
+msgstr "Виникли проблеми з платежем!"
+
+#: templates/payment/done.html:6 templates/payment/done.html:12
+msgid "Successful payment!"
+msgstr "Платіж пройшов успішно!"
+
+#: templates/payment/done.html:13
+msgid "Thank you for your purchase!"
+msgstr "Дякуюємо за замовлення!"
+
+#: templates/payment/process.html:8 templates/payment/process.html:16
+msgid "PayPal Payment"
+msgstr "Платіж через  PayPal"
 
 #~ msgid "English"
 #~ msgstr "Англійська"
