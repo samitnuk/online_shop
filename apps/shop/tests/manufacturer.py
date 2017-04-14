@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.core.cache import cache
 from django_webtest import WebTest
 
 from apps.shop.models import Manufacturer, Product
@@ -65,10 +66,21 @@ class ManufacturerWebTests(WebTest):
         self.assertEqual(manufacturer_upd.slug, utils.slugify_(name))
 
     def test_manufacturer_products_property(self):
+
+        cache.clear()
+
         manufacturer = Manufacturer.objects.first()
         m_slug = manufacturer.slug
         m_products = manufacturer.products
         initial_count = m_products.count()
+
+        # Test cache _________________________________________________________
+        key = 'manufacturer_{}_products'.format(manufacturer.id)
+        manufacturer_products = manufacturer.products
+        cached_products = cache.get(key)
+        self.assertEqual(manufacturer_products.count(),
+                         cached_products.count())
+        # End test cache _____________________________________________________
 
         product1 = Product.objects.first()
         if product1 in m_products:
@@ -80,6 +92,15 @@ class ManufacturerWebTests(WebTest):
         form['manufacturer'] = manufacturer.id
         form.submit()
 
+        # Test cache _________________________________________________________
+        self.assertIsNone(cache.get(key))
+        manufacturer = Manufacturer.objects.filter(slug=m_slug).first()
+        products = manufacturer.products
+        cached_products = cache.get(key)
+        self.assertIn(product1, products)
+        self.assertIn(product1, cached_products)
+        # End test cache _____________________________________________________
+
         product2 = Product.objects.all()[2]
         if product2 in m_products:
             initial_count -= 1
@@ -90,9 +111,18 @@ class ManufacturerWebTests(WebTest):
         form['manufacturer'] = manufacturer.id
         form.submit()
 
+        # Test cache _________________________________________________________
+        self.assertIsNone(cache.get(key))
+        manufacturer = Manufacturer.objects.filter(slug=m_slug).first()
+        products = manufacturer.products
+        cached_products = cache.get(key)
+        self.assertIn(product2, products)
+        self.assertIn(product2, cached_products)
+        # End test cache _____________________________________________________
+
         manufacturer = Manufacturer.objects.filter(slug=m_slug).first()
         m_products = manufacturer.products
-        self.assertEqual(m_products.count(), initial_count+2)
+        self.assertEqual(m_products.count(), initial_count + 2)
         self.assertIn(product1, m_products)
         self.assertIn(product2, m_products)
 
@@ -102,6 +132,13 @@ class ManufacturerWebTests(WebTest):
         m_products = manufacturer.products
         initial_count = m_products.count()
 
+        # Test cache _________________________________________________________
+        key = 'manufacturer_{}_products_qty'.format(manufacturer.id)
+        products_qty = manufacturer.products_qty
+        cached_products_qty = cache.get(key)
+        self.assertEqual(products_qty, cached_products_qty)
+        # End test cache _____________________________________________________
+
         product1 = Product.objects.first()
         if product1 in m_products:
             initial_count -= 1
@@ -111,6 +148,10 @@ class ManufacturerWebTests(WebTest):
         ).forms['main-form']
         form['manufacturer'] = manufacturer.id
         form.submit()
+
+        # Test cache _________________________________________________________
+        self.assertIsNone(cache.get(key))
+        # End test cache _____________________________________________________
 
         product2 = Product.objects.all()[2]
         if product2 in m_products:
@@ -122,5 +163,9 @@ class ManufacturerWebTests(WebTest):
         form['manufacturer'] = manufacturer.id
         form.submit()
 
+        # Test cache _________________________________________________________
+        self.assertIsNone(cache.get(key))
+        # End test cache _____________________________________________________
+
         manufacturer = Manufacturer.objects.filter(slug=m_slug).first()
-        self.assertEqual(manufacturer.products_qty, initial_count+2)
+        self.assertEqual(manufacturer.products_qty, initial_count + 2)

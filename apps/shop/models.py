@@ -96,15 +96,34 @@ class Manufacturer(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('shop:manufacturer_detail', kwargs={'slug': self.slug})
+        key = 'manufacturer_{}_abs_url'.format(self.id)
+        abs_url = cache.get(key)
+        if abs_url:
+            return abs_url
+        abs_url = reverse(
+            'shop:manufacturer_detail', kwargs={'slug': self.slug})
+        cache.set(key, abs_url)
+        return abs_url
 
     @property
     def products(self):
-        return self.manufacturer_products.all()
+        key = 'manufacturer_{}_products'.format(self.id)
+        cached_products = cache.get(key)
+        if cached_products:
+            return cached_products
+        products = self.manufacturer_products.all()
+        cache.set(key, products)
+        return products
 
     @property
     def products_qty(self):
-        return self.manufacturer_products.count()
+        key = 'manufacturer_{}_products_qty'.format(self.id)
+        cached_products_qty = cache.get(key)
+        if cached_products_qty:
+            return cached_products_qty
+        products_qty = self.manufacturer_products.count()
+        cache.set(key, products_qty)
+        return products_qty
 
 
 class Product(models.Model):

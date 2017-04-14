@@ -151,7 +151,6 @@ class CategoryWebTests(WebTest):
 
         # Test cache _________________________________________________________
         key = 'category_{}_subcategories'.format(category.id)
-        cache.delete(key)
         subcategories = category.subcategories()
         cached_subcategories = cache.get(key)
         self.assertQuerysetEqual(subcategories, cached_subcategories)
