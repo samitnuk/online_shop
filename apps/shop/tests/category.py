@@ -271,3 +271,19 @@ class CategoryWebTests(WebTest):
                 self.assertEqual(category.full_name, full_name)
             else:
                 self.assertEqual(category.full_name, category.name)
+
+    def test_get_absolute_url_method(self):
+
+        cache.clear()
+
+        category = Category.objects.order_by('?').first()
+        absolute_url = reverse('shop:product_list_by_category',
+                               kwargs={'category_slug': category.slug})
+
+        self.assertEqual(category.get_absolute_url(), absolute_url)
+
+        # Test cache _________________________________________________________
+        key = 'category_{}_abs_url'.format(category.id)
+        cached_abs_url = cache.get(key)
+        self.assertEqual(cached_abs_url, absolute_url)
+        # End test cache _____________________________________________________
