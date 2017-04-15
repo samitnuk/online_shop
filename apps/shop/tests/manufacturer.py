@@ -169,3 +169,20 @@ class ManufacturerWebTests(WebTest):
 
         manufacturer = Manufacturer.objects.filter(slug=m_slug).first()
         self.assertEqual(manufacturer.products_qty, initial_count + 2)
+
+    def test_get_absolute_url_method(self):
+
+        cache.clear()
+
+        manufacturer = Manufacturer.objects.order_by('?').first()
+        absolute_url = reverse(
+            'shop:product_list_by_manufacturer',
+            kwargs={'manufacturer_slug': manufacturer.slug})
+
+        self.assertEqual(manufacturer.get_absolute_url(), absolute_url)
+
+        # Test cache _________________________________________________________
+        key = 'manufacturer_{}_abs_url'.format(manufacturer.id)
+        cached_abs_url = cache.get(key)
+        self.assertEqual(cached_abs_url, absolute_url)
+        # End test cache _____________________________________________________

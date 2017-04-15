@@ -101,7 +101,8 @@ class Manufacturer(models.Model):
         if abs_url:
             return abs_url
         abs_url = reverse(
-            'shop:manufacturer_detail', kwargs={'slug': self.slug})
+            'shop:product_list_by_manufacturer',
+            kwargs={'manufacturer_slug': self.slug})
         cache.set(key, abs_url)
         return abs_url
 

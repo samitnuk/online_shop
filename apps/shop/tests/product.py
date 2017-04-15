@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-# from django.test import TestCase
+from django.core.cache import cache
 from django.urls import reverse
 from django_webtest import WebTest
 
@@ -144,3 +144,19 @@ class ProductWebTests(WebTest):
                          utils.slugify_('{}-{}'.format(name, model_name)))
         self.assertEqual(product_upd.category, category)
         self.assertEqual(product_upd.manufacturer, manufacturer)
+
+    def test_get_absolute_url_method(self):
+
+        cache.clear()
+
+        product = Product.objects.order_by('?').first()
+        absolute_url = reverse(
+            'shop:product_detail', kwargs={'slug': product.slug})
+
+        self.assertEqual(product.get_absolute_url(), absolute_url)
+
+        # Test cache _________________________________________________________
+        key = 'product_{}_abs_url'.format(product.id)
+        cached_abs_url = cache.get(key)
+        self.assertEqual(cached_abs_url, absolute_url)
+        # End test cache _____________________________________________________

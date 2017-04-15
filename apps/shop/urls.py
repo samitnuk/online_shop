@@ -50,4 +50,7 @@ urlpatterns = [
     url(r'^product_detail/(?P<slug>[-\w]+)/$',
         views.product_detail,
         name='product_detail'),
+    url(r'^(?P<manufacturer_slug>[-\w]+)/$',
+        views.product_list_by_manufacturer,
+        name='product_list_by_manufacturer'),
 ]

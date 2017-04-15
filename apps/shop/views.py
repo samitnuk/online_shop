@@ -29,3 +29,7 @@ def product_detail(request, slug):
         'images': [img.image for img in product.images.all()]
     }
     return render(request, 'shop/product_detail.html', context)
+
+
+def product_list_by_manufacturer(request):
+    pass
