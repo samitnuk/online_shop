@@ -161,7 +161,13 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('shop:product_detail', kwargs={'slug': self.slug})
+        key = 'product_{}_abs_url'.format(self.id)
+        abs_url = cache.get(key)
+        if abs_url:
+            return abs_url
+        abs_url = reverse('shop:product_detail', kwargs={'slug': self.slug})
+        cache.set(key, abs_url)
+        return abs_url
 
 
 class ProductImage(models.Model):
