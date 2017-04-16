@@ -24,7 +24,7 @@ img {
 .container {
     background-color: var(--oc-gray-2);
     width: 1440px;
-    max-width: 95%;
+    max-width: 98%;
     margin: 0 auto 30px auto;
     border-radius: 5px;
 }
@@ -38,6 +38,24 @@ img {
 #main_menu {
     margin-top: 10px;
     padding: 10px 0;
+}
+
+#hero {
+    display: block;
+    height: 600px;
+    position: relative;
+    background-image: url('../../../media/hero-image/daniel-leone-185834.jpg');
+    background-size: cover;
+}
+
+.moto {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.moto h1 {
+    text-transform: uppercase;
 }
 
 #main, #contacts, #footer {
@@ -79,6 +97,10 @@ table img {width: 250px;}
 #contact-form input[type="email"],
 #contact-form input[type="text"] {
     width: 48%;
+}
+
+input, textarea, select {
+    font-family: 'Fantasque Sans Mono';
 }
 
 .current-menu-item a {
