@@ -29,10 +29,15 @@ img {
     border-radius: 5px;
 }
 
-#top {
+#top,
+#bottom {
     background-color: transparent;
     margin: 0 auto;
     padding: 0;
+}
+
+#bottom {
+    margin-top: -25px;
 }
 
 #main_menu {
@@ -42,19 +47,20 @@ img {
 
 #hero {
     display: block;
-    height: 600px;
+    height: 500px;
     position: relative;
-    background-image: url('../../../media/hero-image/daniel-leone-185834.jpg');
+    background-image: url('../../../media/hero-image/daniel-leone-185834_.jpg');
     background-size: cover;
 }
 
-.moto {
+.motto {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    color: var(--oc-gray-0);
 }
 
-.moto h1 {
+.motto h1 {
     text-transform: uppercase;
 }
 
@@ -66,6 +72,10 @@ img {
     width: 1180px;
     max-width: 95%;
     margin: 0 auto;
+}
+
+.copyright {
+    text-align: center;
 }
 
 .categories a {

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+
+{% block content %}
+<section class="container" id="hero">
+  <div class="wrapper">
+    <div class="motto">
+      <div class="row">
+        <div class="six columns">
+          <h1>Online Shop</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="slide-show">
+  <div class="wrapper">
+
+  </div>
+</section>
+
+<section class="container" id="main">
+  <div class="wrapper">
+    <h4>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h4>
+    <div class="row">
+    {% for product in products %}
+      <div class="three columns">
+        <a href="{{ product.get_absolute_url }}">
+          <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
+               class="u-max-full-width">
+        </a>
+        <a href="{{ product.get_absolute_url }}">
+          {{ product.name }}<br>{{ product.model_name }}</a><br>
+        <p style="text-align: right;">{{ product.price }} грн.</p>
+      </div>
+    {% if forloop.counter|divisibleby:"4" %}
+      </div><div class="row">
+    {% endif %}
+    {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="container" id="contacts">
+  <div class="wrapper">
+    <div class="six columns">
+      <div class="blurb">
+        <h4>{% trans 'Contacts' %}</h4>
+      </div>
+    </div>
+    <div class="six columns">
+      <div class="blurb">
+        <h4>{% trans 'Say Hello' %}</h4>
+      </div>
+      <form id="contact-form">
+        <input type="email"
+               placeholder="{% trans 'Your Email' %}">
+        <input type="text"
+               placeholder="{% trans 'Subject' %}">
+        <textarea placeholder="{% trans 'Message' %}"
+                  class="u-full-width"></textarea>
+        <input type="submit"
+               class=" button button-primary u-full-width"
+               value="{% trans 'Send Message' %}">
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

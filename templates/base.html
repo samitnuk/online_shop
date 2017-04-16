@@ -60,53 +60,13 @@
     </div>
   </section>
 
-  <section class="container" id="hero">
-    <div class="wrapper">
-      <div class="moto">
-        <div class="row">
-          <div class="six columns">
-            <h1>Online Shop</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   {% block content %}{% endblock %}
 
-  {% block contacts %}
-  <section class="container" id="contacts">
+  <section class="container" id="bottom">
     <div class="wrapper">
-      <div class="six columns">
-        <div class="blurb">
-          <h4>{% trans 'Contacts' %}</h4>
-        </div>
-      </div>
-      <div class="six columns">
-        <div class="blurb">
-          <h4>{% trans 'Say Hello' %}</h4>
-        </div>
-        <form id="contact-form">
-          <input type="email"
-                 placeholder="{% trans 'Your Email' %}">
-          <input type="text"
-                 placeholder="{% trans 'Subject' %}">
-          <textarea placeholder="{% trans 'Message' %}"
-                    class="u-full-width"></textarea>
-          <input type="submit"
-                 class=" button button-primary u-full-width"
-                 value="{% trans 'Send Message' %}">
-        </form>
-      </div>
+      <div class="copyright">Copyright © {% now 'Y' %} | Online Shop</div>
     </div>
   </section>
-  {% endblock contacts %}
 
   <!-- <script src="https://use.fontawesome.com/62626c0a50.js"></script> -->
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"
