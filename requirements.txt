@@ -7,6 +7,9 @@ django-autoslug==1.9.3
 django-paypal==0.3.6
 celery==4.0.2
 
+# Fer generating pdf from HTML
+weasyprint==0.36
+
 python-memcached==1.58
 
 django-rosetta==0.7.12
