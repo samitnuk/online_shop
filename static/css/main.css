@@ -116,3 +116,42 @@ input, textarea, select {
 .current-menu-item a {
     color: var(--oc-cyan-9);
 }
+
+.slider {
+	box-sizing: border-box;
+}
+
+.title {
+
+	width: 100%;
+	display: block;
+	/*padding: 20px 0 25px;*/
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+
+}
+
+.title .background {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.35;
+  background-color: white;
+}
+
+.title h2 {
+	margin: 0;
+	padding: 0;
+	line-height: 1em;
+}
+.title .dark {
+	padding: 0 10px;
+	z-index: 2;
+	position: relative;
+	letter-spacing: 1;
+	line-height: 1.4em;
+}
