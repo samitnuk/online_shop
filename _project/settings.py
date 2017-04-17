@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rosetta',
     'paypal.standard.ipn',
+    'haystack',
     'apps.shop',
     'apps.cart',
     'apps.orders',
@@ -98,6 +99,19 @@ CACHES = {
 }
 
 
+# Fulltext search
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.'
+                  'ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'products',
+    },
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -148,11 +162,11 @@ PAYPAL_TEST = ls.PAYPAL_TEST
 ADMIN_MAIL = ls.ADMIN_MAIL
 
 # Email
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-if DEBUG:
-    EMAIL_HOST = '127.0.0.1'
-    EMAIL_HOST_USER = ''
-    EMAIL_HOST_PASSWORD = ''
-    EMAIL_PORT = 1025
-    EMAIL_USE_TLS = False
+# if DEBUG:
+#     EMAIL_HOST = '127.0.0.1'
+#     EMAIL_HOST_USER = ''
+#     EMAIL_HOST_PASSWORD = ''
+#     EMAIL_PORT = 1025
+#     EMAIL_USE_TLS = False
