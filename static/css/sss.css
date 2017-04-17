@@ -20,6 +20,7 @@
 
 .ssslide img {
 	max-width: 100%;
+	width: 100%;
 	height: auto;
 	margin: 0;
 	padding: 0;
@@ -33,7 +34,7 @@
 	margin: 0;
 	position: absolute;
 	top: 0;
-	/*background: url('images/arr.png') no-repeat;*/
+	background: url('../img/arr.png') no-repeat;
 }
 
 .sssprev {

@@ -49,8 +49,9 @@ img {
     display: block;
     height: 500px;
     position: relative;
-    background-image: url('../../../media/hero-image/daniel-leone-185834_.jpg');
+    background-image: url('../../../media/hero-image/jan-erik-waider-2000.jpg');
     background-size: cover;
+    background-position: bottom;
 }
 
 .motto {
@@ -117,20 +118,15 @@ input, textarea, select {
     color: var(--oc-cyan-9);
 }
 
-.slider {
-	box-sizing: border-box;
-}
-
 .title {
 
 	width: 100%;
 	display: block;
-	/*padding: 20px 0 25px;*/
+	padding-bottom: 15px;
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	text-align: center;
-
 }
 
 .title .background {
@@ -140,13 +136,14 @@ input, textarea, select {
 	top: 0;
 	left: 0;
 	opacity: 0.35;
-  background-color: white;
 }
 
 .title h2 {
+    font-size: 1em;
 	margin: 0;
 	padding: 0;
 	line-height: 1em;
+	color: var(--oc-gray-0);
 }
 .title .dark {
 	padding: 0 10px;
