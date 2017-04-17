@@ -1,6 +1,7 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, render_to_response
 
 from ..cart.forms import CartAddProductForm
+from .forms import ProductsSearchForm
 from .models import Category, Product
 
 
@@ -33,3 +34,12 @@ def product_detail(request, slug):
 
 def product_list_by_manufacturer(request):
     pass
+
+
+def products(request):
+    form = ProductsSearchForm(request.GET)
+    context = {
+        'form': form,
+        'products': form.search()
+    }
+    return render_to_response('search/search.html', context)

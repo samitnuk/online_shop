@@ -1,6 +1,8 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from haystack.forms import SearchForm
+
 from . import utils
 from .models import Category, Manufacturer, Product, ProductImage
 
@@ -64,3 +66,9 @@ class ImageForm(forms.ModelForm):
 ImageFormSet = forms.modelformset_factory(
     ProductImage, form=ImageForm, extra=10
 )
+
+
+class ProductsSearchForm(SearchForm):
+
+    def no_query_found(self):
+        return self.searchqueryset.all()

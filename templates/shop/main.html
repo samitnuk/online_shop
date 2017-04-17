@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block title %}
-  {{ product.name }}
+  {% trans 'Main page' %}
 {% endblock %}
 
 {% block extra_css %}
@@ -74,7 +74,11 @@
     <div class="six columns">
       <div class="blurb">
         <h4>{% trans 'Contacts' %}</h4>
-      </div>
+      </div> <br>
+      <form method="get" action="search/">
+        {{ search_form }}
+        <button type="submit">Search</button>
+      </form>
     </div>
     <div class="six columns">
       <div class="blurb">
@@ -91,7 +95,7 @@
                class=" button button-primary u-full-width"
                value="{% trans 'Send Message' %}">
       </form>
-    </div
+    </div>
   </div>
 </section>
 
