@@ -8,7 +8,7 @@ from .models import Category, Manufacturer, Product, ProductImage
 
 
 @staff_member_required
-def staff_area(request):
+def main(request):
     return render(request, 'shop/staff_area/_main.html', {})
 
 

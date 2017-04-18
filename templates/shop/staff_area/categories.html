@@ -10,8 +10,8 @@
 <section class="container" id="main">
   <div class="wrapper">
     {% for category in categories %}
-    <a href="{% url 'shop:category' category.slug %}">{{ category.full_name }}</a>
-    <a href="{% url 'shop:category_update' category.slug %}">
+    <a href="{% url 'staff_area:category' category.slug %}">{{ category.full_name }}</a>
+    <a href="{% url 'staff_area:category_update' category.slug %}">
      Редагувати
     </a>
     <br>
@@ -37,7 +37,7 @@
     {% endfor %}
 
     <hr>
-    <a href="{% url 'shop:category_create' %}">Створити категорію</a>
+    <a href="{% url 'staff_area:category_create' %}">Створити категорію</a>
   </div>
 </section>
 {% endblock %}

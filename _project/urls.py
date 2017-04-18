@@ -22,6 +22,9 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
+    url(r'^staff_area/', include('apps.shop.urls_for_staff',
+                                 namespace='staff_area')),
+
     url(r'^paypal/', include('paypal.standard.ipn.urls')),
 
     url(r'^search/', include('haystack.urls')),
