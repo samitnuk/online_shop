@@ -22,7 +22,7 @@ class ProductWebTests(WebTest):
 
     def test_product_creating_by_regular_user(self):
         # user cannot create products
-        response = self.app.get(reverse('shop:product_create'),
+        response = self.app.get(reverse('staff_area:product_create'),
                                 user=utils.get_regular_user())
         planned_resp = '/admin/login/?next=/staff_area/product_create/'
         self.assertRedirects(
@@ -32,7 +32,7 @@ class ProductWebTests(WebTest):
 
     def test_product_creating_by_staff_member(self):
         form = self.app.get(
-            reverse('shop:product_create'),
+            reverse('staff_area:product_create'),
             user=utils.get_staff_member()
         ).forms['main-form']
         category = Category.objects.first()
@@ -69,7 +69,7 @@ class ProductWebTests(WebTest):
     def test_product_creating_by_staff_member_no_category_selected(self):
         manufacturer = Manufacturer.objects.first()
         form = self.app.get(
-            reverse('shop:product_create'),
+            reverse('staff_area:product_create'),
             user=utils.get_staff_member()
         ).forms['main-form']
         name = "Тестовий продукт test"
@@ -91,7 +91,7 @@ class ProductWebTests(WebTest):
     def test_product_creating_by_staff_member_no_manufacturer_selected(self):
         category = Category.objects.first()
         form = self.app.get(
-            reverse('shop:product_create'),
+            reverse('staff_area:product_create'),
             user=utils.get_staff_member()
         ).forms['main-form']
         name = "Тестовий продукт test test"
@@ -113,7 +113,8 @@ class ProductWebTests(WebTest):
         # user cannot update categories
         product = Product.objects.first()
         response = self.app.get(
-            reverse('shop:product_update', kwargs={'slug': product.slug}),
+            reverse('staff_area:product_update',
+                    kwargs={'slug': product.slug}),
             user=utils.get_regular_user(),
         )
         planned_resp = '/admin/login/?next=/staff_area/product_update/{}/'
@@ -127,7 +128,8 @@ class ProductWebTests(WebTest):
         category = Category.objects.first()
         manufacturer = Manufacturer.objects.first()
         form = self.app.get(
-            reverse('shop:product_update', kwargs={'slug': product.slug}),
+            reverse('staff_area:product_update',
+                    kwargs={'slug': product.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         name = "Нова тестова назва"

@@ -14,7 +14,7 @@ class CategoryWebTests(WebTest):
     def test_category_creation_by_regular_user(self):
         # user cannot create categories
         response = self.app.get(
-            reverse('shop:category_create'),
+            reverse('staff_area:category_create'),
             user=utils.get_regular_user()
         )
         planned_resp = '/admin/login/?next=/staff_area/category_create/'
@@ -26,7 +26,7 @@ class CategoryWebTests(WebTest):
     def test_category_creating_by_staff_member(self):
         # test for case with parent_category
         form = self.app.get(
-            reverse('shop:category_create'),
+            reverse('staff_area:category_create'),
             user=utils.get_staff_member()
         ).forms['main-form']
         category = Category.objects.first()
@@ -44,7 +44,7 @@ class CategoryWebTests(WebTest):
 
         # test for case without parent_category
         form = self.app.get(
-            reverse('shop:category_create'),
+            reverse('staff_area:category_create'),
             user=utils.get_staff_member()
         ).forms['main-form']
         name = "Тестова категорія 2"
@@ -62,7 +62,8 @@ class CategoryWebTests(WebTest):
         # user cannot update categories
         category = Category.objects.first()
         response = self.app.get(
-            reverse('shop:category_update', kwargs={'slug': category.slug}),
+            reverse('staff_area:category_update',
+                    kwargs={'slug': category.slug}),
             user=utils.get_regular_user(),
         )
         planned_resp = '/admin/login/?next=/staff_area/category_update/{}/'
@@ -75,7 +76,8 @@ class CategoryWebTests(WebTest):
         category = Category.objects.first()
         parent_category = Category.objects.all()[2]
         form = self.app.get(
-            reverse('shop:category_update', kwargs={'slug': category.slug}),
+            reverse('staff_area:category_update',
+                    kwargs={'slug': category.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         name = "Нова тестова назва"
@@ -111,7 +113,8 @@ class CategoryWebTests(WebTest):
         if product1 in category_products:
             initial_count -= 1
         form = self.app.get(
-            reverse('shop:product_update', kwargs={'slug': product1.slug}),
+            reverse('staff_area:product_update',
+                    kwargs={'slug': product1.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['category'] = category.id
@@ -126,7 +129,8 @@ class CategoryWebTests(WebTest):
         if product2 in category_products:
             initial_count -= 1
         form = self.app.get(
-            reverse('shop:product_update', kwargs={'slug': product2.slug}),
+            reverse('staff_area:product_update',
+                    kwargs={'slug': product2.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['category'] = category.id
@@ -158,7 +162,8 @@ class CategoryWebTests(WebTest):
 
         sub_cat1 = Category.objects.all()[2]
         form = self.app.get(
-            reverse('shop:category_update', kwargs={'slug': sub_cat1.slug}),
+            reverse('staff_area:category_update',
+                    kwargs={'slug': sub_cat1.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['parent_category'] = category.id
@@ -176,7 +181,8 @@ class CategoryWebTests(WebTest):
 
         sub_cat2 = Category.objects.all()[3]
         form = self.app.get(
-            reverse('shop:category_update', kwargs={'slug': sub_cat2.slug}),
+            reverse('staff_area:category_update',
+                    kwargs={'slug': sub_cat2.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['parent_category'] = category.id
@@ -216,7 +222,8 @@ class CategoryWebTests(WebTest):
         # End test cache _____________________________________________________
 
         form = self.app.get(
-            reverse('shop:category_update', kwargs={'slug': sub_cat1.slug}),
+            reverse('staff_area:category_update',
+                    kwargs={'slug': sub_cat1.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['parent_category'] = parent_category.id
@@ -241,7 +248,8 @@ class CategoryWebTests(WebTest):
         # End test cache _____________________________________________________
 
         form = self.app.get(
-            reverse('shop:category_update', kwargs={'slug': sub_cat2.slug}),
+            reverse('staff_area:category_update',
+                    kwargs={'slug': sub_cat2.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['parent_category'] = parent_category.id

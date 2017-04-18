@@ -14,7 +14,7 @@ class ManufacturerWebTests(WebTest):
     def test_manufacturer_creating_by_regular_user(self):
         # user cannot create manufacturers
         response = self.app.get(
-            reverse('shop:manufacturer_create'),
+            reverse('staff_area:manufacturer_create'),
             user=utils.get_regular_user()
         )
         planned_resp = '/admin/login/?next=/staff_area/manufacturer_create/'
@@ -25,7 +25,7 @@ class ManufacturerWebTests(WebTest):
 
     def test_manufacturer_creating_by_staff_member(self):
         form = self.app.get(
-            reverse('shop:manufacturer_create'),
+            reverse('staff_area:manufacturer_create'),
             user=utils.get_staff_member()
         ).forms['main-form']
         name = "Тестовий виробник"
@@ -40,7 +40,7 @@ class ManufacturerWebTests(WebTest):
         # user cannot update manufacturers
         manufacturer = Manufacturer.objects.first()
         response = self.app.get(
-            reverse('shop:manufacturer_update',
+            reverse('staff_area:manufacturer_update',
                     kwargs={'slug': manufacturer.slug}),
             user=utils.get_regular_user()
         )
@@ -53,7 +53,7 @@ class ManufacturerWebTests(WebTest):
     def test_manufacturer_updating_by_staff_member(self):
         manufacturer = Manufacturer.objects.first()
         form = self.app.get(
-            reverse('shop:manufacturer_update',
+            reverse('staff_area:manufacturer_update',
                     kwargs={'slug': manufacturer.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
@@ -86,7 +86,8 @@ class ManufacturerWebTests(WebTest):
         if product1 in m_products:
             initial_count -= 1
         form = self.app.get(
-            reverse('shop:product_update', kwargs={'slug': product1.slug}),
+            reverse('staff_area:product_update',
+                    kwargs={'slug': product1.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['manufacturer'] = manufacturer.id
@@ -105,7 +106,8 @@ class ManufacturerWebTests(WebTest):
         if product2 in m_products:
             initial_count -= 1
         form = self.app.get(
-            reverse('shop:product_update', kwargs={'slug': product2.slug}),
+            reverse('staff_area:product_update',
+                    kwargs={'slug': product2.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['manufacturer'] = manufacturer.id
@@ -143,7 +145,8 @@ class ManufacturerWebTests(WebTest):
         if product1 in m_products:
             initial_count -= 1
         form = self.app.get(
-            reverse('shop:product_update', kwargs={'slug': product1.slug}),
+            reverse('staff_area:product_update',
+                    kwargs={'slug': product1.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['manufacturer'] = manufacturer.id
@@ -157,7 +160,8 @@ class ManufacturerWebTests(WebTest):
         if product2 in m_products:
             initial_count -= 1
         form = self.app.get(
-            reverse('shop:product_update', kwargs={'slug': product2.slug}),
+            reverse('staff_area:product_update',
+                    kwargs={'slug': product2.slug}),
             user=utils.get_staff_member(),
         ).forms['main-form']
         form['manufacturer'] = manufacturer.id

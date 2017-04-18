@@ -33,7 +33,7 @@ def category_create(request):
     form = CategoryForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('shop:categories')
+        return redirect('staff_area:categories')
     context = {'form': form}
     return render(request, 'shop/staff_area/category_form.html', context)
 
@@ -46,7 +46,7 @@ def category_update(request, slug):
     if form.is_valid():
         form.save()
         new_slug = utils.slugify_(form.cleaned_data['name'])
-        return redirect('shop:category', category_slug=new_slug)
+        return redirect('staff_area:category', category_slug=new_slug)
     context = {'form': form}
     return render(request, 'shop/staff_area/category_form.html', context)
 
@@ -62,7 +62,7 @@ def manufacturer_create(request):
     form = ManufacturerForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('shop:manufacturers')
+        return redirect('staff_area:manufacturers')
     context = {'form': form}
     return render(request, 'shop/staff_area/manufacturer_form.html', context)
 
@@ -74,7 +74,7 @@ def manufacturer_update(request, slug):
         request.POST or None, request.FILES or None, instance=manufacturer)
     if form.is_valid():
         form.save()
-        return redirect('shop:manufacturers')
+        return redirect('staff_area:manufacturers')
     context = {'form': form}
     return render(request, 'shop/staff_area/manufacturer_form.html', context)
 
