@@ -29,41 +29,37 @@ class Category(models.Model):
     def get_absolute_url(self):
         key = 'category_{}_abs_url'.format(self.id)
         abs_url = cache.get(key)
-        if abs_url:
-            return abs_url
-        abs_url = reverse('shop:product_list_by_category',
-                          kwargs={'category_slug': self.slug})
-        cache.set(key, abs_url)
+        if abs_url is None:
+            abs_url = reverse('shop:product_list_by_category',
+                              kwargs={'category_slug': self.slug})
+            cache.set(key, abs_url)
         return abs_url
 
     def products(self):
         key = 'category_{}_products'.format(self.id)
-        cached_products = cache.get(key)
-        if cached_products:
-            return cached_products
-        products = self.category_products.all()
-        cache.set(key, products)
+        products = cache.get(key)
+        if products is None:
+            products = self.category_products.all()
+            cache.set(key, products)
         return products
 
     def subcategories(self):
         key = 'category_{}_subcategories'.format(self.id)
-        cached_subcategories = cache.get(key)
-        if cached_subcategories:
-            return cached_subcategories
-        subcategories = Category.objects.filter(parent_category__id=self.id)
-        cache.set(key, subcategories)
+        subcategories = cache.get(key)
+        if subcategories is None:
+            subcategories = Category.objects.filter(
+                parent_category__id=self.id)
+            cache.set(key, subcategories)
         return subcategories
 
     def has_parent_category(self):
         key = 'category_{}_has_parent_category'.format(self.id)
         cached_value = cache.get(key)
-        if cached_value:
-            return True if cached_value == 'True' else False
-        value = True if self.parent_category else False
-        if value:
-            cache.set(key, 'True')
+        if cached_value is None:
+            value = True if self.parent_category else False
+            cache.set(key, 'True' if value else 'False')
         else:
-            cache.set(key, 'False')
+            value = True if cached_value == 'True' else False
         return value
 
     @property
@@ -98,32 +94,28 @@ class Manufacturer(models.Model):
     def get_absolute_url(self):
         key = 'manufacturer_{}_abs_url'.format(self.id)
         abs_url = cache.get(key)
-        if abs_url:
-            return abs_url
-        abs_url = reverse(
-            'shop:product_list_by_manufacturer',
-            kwargs={'manufacturer_slug': self.slug})
-        cache.set(key, abs_url)
+        if abs_url is None:
+            abs_url = reverse('shop:product_list_by_manufacturer',
+                              kwargs={'manufacturer_slug': self.slug})
+            cache.set(key, abs_url)
         return abs_url
 
     @property
     def products(self):
         key = 'manufacturer_{}_products'.format(self.id)
-        cached_products = cache.get(key)
-        if cached_products:
-            return cached_products
-        products = self.manufacturer_products.all()
-        cache.set(key, products)
+        products = cache.get(key)
+        if products is None:
+            products = self.manufacturer_products.all()
+            cache.set(key, products)
         return products
 
     @property
     def products_qty(self):
         key = 'manufacturer_{}_products_qty'.format(self.id)
-        cached_products_qty = cache.get(key)
-        if cached_products_qty:
-            return cached_products_qty
-        products_qty = self.manufacturer_products.count()
-        cache.set(key, products_qty)
+        products_qty = cache.get(key)
+        if products_qty is None:
+            products_qty = self.products.count()
+            cache.set(key, products_qty)
         return products_qty
 
 
@@ -164,10 +156,10 @@ class Product(models.Model):
     def get_absolute_url(self):
         key = 'product_{}_abs_url'.format(self.id)
         abs_url = cache.get(key)
-        if abs_url:
-            return abs_url
-        abs_url = reverse('shop:product_detail', kwargs={'slug': self.slug})
-        cache.set(key, abs_url)
+        if abs_url is None:
+            abs_url = reverse('shop:product_detail',
+                              kwargs={'slug': self.slug})
+            cache.set(key, abs_url)
         return abs_url
 
 
