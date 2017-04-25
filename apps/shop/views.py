@@ -5,6 +5,15 @@ from .forms import ProductsSearchForm
 from .models import Category, Product
 
 
+def main(request):
+
+    context = {
+        'form': ProductsSearchForm(request.GET),
+    }
+
+    return render(request, 'shop/main.html', context)
+
+
 def product_list(request, category_slug=None):
     if category_slug is None:
         category = None
@@ -19,7 +28,7 @@ def product_list(request, category_slug=None):
         'products': products
     }
 
-    return render(request, 'shop/main.html', context)
+    return render(request, 'shop/product_list.html', context)
 
 
 def product_detail(request, slug):

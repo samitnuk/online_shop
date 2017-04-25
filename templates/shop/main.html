@@ -3,6 +3,8 @@
 {% load static %}
 {% load i18n %}
 
+{% load form_filters %}
+
 {% block title %}
   {% trans 'Main page' %}
 {% endblock %}
@@ -47,28 +49,6 @@
   </div>
 </section>
 
-<section class="container" id="main">
-  <div class="wrapper">
-    <h4>{% if category %}{{ category.name }}{% else %}Товари{% endif %}</h4>
-    <div class="row">
-    {% for product in products %}
-      <div class="three columns">
-        <a href="{{ product.get_absolute_url }}">
-          <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}"
-               class="u-max-full-width">
-        </a>
-        <a href="{{ product.get_absolute_url }}">
-          {{ product.name }}<br>{{ product.model_name }}</a><br>
-        <p style="text-align: right;">{{ product.price }} грн.</p>
-      </div>
-    {% if forloop.counter|divisibleby:"4" %}
-      </div><div class="row">
-    {% endif %}
-    {% endfor %}
-    </div>
-  </div>
-</section>
-
 <section class="container" id="contacts">
   <div class="wrapper">
     <div class="six columns">
@@ -76,8 +56,12 @@
         <h4>{% trans 'Contacts' %}</h4>
       </div> <br>
       <form method="get" action="search/">
-        {{ search_form }}
-        <button type="submit">Search</button>
+        <div>{{ form.q|addclass:"u-full-width" }}</div>
+        <div>
+          <input type="submit"
+                 class="button button-primary u-full-width"
+                 value="{% trans 'Search' %}">
+        </div>
       </form>
     </div>
     <div class="six columns">
@@ -106,7 +90,7 @@
   <script>
   $(document).ready(function() {
     $('.slider').sss({
-      slideShow : false, // Set to false to prevent SSS from automatically
+      slideShow : true, // Set to false to prevent SSS from automatically
       });
     })
   </script>

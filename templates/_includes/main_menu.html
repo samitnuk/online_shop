@@ -9,11 +9,11 @@
     <span class="main-menu-btn-icon"></span> Toggle main menu visibility
   </label>
 
-    <a href="{% url 'shop:product_list' %}"><img src="{% static 'img/logo.png' %}"></a>
+    <a href="{% url 'shop:main_page' %}"><img src="{% static 'img/logo.png' %}"></a>
 
   <ul id="main-menu" class="sm sm-clean">
     <li class="{% if not category.slug %}current-menu-item{% endif %}">
-      <a href="{% url 'shop:product_list' %}">
+      <a href="{% url 'shop:main_page' %}">
         <i class="fa fa-home" aria-hidden="true"></i>
       </a>
     </li>

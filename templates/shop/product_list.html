@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  {% if category %} {{ category.name }} {% else %} Сторінка товарів {% endif %}
+  {% trans 'Main page' %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/sss.css' %}" />
 {% endblock %}
 
 {% block content %}
