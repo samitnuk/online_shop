@@ -40,4 +40,13 @@ urlpatterns = [
 
 rosetta_is_installed = django_apps.is_installed('rosetta')
 if rosetta_is_installed:
-    urlpatterns.insert(0, url(r'^rosetta/', include('rosetta.urls')))
+    urlpatterns = [
+        url(r'^rosetta/', include('rosetta.urls')),
+    ] + urlpatterns
+
+# ___________________________________________________________________________
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rosetta',
+    'debug_toolbar',
     'paypal.standard.ipn',
     'haystack',
     'apps.shop',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -170,3 +172,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #     EMAIL_HOST_PASSWORD = ''
 #     EMAIL_PORT = 1025
 #     EMAIL_USE_TLS = False
+
+INTERNAL_IPS = '127.0.0.1'
