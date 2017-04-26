@@ -92,7 +92,7 @@ def product_create(request):
             if form.get('image', None) is not None:
                 ProductImage.objects.create(product=product,
                                             image=form['image'])
-        return redirect('shop:product_list')
+        return redirect('shop:main_page')
 
     context = {
         'product_form': product_form,
@@ -121,7 +121,7 @@ def product_update(request, slug):
             if form.get('image', None) is not None:
                 ProductImage.objects.get_or_create(product=product,
                                                    image=form['image'])
-        return redirect('shop:product_list')
+        return redirect('shop:main_page')
 
     context = {
         'product_form': product_form,

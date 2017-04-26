@@ -22,7 +22,7 @@ def login(request):
         user = authenticate(username=cd['username'], password=cd['password'])
         if user is not None:
             login_user(request, user)
-            return redirect('shop:product_list')
+            return redirect('shop:main_page')
     return render(request, 'accounts/login_form.html', {'form': form})
 
 

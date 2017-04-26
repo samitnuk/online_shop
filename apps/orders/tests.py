@@ -57,7 +57,7 @@ class OrdersWebTests(WebTest):
         form['phone_num'] = "(000) 11-22-333"
         response = form.submit()
 
-        user = response.context['user']
+        # user = response.context['user']
 
         order = Order.objects.filter(user=user).first()
 

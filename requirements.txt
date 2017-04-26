@@ -20,3 +20,5 @@ django-debug-toolbar==1.7
 
 # For tests
 django-webtest==1.9.1
+pytest==3.0.7
+pytest-django==3.1.2

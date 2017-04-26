@@ -45,4 +45,4 @@ def cart_detail(request):
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
-    return redirect('shop:product_list')
+    return redirect('shop:main_page')

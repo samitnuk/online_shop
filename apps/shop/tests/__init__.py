@@ -1,3 +1,3 @@
-from .category import *
-from .manufacturer import *
-from .product import *
+from .test_category import *
+from .test_manufacturer import *
+from .test_product import *
