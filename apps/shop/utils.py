@@ -69,7 +69,7 @@ def get_regular_user():
         first_name='First',
         last_name='Last',
         email='sometest@email.ts',
-        password="asdkjfoih1222pkljkh",
+        password='some_secret_password_123',
     )
     user.save()
     return user

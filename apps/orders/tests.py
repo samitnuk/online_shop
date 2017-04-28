@@ -15,7 +15,7 @@ class OrdersWebTests(WebTest):
         user = utils.get_regular_user()
         form = self.app.get(reverse('accounts:login')).forms['main-form']
         form['username'] = user.username
-        form['password'] = "asdkjfoih1222pkljkh"
+        form['password'] = 'some_secret_password_123'
         form.submit().follow()
 
         # Get products for tests
