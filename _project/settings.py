@@ -164,13 +164,13 @@ PAYPAL_TEST = ls.PAYPAL_TEST
 ADMIN_MAIL = ls.ADMIN_MAIL
 
 # Email
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# if DEBUG:
-#     EMAIL_HOST = '127.0.0.1'
-#     EMAIL_HOST_USER = ''
-#     EMAIL_HOST_PASSWORD = ''
-#     EMAIL_PORT = 1025
-#     EMAIL_USE_TLS = False
+if DEBUG:
+    EMAIL_HOST = '127.0.0.1'
+    EMAIL_HOST_USER = ''
+    EMAIL_HOST_PASSWORD = ''
+    EMAIL_PORT = 1025
+    EMAIL_USE_TLS = False
 
 INTERNAL_IPS = '127.0.0.1'
