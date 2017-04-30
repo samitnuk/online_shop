@@ -16,12 +16,20 @@
   <div class="wrapper">
     <div class="row">
       <div class="six columns">
+        <h5>
+        {% if product.category.has_parent_category %}
+        <a href="{{ product.category.parent_category.get_absolute_url }}">
+          {{ product.category.parent_category }}
+        </a> > {% endif %}
+        <a href="{{ product.category.get_absolute_url }}">
+          {{ product.category }}
+        </a></h5>
         <img class="u-max-full-width" src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'img/no-image.jpg' %}{% endif %}">
       </div>
       <div class="six columns">
-        <h3>{{ product.name }} {{ product.model_name }}</h3>
+        <h5>{{ product.name }}</h5>
+        <h5>{{ product.model_name }}</h5>
         <a href="{% url 'staff_area:product_update' product.slug %}">Edit</a>
-        <h3><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h3>
         <p class="price">
           {{ product.price }} грн.
         </p>
@@ -40,6 +48,8 @@
     </div>
   </div>
 </section>
+
+{% if images %}
 <section class="container">
   <div class="wrapper">
     <div id="gallery">
@@ -49,6 +59,8 @@
     </div>
   </div>
 </section>
+{% endif %}
+
 {% endblock %}
 
 {% block extra_js %}
