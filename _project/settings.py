@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rosetta',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'paypal.standard.ipn',
     'haystack',
     'apps.shop',
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -162,6 +162,10 @@ PAYPAL_RECEIVER_EMAIL = ls.PAYPAL_RECEIVER_EMAIL
 PAYPAL_TEST = ls.PAYPAL_TEST
 
 ADMIN_MAIL = ls.ADMIN_MAIL
+
+MAILCHIMP_API_KEY = ls.MAILCHIMP_API_KEY
+MAILCHIMP_USERNAME = ls.MAILCHIMP_USERNAME
+MAILCHIMP_LIST_ID = ls.MAILCHIMP_LIST_ID
 
 # Email
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

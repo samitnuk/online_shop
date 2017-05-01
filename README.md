@@ -1,15 +1,15 @@
 ### One more "bicycle" for online shop
 ___
 ### ToDo:
-- [ ] Add breadcrumbs on product detail page (?)
+- [x] Add breadcrumbs on product detail page (?)
 - [ ] Add forgot password option and password recovering
-- [ ] After user registration add user to some (maybe MailChimp) subscription list (this should be optional during registration) (maybe [django-mailchimp](https://github.com/divio/django-mailchimp))
+- [x] After user registration add user to some (maybe MailChimp) subscription list (this should be optional during registration)
 - [ ] Generate PDF for user after order confirmed
 - [ ] Update product.stock after order confirmed
 - [ ] Update all i18n files
 - [ ] Create product as copy of existing product
 - [ ] Add signals for cache cleaning after related changes
-- [ ] Add PayPal payments
+- [x] Add PayPal payments
 
 ___
 Info about logo sample:

@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+from .mailchimp import subscribe_user
+
 
 class RegistrationForm(forms.Form):
     username = forms.CharField(label=_('Username'))
@@ -12,6 +14,8 @@ class RegistrationForm(forms.Form):
                                widget=forms.PasswordInput())
     confirm = forms.CharField(label=_('Confirm Password'),
                               widget=forms.PasswordInput())
+    subscribed = forms.BooleanField(label=_('Subscribe to newsletters'),
+                                    initial=True)
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -43,6 +47,10 @@ class RegistrationForm(forms.Form):
             password=cd['password'],
         )
         user.save()
+
+        if cd['subscribed']:
+            subscribe_user(cd['email'])
+
         return user
 
 
