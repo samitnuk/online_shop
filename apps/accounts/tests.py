@@ -3,7 +3,8 @@ from django.shortcuts import reverse
 from django.test import override_settings
 from django_webtest import WebTest
 
-from apps.shop import utils
+from apps.shop import utils as utils
+from . import mailchimp
 
 
 @override_settings(LANGUAGE_CODE='en')
@@ -36,6 +37,9 @@ class UserWebTests(WebTest):
         self.assertTrue(user.check_password(self.password))
         self.assertFalse(user.is_staff)
         self.assertTrue(user.is_active)
+
+        mailchimp.unsubscribe_user(self.email)
+        self.assertNotIn(self.email, mailchimp.get_emails_list())
 
     def test_registration_username_already_registered(self):
         registered_user = utils.get_regular_user()
@@ -76,6 +80,22 @@ class UserWebTests(WebTest):
         response = form.submit()
 
         self.assertIn('Passwords do not match', response.unicode_normal_body)
+
+    def test_subscribe_and_unsubscribe(self):
+        form = self.app.get(reverse('accounts:register')).forms['main-form']
+        form['username'] = self.username + '_1'
+        form['first_name'] = self.first_name
+        form['last_name'] = self.last_name
+        test_email = ''.join(self.email.split('.')) + '.ua'
+        form['email'] = test_email
+        form['password'] = self.password
+        form['confirm'] = self.password
+        form.submit()
+
+        self.assertIn(test_email, mailchimp.get_emails_list())
+
+        mailchimp.unsubscribe_user(test_email)
+        self.assertNotIn(test_email, mailchimp.get_emails_list())
 
     def test_login_and_logout(self):
         user = utils.get_regular_user()
