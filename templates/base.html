@@ -54,11 +54,14 @@
       </div>
     </div>
   </section>
+
+  {% block main_menu %}
   <section class="container" id="main_menu">
     <div class="wrapper">
       {% include '_includes/main_menu.html' %}
     </div>
   </section>
+  {% endblock main_menu %}
 
   {% block content %}{% endblock %}
 

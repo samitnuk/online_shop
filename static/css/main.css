@@ -68,7 +68,8 @@ img {
 #main,
 #contacts,
 #search-form,
-#footer {
+#footer,
+#hero {
     padding-top: 15px;
 }
 
@@ -121,6 +122,10 @@ input, textarea, select {
     color: var(--oc-cyan-9);
 }
 
+#hero .current-menu-item a {
+    color: white;
+}
+
 .title {
 
 	width: 100%;
@@ -159,10 +164,17 @@ input, textarea, select {
 img.ssslide,
 .ssslide img {
     filter: saturate(0);
-    transition: all 0.5s;
+    /*transition: all 0.5s;*/
 
 }
 
 .sss:hover img {
     filter: saturate(1);
+}
+
+#hero .sm-clean a, .sm-clean a:hover, .sm-clean a:focus, .sm-clean a:active {
+  color: white;
+}
+#hero .sm-clean a span.sub-arrow {
+  background-color: black;
 }

@@ -13,9 +13,12 @@
 <link rel="stylesheet" href="{% static 'css/sss.css' %}" />
 {% endblock %}
 
+{% block main_menu %}{% endblock main_menu %}
+
 {% block content %}
 <section class="container" id="hero">
   <div class="wrapper">
+    {% include '_includes/main_menu.html' %}
     <div class="motto">
       <div class="row">
         <div class="six columns">
