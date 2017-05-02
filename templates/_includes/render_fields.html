@@ -10,11 +10,7 @@
     {% endif %}
   </div>
   <div class="five columns">
-    {% if field|is_checkbox %}
-      {{ field }}
-    {% else %}
-      {{ field|addclass:"u-full-width" }}
-    {% endif %}
+    {{ field|addclass:"u-full-width" }}
   </div>
   {% if field.errors %}
   <div class="five columns error">{{ field.errors }}</div>
